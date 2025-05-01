@@ -261,8 +261,9 @@ func GenerateClientFromProgramIDL(idl IDL) ([]*FileWrapper, error) {
 		}
 
 		file.Add(Empty().Id(`
-func DecodeInstructions(message *ag_solanago.Message) (instructions []*Instruction, err error) {
-	for _, ins := range message.Instructions {
+
+func decodeInstructions(message *ag_solanago.Message, ixs []ag_solanago.CompiledInstruction) (instructions []*Instruction, err error) {
+	for _, ins := range ixs {
 		var programID ag_solanago.PublicKey
 		if programID, err = message.Program(ins.ProgramIDIndex); err != nil {
 			return
@@ -281,6 +282,19 @@ func DecodeInstructions(message *ag_solanago.Message) (instructions []*Instructi
 		instructions = append(instructions, insDecoded)
 	}
 	return
+}
+
+func DecodeInstructions(message *ag_solanago.Message) (instructions []*Instruction, err error) {
+	return decodeInstructions(message, message.Instructions)
+}
+
+func DecodeAllInstructions(message *ag_solanago.Message, innerInstructions []ag_solanago.CompiledInstruction) (instructions []*Instruction, err error) {
+	var allInstructions []ag_solanago.CompiledInstruction
+
+	allInstructions = append(allInstructions, message.Instructions...)
+	allInstructions = append(allInstructions, innerInstructions...)
+
+	return decodeInstructions(message, allInstructions)
 }
 `))
 
