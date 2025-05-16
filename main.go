@@ -1419,7 +1419,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 					default:
 						panic(fmt.Sprintf("unsupportd constant: %s", spew.Sdump(c)))
 					}
-					cons.Id(fmt.Sprintf("CONST_%s", c.Name)).Op("=").Add(val).Line()
+					cons.Id(formatConstantName(c.Name)).Op("=").Add(val).Line()
 				}
 				Line()
 			}),
@@ -1429,7 +1429,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 			code.Line().Var().Parens(
 				DoGroup(func(dict *Group) {
 					for _, c := range pubkeyVars {
-						constName := fmt.Sprintf("CONST_%s", c.Name)
+						constName := formatConstantName(c.Name)
 						camelName := ToCamel(ToLower(c.Name))
 						dict.Id(camelName).Op("=").Qual(PkgSolanaGo, "MustPublicKeyFromBase58").Call(Op(constName)).Line()
 					}
