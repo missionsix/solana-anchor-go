@@ -15,13 +15,13 @@ func TestEncodeDecode_UserInitializeRewardAccount(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("UserInitializeRewardAccount"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(UserInitializeRewardAccount)
+				params := new(UserInitializeRewardAccountInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(UserInitializeRewardAccount)
+				got := new(UserInitializeRewardAccountInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

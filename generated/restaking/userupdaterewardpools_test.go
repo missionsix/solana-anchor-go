@@ -15,13 +15,13 @@ func TestEncodeDecode_UserUpdateRewardPools(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("UserUpdateRewardPools"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(UserUpdateRewardPools)
+				params := new(UserUpdateRewardPoolsInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(UserUpdateRewardPools)
+				got := new(UserUpdateRewardPoolsInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

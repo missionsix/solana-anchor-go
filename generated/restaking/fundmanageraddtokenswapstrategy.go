@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerAddTokenSwapStrategy is the `fund_manager_add_token_swap_strategy` instruction.
-type FundManagerAddTokenSwapStrategy struct {
+type FundManagerAddTokenSwapStrategyInstruction struct {
 	FromTokenMint *ag_solanago.PublicKey
 	ToTokenMint   *ag_solanago.PublicKey
 	SwapSource    *TokenSwapSource
@@ -28,9 +28,9 @@ type FundManagerAddTokenSwapStrategy struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerAddTokenSwapStrategyInstructionBuilder creates a new `FundManagerAddTokenSwapStrategy` instruction builder.
-func NewFundManagerAddTokenSwapStrategyInstructionBuilder() *FundManagerAddTokenSwapStrategy {
-	nd := &FundManagerAddTokenSwapStrategy{
+// NewFundManagerAddTokenSwapStrategyInstructionBuilder creates a new `FundManagerAddTokenSwapStrategyInstruction` instruction builder.
+func NewFundManagerAddTokenSwapStrategyInstructionBuilder() *FundManagerAddTokenSwapStrategyInstruction {
+	nd := &FundManagerAddTokenSwapStrategyInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 5),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -38,52 +38,52 @@ func NewFundManagerAddTokenSwapStrategyInstructionBuilder() *FundManagerAddToken
 }
 
 // SetFromTokenMint sets the "from_token_mint" parameter.
-func (inst *FundManagerAddTokenSwapStrategy) SetFromTokenMint(from_token_mint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetFromTokenMint(from_token_mint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.FromTokenMint = &from_token_mint
 	return inst
 }
 
 // SetToTokenMint sets the "to_token_mint" parameter.
-func (inst *FundManagerAddTokenSwapStrategy) SetToTokenMint(to_token_mint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetToTokenMint(to_token_mint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.ToTokenMint = &to_token_mint
 	return inst
 }
 
 // SetSwapSource sets the "swap_source" parameter.
-func (inst *FundManagerAddTokenSwapStrategy) SetSwapSource(swap_source TokenSwapSource) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetSwapSource(swap_source TokenSwapSource) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.SwapSource = &swap_source
 	return inst
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerAddTokenSwapStrategy) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerAddTokenSwapStrategy) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerAddTokenSwapStrategy) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerAddTokenSwapStrategy) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *FundManagerAddTokenSwapStrategy) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -100,12 +100,12 @@ func (inst *FundManagerAddTokenSwapStrategy) findFindFundAccountAddress(receiptT
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerAddTokenSwapStrategy) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -114,12 +114,12 @@ func (inst *FundManagerAddTokenSwapStrategy) MustFindFundAccountAddressWithBumpS
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *FundManagerAddTokenSwapStrategy) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -128,17 +128,17 @@ func (inst *FundManagerAddTokenSwapStrategy) MustFindFundAccountAddress(receiptT
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *FundManagerAddTokenSwapStrategy) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerAddTokenSwapStrategy) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -153,12 +153,12 @@ func (inst *FundManagerAddTokenSwapStrategy) findFindEventAuthorityAddress(known
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerAddTokenSwapStrategy) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -167,12 +167,12 @@ func (inst *FundManagerAddTokenSwapStrategy) MustFindEventAuthorityAddressWithBu
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerAddTokenSwapStrategy) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -181,22 +181,22 @@ func (inst *FundManagerAddTokenSwapStrategy) MustFindEventAuthorityAddress() (pd
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerAddTokenSwapStrategy) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerAddTokenSwapStrategy) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerAddTokenSwapStrategy) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
-func (inst FundManagerAddTokenSwapStrategy) Build() *Instruction {
+func (inst FundManagerAddTokenSwapStrategyInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerAddTokenSwapStrategy,
@@ -206,14 +206,14 @@ func (inst FundManagerAddTokenSwapStrategy) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerAddTokenSwapStrategy) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerAddTokenSwapStrategyInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) Validate() error {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.FromTokenMint == nil {
@@ -248,7 +248,7 @@ func (inst *FundManagerAddTokenSwapStrategy) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerAddTokenSwapStrategy) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerAddTokenSwapStrategyInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -275,7 +275,7 @@ func (inst *FundManagerAddTokenSwapStrategy) EncodeToTree(parent ag_treeout.Bran
 		})
 }
 
-func (obj FundManagerAddTokenSwapStrategy) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerAddTokenSwapStrategyInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `FromTokenMint` param:
 	err = encoder.Encode(obj.FromTokenMint)
 	if err != nil {
@@ -293,7 +293,7 @@ func (obj FundManagerAddTokenSwapStrategy) MarshalWithEncoder(encoder *ag_binary
 	}
 	return nil
 }
-func (obj *FundManagerAddTokenSwapStrategy) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerAddTokenSwapStrategyInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `FromTokenMint`:
 	err = decoder.Decode(&obj.FromTokenMint)
 	if err != nil {
@@ -323,7 +323,7 @@ func NewFundManagerAddTokenSwapStrategyInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategy {
+	program ag_solanago.PublicKey) *FundManagerAddTokenSwapStrategyInstruction {
 	return NewFundManagerAddTokenSwapStrategyInstructionBuilder().
 		SetFromTokenMint(from_token_mint).
 		SetToTokenMint(to_token_mint).

@@ -11,7 +11,7 @@ import (
 )
 
 // AdminInitializeExtraAccountMetaList is the `admin_initialize_extra_account_meta_list` instruction.
-type AdminInitializeExtraAccountMetaList struct {
+type AdminInitializeExtraAccountMetaListInstruction struct {
 
 	// [0] = [WRITE, SIGNER] payer
 	//
@@ -29,9 +29,9 @@ type AdminInitializeExtraAccountMetaList struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewAdminInitializeExtraAccountMetaListInstructionBuilder creates a new `AdminInitializeExtraAccountMetaList` instruction builder.
-func NewAdminInitializeExtraAccountMetaListInstructionBuilder() *AdminInitializeExtraAccountMetaList {
-	nd := &AdminInitializeExtraAccountMetaList{
+// NewAdminInitializeExtraAccountMetaListInstructionBuilder creates a new `AdminInitializeExtraAccountMetaListInstruction` instruction builder.
+func NewAdminInitializeExtraAccountMetaListInstructionBuilder() *AdminInitializeExtraAccountMetaListInstruction {
+	nd := &AdminInitializeExtraAccountMetaListInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 7),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["fragkamrANLvuZYQPcmPsCATQAabkqNGH6gxqqPG3aP"]).SIGNER()
@@ -40,56 +40,56 @@ func NewAdminInitializeExtraAccountMetaListInstructionBuilder() *AdminInitialize
 }
 
 // SetPayerAccount sets the "payer" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetPayerAccount(payer ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetPayerAccount(payer ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(payer).WRITE().SIGNER()
 	return inst
 }
 
 // GetPayerAccount gets the "payer" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetPayerAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetPayerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetAdminAccount sets the "admin" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetAdminAccount(admin ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetAdminAccount(admin ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(admin).SIGNER()
 	return inst
 }
 
 // GetAdminAccount gets the "admin" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetAdminAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetAdminAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetExtraAccountMetaListAccount sets the "extra_account_meta_list" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetExtraAccountMetaListAccount(extraAccountMetaList ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetExtraAccountMetaListAccount(extraAccountMetaList ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(extraAccountMetaList).WRITE()
 	return inst
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) findFindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) findFindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: extra-account-metas
 	seeds = append(seeds, []byte{byte(0x65), byte(0x78), byte(0x74), byte(0x72), byte(0x61), byte(0x2d), byte(0x61), byte(0x63), byte(0x63), byte(0x6f), byte(0x75), byte(0x6e), byte(0x74), byte(0x2d), byte(0x6d), byte(0x65), byte(0x74), byte(0x61), byte(0x73)})
@@ -106,12 +106,12 @@ func (inst *AdminInitializeExtraAccountMetaList) findFindExtraAccountMetaListAdd
 }
 
 // FindExtraAccountMetaListAddressWithBumpSeed calculates ExtraAccountMetaList account address with given seeds and a known bump seed.
-func (inst *AdminInitializeExtraAccountMetaList) FindExtraAccountMetaListAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) FindExtraAccountMetaListAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindExtraAccountMetaListAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) MustFindExtraAccountMetaListAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) MustFindExtraAccountMetaListAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindExtraAccountMetaListAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -120,12 +120,12 @@ func (inst *AdminInitializeExtraAccountMetaList) MustFindExtraAccountMetaListAdd
 }
 
 // FindExtraAccountMetaListAddress finds ExtraAccountMetaList account address with given seeds.
-func (inst *AdminInitializeExtraAccountMetaList) FindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) FindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindExtraAccountMetaListAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) MustFindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) MustFindExtraAccountMetaListAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindExtraAccountMetaListAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -134,17 +134,17 @@ func (inst *AdminInitializeExtraAccountMetaList) MustFindExtraAccountMetaListAdd
 }
 
 // GetExtraAccountMetaListAccount gets the "extra_account_meta_list" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetExtraAccountMetaListAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetExtraAccountMetaListAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -159,12 +159,12 @@ func (inst *AdminInitializeExtraAccountMetaList) findFindEventAuthorityAddress(k
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *AdminInitializeExtraAccountMetaList) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -173,12 +173,12 @@ func (inst *AdminInitializeExtraAccountMetaList) MustFindEventAuthorityAddressWi
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *AdminInitializeExtraAccountMetaList) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -187,22 +187,22 @@ func (inst *AdminInitializeExtraAccountMetaList) MustFindEventAuthorityAddress()
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *AdminInitializeExtraAccountMetaList) SetProgramAccount(program ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) SetProgramAccount(program ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *AdminInitializeExtraAccountMetaList) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
-func (inst AdminInitializeExtraAccountMetaList) Build() *Instruction {
+func (inst AdminInitializeExtraAccountMetaListInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_AdminInitializeExtraAccountMetaList,
@@ -212,14 +212,14 @@ func (inst AdminInitializeExtraAccountMetaList) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst AdminInitializeExtraAccountMetaList) ValidateAndBuild() (*Instruction, error) {
+func (inst AdminInitializeExtraAccountMetaListInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) Validate() error {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -247,7 +247,7 @@ func (inst *AdminInitializeExtraAccountMetaList) Validate() error {
 	return nil
 }
 
-func (inst *AdminInitializeExtraAccountMetaList) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *AdminInitializeExtraAccountMetaListInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -272,10 +272,10 @@ func (inst *AdminInitializeExtraAccountMetaList) EncodeToTree(parent ag_treeout.
 		})
 }
 
-func (obj AdminInitializeExtraAccountMetaList) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj AdminInitializeExtraAccountMetaListInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *AdminInitializeExtraAccountMetaList) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *AdminInitializeExtraAccountMetaListInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -288,7 +288,7 @@ func NewAdminInitializeExtraAccountMetaListInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	extraAccountMetaList ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaList {
+	program ag_solanago.PublicKey) *AdminInitializeExtraAccountMetaListInstruction {
 	return NewAdminInitializeExtraAccountMetaListInstructionBuilder().
 		SetPayerAccount(payer).
 		SetAdminAccount(admin).

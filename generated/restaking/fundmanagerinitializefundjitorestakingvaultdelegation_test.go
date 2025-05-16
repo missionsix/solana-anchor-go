@@ -15,13 +15,13 @@ func TestEncodeDecode_FundManagerInitializeFundJitoRestakingVaultDelegation(t *t
 	for i := 0; i < 1; i++ {
 		t.Run("FundManagerInitializeFundJitoRestakingVaultDelegation"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(FundManagerInitializeFundJitoRestakingVaultDelegation)
+				params := new(FundManagerInitializeFundJitoRestakingVaultDelegationInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(FundManagerInitializeFundJitoRestakingVaultDelegation)
+				got := new(FundManagerInitializeFundJitoRestakingVaultDelegationInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

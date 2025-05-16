@@ -11,7 +11,7 @@ import (
 )
 
 // UserCreateRewardAccountIdempotent is the `user_create_reward_account_idempotent` instruction.
-type UserCreateRewardAccountIdempotent struct {
+type UserCreateRewardAccountIdempotentInstruction struct {
 	DesiredAccountSize *uint32 `bin:"optional"`
 
 	// [0] = [WRITE, SIGNER] user
@@ -34,9 +34,9 @@ type UserCreateRewardAccountIdempotent struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewUserCreateRewardAccountIdempotentInstructionBuilder creates a new `UserCreateRewardAccountIdempotent` instruction builder.
-func NewUserCreateRewardAccountIdempotentInstructionBuilder() *UserCreateRewardAccountIdempotent {
-	nd := &UserCreateRewardAccountIdempotent{
+// NewUserCreateRewardAccountIdempotentInstructionBuilder creates a new `UserCreateRewardAccountIdempotentInstruction` instruction builder.
+func NewUserCreateRewardAccountIdempotentInstructionBuilder() *UserCreateRewardAccountIdempotentInstruction {
+	nd := &UserCreateRewardAccountIdempotentInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 9),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["11111111111111111111111111111111"])
@@ -45,62 +45,62 @@ func NewUserCreateRewardAccountIdempotentInstructionBuilder() *UserCreateRewardA
 }
 
 // SetDesiredAccountSize sets the "desired_account_size" parameter.
-func (inst *UserCreateRewardAccountIdempotent) SetDesiredAccountSize(desired_account_size uint32) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetDesiredAccountSize(desired_account_size uint32) *UserCreateRewardAccountIdempotentInstruction {
 	inst.DesiredAccountSize = &desired_account_size
 	return inst
 }
 
 // SetUserAccount sets the "user" account.
-func (inst *UserCreateRewardAccountIdempotent) SetUserAccount(user ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetUserAccount(user ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).WRITE().SIGNER()
 	return inst
 }
 
 // GetUserAccount gets the "user" account.
-func (inst *UserCreateRewardAccountIdempotent) GetUserAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetUserAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *UserCreateRewardAccountIdempotent) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *UserCreateRewardAccountIdempotent) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *UserCreateRewardAccountIdempotent) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *UserCreateRewardAccountIdempotent) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenProgramAccount sets the "receipt_token_program" account.
-func (inst *UserCreateRewardAccountIdempotent) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenProgram)
 	return inst
 }
 
 // GetReceiptTokenProgramAccount gets the "receipt_token_program" account.
-func (inst *UserCreateRewardAccountIdempotent) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetUserReceiptTokenAccountAccount sets the "user_receipt_token_account" account.
-func (inst *UserCreateRewardAccountIdempotent) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(userReceiptTokenAccount)
 	return inst
 }
 
-func (inst *UserCreateRewardAccountIdempotent) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: user
 	seeds = append(seeds, user.Bytes())
@@ -121,12 +121,12 @@ func (inst *UserCreateRewardAccountIdempotent) findFindUserReceiptTokenAccountAd
 }
 
 // FindUserReceiptTokenAccountAddressWithBumpSeed calculates UserReceiptTokenAccount account address with given seeds and a known bump seed.
-func (inst *UserCreateRewardAccountIdempotent) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -135,12 +135,12 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindUserReceiptTokenAccountAd
 }
 
 // FindUserReceiptTokenAccountAddress finds UserReceiptTokenAccount account address with given seeds.
-func (inst *UserCreateRewardAccountIdempotent) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -149,17 +149,17 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindUserReceiptTokenAccountAd
 }
 
 // GetUserReceiptTokenAccountAccount gets the "user_receipt_token_account" account.
-func (inst *UserCreateRewardAccountIdempotent) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetRewardAccountAccount sets the "reward_account" account.
-func (inst *UserCreateRewardAccountIdempotent) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(rewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserCreateRewardAccountIdempotent) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: reward
 	seeds = append(seeds, []byte{byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -176,12 +176,12 @@ func (inst *UserCreateRewardAccountIdempotent) findFindRewardAccountAddress(rece
 }
 
 // FindRewardAccountAddressWithBumpSeed calculates RewardAccount account address with given seeds and a known bump seed.
-func (inst *UserCreateRewardAccountIdempotent) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -190,12 +190,12 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindRewardAccountAddressWithB
 }
 
 // FindRewardAccountAddress finds RewardAccount account address with given seeds.
-func (inst *UserCreateRewardAccountIdempotent) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -204,17 +204,17 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindRewardAccountAddress(rece
 }
 
 // GetRewardAccountAccount gets the "reward_account" account.
-func (inst *UserCreateRewardAccountIdempotent) GetRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetUserRewardAccountAccount sets the "user_reward_account" account.
-func (inst *UserCreateRewardAccountIdempotent) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(userRewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserCreateRewardAccountIdempotent) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_reward
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -233,12 +233,12 @@ func (inst *UserCreateRewardAccountIdempotent) findFindUserRewardAccountAddress(
 }
 
 // FindUserRewardAccountAddressWithBumpSeed calculates UserRewardAccount account address with given seeds and a known bump seed.
-func (inst *UserCreateRewardAccountIdempotent) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -247,12 +247,12 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindUserRewardAccountAddressW
 }
 
 // FindUserRewardAccountAddress finds UserRewardAccount account address with given seeds.
-func (inst *UserCreateRewardAccountIdempotent) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -261,17 +261,17 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindUserRewardAccountAddress(
 }
 
 // GetUserRewardAccountAccount gets the "user_reward_account" account.
-func (inst *UserCreateRewardAccountIdempotent) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *UserCreateRewardAccountIdempotent) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *UserCreateRewardAccountIdempotent) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -286,12 +286,12 @@ func (inst *UserCreateRewardAccountIdempotent) findFindEventAuthorityAddress(kno
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *UserCreateRewardAccountIdempotent) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -300,12 +300,12 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindEventAuthorityAddressWith
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *UserCreateRewardAccountIdempotent) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *UserCreateRewardAccountIdempotent) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -314,22 +314,22 @@ func (inst *UserCreateRewardAccountIdempotent) MustFindEventAuthorityAddress() (
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *UserCreateRewardAccountIdempotent) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *UserCreateRewardAccountIdempotent) SetProgramAccount(program ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+func (inst *UserCreateRewardAccountIdempotentInstruction) SetProgramAccount(program ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *UserCreateRewardAccountIdempotent) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserCreateRewardAccountIdempotentInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
-func (inst UserCreateRewardAccountIdempotent) Build() *Instruction {
+func (inst UserCreateRewardAccountIdempotentInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_UserCreateRewardAccountIdempotent,
@@ -339,14 +339,14 @@ func (inst UserCreateRewardAccountIdempotent) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst UserCreateRewardAccountIdempotent) ValidateAndBuild() (*Instruction, error) {
+func (inst UserCreateRewardAccountIdempotentInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *UserCreateRewardAccountIdempotent) Validate() error {
+func (inst *UserCreateRewardAccountIdempotentInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 	}
@@ -384,7 +384,7 @@ func (inst *UserCreateRewardAccountIdempotent) Validate() error {
 	return nil
 }
 
-func (inst *UserCreateRewardAccountIdempotent) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *UserCreateRewardAccountIdempotentInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -413,7 +413,7 @@ func (inst *UserCreateRewardAccountIdempotent) EncodeToTree(parent ag_treeout.Br
 		})
 }
 
-func (obj UserCreateRewardAccountIdempotent) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj UserCreateRewardAccountIdempotentInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `DesiredAccountSize` param (optional):
 	{
 		if obj.DesiredAccountSize == nil {
@@ -434,7 +434,7 @@ func (obj UserCreateRewardAccountIdempotent) MarshalWithEncoder(encoder *ag_bina
 	}
 	return nil
 }
-func (obj *UserCreateRewardAccountIdempotent) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *UserCreateRewardAccountIdempotentInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `DesiredAccountSize` (optional):
 	{
 		ok, err := decoder.ReadBool()
@@ -464,7 +464,7 @@ func NewUserCreateRewardAccountIdempotentInstruction(
 	rewardAccount ag_solanago.PublicKey,
 	userRewardAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *UserCreateRewardAccountIdempotent {
+	program ag_solanago.PublicKey) *UserCreateRewardAccountIdempotentInstruction {
 	return NewUserCreateRewardAccountIdempotentInstructionBuilder().
 		SetDesiredAccountSize(desired_account_size).
 		SetUserAccount(user).

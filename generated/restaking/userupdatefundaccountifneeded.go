@@ -11,7 +11,7 @@ import (
 )
 
 // UserUpdateFundAccountIfNeeded is the `user_update_fund_account_if_needed` instruction.
-type UserUpdateFundAccountIfNeeded struct {
+type UserUpdateFundAccountIfNeededInstruction struct {
 
 	// [0] = [WRITE, SIGNER] user
 	//
@@ -31,9 +31,9 @@ type UserUpdateFundAccountIfNeeded struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewUserUpdateFundAccountIfNeededInstructionBuilder creates a new `UserUpdateFundAccountIfNeeded` instruction builder.
-func NewUserUpdateFundAccountIfNeededInstructionBuilder() *UserUpdateFundAccountIfNeeded {
-	nd := &UserUpdateFundAccountIfNeeded{
+// NewUserUpdateFundAccountIfNeededInstructionBuilder creates a new `UserUpdateFundAccountIfNeededInstruction` instruction builder.
+func NewUserUpdateFundAccountIfNeededInstructionBuilder() *UserUpdateFundAccountIfNeededInstruction {
+	nd := &UserUpdateFundAccountIfNeededInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 8),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["11111111111111111111111111111111"])
@@ -42,56 +42,56 @@ func NewUserUpdateFundAccountIfNeededInstructionBuilder() *UserUpdateFundAccount
 }
 
 // SetUserAccount sets the "user" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetUserAccount(user ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetUserAccount(user ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).WRITE().SIGNER()
 	return inst
 }
 
 // GetUserAccount gets the "user" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetUserAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetUserAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenProgramAccount sets the "receipt_token_program" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenProgram)
 	return inst
 }
 
 // GetReceiptTokenProgramAccount gets the "receipt_token_program" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetUserReceiptTokenAccountAccount sets the "user_receipt_token_account" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(userReceiptTokenAccount)
 	return inst
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: user
 	seeds = append(seeds, user.Bytes())
@@ -112,12 +112,12 @@ func (inst *UserUpdateFundAccountIfNeeded) findFindUserReceiptTokenAccountAddres
 }
 
 // FindUserReceiptTokenAccountAddressWithBumpSeed calculates UserReceiptTokenAccount account address with given seeds and a known bump seed.
-func (inst *UserUpdateFundAccountIfNeeded) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -126,12 +126,12 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindUserReceiptTokenAccountAddres
 }
 
 // FindUserReceiptTokenAccountAddress finds UserReceiptTokenAccount account address with given seeds.
-func (inst *UserUpdateFundAccountIfNeeded) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -140,17 +140,17 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindUserReceiptTokenAccountAddres
 }
 
 // GetUserReceiptTokenAccountAccount gets the "user_receipt_token_account" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetUserFundAccountAccount sets the "user_fund_account" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(userFundAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_fund
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -169,12 +169,12 @@ func (inst *UserUpdateFundAccountIfNeeded) findFindUserFundAccountAddress(receip
 }
 
 // FindUserFundAccountAddressWithBumpSeed calculates UserFundAccount account address with given seeds and a known bump seed.
-func (inst *UserUpdateFundAccountIfNeeded) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -183,12 +183,12 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindUserFundAccountAddressWithBum
 }
 
 // FindUserFundAccountAddress finds UserFundAccount account address with given seeds.
-func (inst *UserUpdateFundAccountIfNeeded) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -197,17 +197,17 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindUserFundAccountAddress(receip
 }
 
 // GetUserFundAccountAccount gets the "user_fund_account" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -222,12 +222,12 @@ func (inst *UserUpdateFundAccountIfNeeded) findFindEventAuthorityAddress(knownBu
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *UserUpdateFundAccountIfNeeded) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -236,12 +236,12 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindEventAuthorityAddressWithBump
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *UserUpdateFundAccountIfNeeded) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -250,22 +250,22 @@ func (inst *UserUpdateFundAccountIfNeeded) MustFindEventAuthorityAddress() (pda 
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *UserUpdateFundAccountIfNeeded) SetProgramAccount(program ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+func (inst *UserUpdateFundAccountIfNeededInstruction) SetProgramAccount(program ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *UserUpdateFundAccountIfNeeded) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUpdateFundAccountIfNeededInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
-func (inst UserUpdateFundAccountIfNeeded) Build() *Instruction {
+func (inst UserUpdateFundAccountIfNeededInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_UserUpdateFundAccountIfNeeded,
@@ -275,14 +275,14 @@ func (inst UserUpdateFundAccountIfNeeded) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst UserUpdateFundAccountIfNeeded) ValidateAndBuild() (*Instruction, error) {
+func (inst UserUpdateFundAccountIfNeededInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) Validate() error {
+func (inst *UserUpdateFundAccountIfNeededInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -313,7 +313,7 @@ func (inst *UserUpdateFundAccountIfNeeded) Validate() error {
 	return nil
 }
 
-func (inst *UserUpdateFundAccountIfNeeded) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *UserUpdateFundAccountIfNeededInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -339,10 +339,10 @@ func (inst *UserUpdateFundAccountIfNeeded) EncodeToTree(parent ag_treeout.Branch
 		})
 }
 
-func (obj UserUpdateFundAccountIfNeeded) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj UserUpdateFundAccountIfNeededInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *UserUpdateFundAccountIfNeeded) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *UserUpdateFundAccountIfNeededInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -356,7 +356,7 @@ func NewUserUpdateFundAccountIfNeededInstruction(
 	userReceiptTokenAccount ag_solanago.PublicKey,
 	userFundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *UserUpdateFundAccountIfNeeded {
+	program ag_solanago.PublicKey) *UserUpdateFundAccountIfNeededInstruction {
 	return NewUserUpdateFundAccountIfNeededInstructionBuilder().
 		SetUserAccount(user).
 		SetSystemProgramAccount(systemProgram).

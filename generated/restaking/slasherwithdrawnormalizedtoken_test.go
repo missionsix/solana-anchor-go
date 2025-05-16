@@ -15,13 +15,13 @@ func TestEncodeDecode_SlasherWithdrawNormalizedToken(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("SlasherWithdrawNormalizedToken"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(SlasherWithdrawNormalizedToken)
+				params := new(SlasherWithdrawNormalizedTokenInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(SlasherWithdrawNormalizedToken)
+				got := new(SlasherWithdrawNormalizedTokenInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

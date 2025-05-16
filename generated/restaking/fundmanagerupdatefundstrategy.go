@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerUpdateFundStrategy is the `fund_manager_update_fund_strategy` instruction.
-type FundManagerUpdateFundStrategy struct {
+type FundManagerUpdateFundStrategyInstruction struct {
 	DepositEnabled                  *bool
 	DonationEnabled                 *bool
 	WithdrawalEnabled               *bool
@@ -31,9 +31,9 @@ type FundManagerUpdateFundStrategy struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerUpdateFundStrategyInstructionBuilder creates a new `FundManagerUpdateFundStrategy` instruction builder.
-func NewFundManagerUpdateFundStrategyInstructionBuilder() *FundManagerUpdateFundStrategy {
-	nd := &FundManagerUpdateFundStrategy{
+// NewFundManagerUpdateFundStrategyInstructionBuilder creates a new `FundManagerUpdateFundStrategyInstruction` instruction builder.
+func NewFundManagerUpdateFundStrategyInstructionBuilder() *FundManagerUpdateFundStrategyInstruction {
+	nd := &FundManagerUpdateFundStrategyInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 5),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -41,70 +41,70 @@ func NewFundManagerUpdateFundStrategyInstructionBuilder() *FundManagerUpdateFund
 }
 
 // SetDepositEnabled sets the "deposit_enabled" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetDepositEnabled(deposit_enabled bool) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetDepositEnabled(deposit_enabled bool) *FundManagerUpdateFundStrategyInstruction {
 	inst.DepositEnabled = &deposit_enabled
 	return inst
 }
 
 // SetDonationEnabled sets the "donation_enabled" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetDonationEnabled(donation_enabled bool) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetDonationEnabled(donation_enabled bool) *FundManagerUpdateFundStrategyInstruction {
 	inst.DonationEnabled = &donation_enabled
 	return inst
 }
 
 // SetWithdrawalEnabled sets the "withdrawal_enabled" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetWithdrawalEnabled(withdrawal_enabled bool) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetWithdrawalEnabled(withdrawal_enabled bool) *FundManagerUpdateFundStrategyInstruction {
 	inst.WithdrawalEnabled = &withdrawal_enabled
 	return inst
 }
 
 // SetTransferEnabled sets the "transfer_enabled" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetTransferEnabled(transfer_enabled bool) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetTransferEnabled(transfer_enabled bool) *FundManagerUpdateFundStrategyInstruction {
 	inst.TransferEnabled = &transfer_enabled
 	return inst
 }
 
 // SetWithdrawalFeeRateBps sets the "withdrawal_fee_rate_bps" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetWithdrawalFeeRateBps(withdrawal_fee_rate_bps uint16) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetWithdrawalFeeRateBps(withdrawal_fee_rate_bps uint16) *FundManagerUpdateFundStrategyInstruction {
 	inst.WithdrawalFeeRateBps = &withdrawal_fee_rate_bps
 	return inst
 }
 
 // SetWithdrawalBatchThresholdSeconds sets the "withdrawal_batch_threshold_seconds" parameter.
-func (inst *FundManagerUpdateFundStrategy) SetWithdrawalBatchThresholdSeconds(withdrawal_batch_threshold_seconds int64) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetWithdrawalBatchThresholdSeconds(withdrawal_batch_threshold_seconds int64) *FundManagerUpdateFundStrategyInstruction {
 	inst.WithdrawalBatchThresholdSeconds = &withdrawal_batch_threshold_seconds
 	return inst
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerUpdateFundStrategy) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerUpdateFundStrategy) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateFundStrategyInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateFundStrategy) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateFundStrategy) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateFundStrategyInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *FundManagerUpdateFundStrategy) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerUpdateFundStrategy) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -121,12 +121,12 @@ func (inst *FundManagerUpdateFundStrategy) findFindFundAccountAddress(receiptTok
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateFundStrategy) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateFundStrategy) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateFundStrategyInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -135,12 +135,12 @@ func (inst *FundManagerUpdateFundStrategy) MustFindFundAccountAddressWithBumpSee
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *FundManagerUpdateFundStrategy) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerUpdateFundStrategy) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateFundStrategyInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -149,17 +149,17 @@ func (inst *FundManagerUpdateFundStrategy) MustFindFundAccountAddress(receiptTok
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *FundManagerUpdateFundStrategy) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateFundStrategyInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerUpdateFundStrategy) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerUpdateFundStrategy) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -174,12 +174,12 @@ func (inst *FundManagerUpdateFundStrategy) findFindEventAuthorityAddress(knownBu
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateFundStrategy) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateFundStrategy) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateFundStrategyInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -188,12 +188,12 @@ func (inst *FundManagerUpdateFundStrategy) MustFindEventAuthorityAddressWithBump
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerUpdateFundStrategy) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateFundStrategyInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerUpdateFundStrategy) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateFundStrategyInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -202,22 +202,22 @@ func (inst *FundManagerUpdateFundStrategy) MustFindEventAuthorityAddress() (pda 
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerUpdateFundStrategy) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateFundStrategyInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerUpdateFundStrategy) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+func (inst *FundManagerUpdateFundStrategyInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerUpdateFundStrategy) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateFundStrategyInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
-func (inst FundManagerUpdateFundStrategy) Build() *Instruction {
+func (inst FundManagerUpdateFundStrategyInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerUpdateFundStrategy,
@@ -227,14 +227,14 @@ func (inst FundManagerUpdateFundStrategy) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerUpdateFundStrategy) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerUpdateFundStrategyInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerUpdateFundStrategy) Validate() error {
+func (inst *FundManagerUpdateFundStrategyInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.DepositEnabled == nil {
@@ -278,7 +278,7 @@ func (inst *FundManagerUpdateFundStrategy) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerUpdateFundStrategy) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerUpdateFundStrategyInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -308,7 +308,7 @@ func (inst *FundManagerUpdateFundStrategy) EncodeToTree(parent ag_treeout.Branch
 		})
 }
 
-func (obj FundManagerUpdateFundStrategy) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerUpdateFundStrategyInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `DepositEnabled` param:
 	err = encoder.Encode(obj.DepositEnabled)
 	if err != nil {
@@ -341,7 +341,7 @@ func (obj FundManagerUpdateFundStrategy) MarshalWithEncoder(encoder *ag_binary.E
 	}
 	return nil
 }
-func (obj *FundManagerUpdateFundStrategy) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerUpdateFundStrategyInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `DepositEnabled`:
 	err = decoder.Decode(&obj.DepositEnabled)
 	if err != nil {
@@ -389,7 +389,7 @@ func NewFundManagerUpdateFundStrategyInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerUpdateFundStrategy {
+	program ag_solanago.PublicKey) *FundManagerUpdateFundStrategyInstruction {
 	return NewFundManagerUpdateFundStrategyInstructionBuilder().
 		SetDepositEnabled(deposit_enabled).
 		SetDonationEnabled(donation_enabled).

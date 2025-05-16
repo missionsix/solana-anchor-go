@@ -634,6 +634,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 	for _, instruction := range idl.Instructions {
 		file := NewGoFile(idl.Metadata.Name, true)
 		insExportedName := ToCamel(instruction.Name)
+
 		var args []IdlField
 		for _, arg := range instruction.Args {
 			idlFieldArg := IdlField{
@@ -674,7 +675,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				).Line()
 			}
 
-			code.Type().Id(insExportedName).StructFunc(func(fieldsGroup *Group) {
+			code.Type().Id(formatInstructionTypeName(insExportedName)).StructFunc(func(fieldsGroup *Group) {
 				for argIndex, arg := range args {
 					if len(arg.Docs) > 0 {
 						if argIndex > 0 {
@@ -761,12 +762,12 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 			code.Commentf(
 				"%s creates a new `%s` instruction builder.",
 				builderFuncName,
-				insExportedName,
+				formatInstructionTypeName(insExportedName),
 			).Line()
 			//
-			code.Func().Id(builderFuncName).Params().Op("*").Id(insExportedName).
+			code.Func().Id(builderFuncName).Params().Op("*").Id(formatInstructionTypeName(insExportedName)).
 				BlockFunc(func(body *Group) {
-					body.Id("nd").Op(":=").Op("&").Id(insExportedName).Block(
+					body.Id("nd").Op(":=").Op("&").Id(formatInstructionTypeName(insExportedName)).Block(
 						Id("AccountMetaSlice").Op(":").Make(Qual(PkgSolanaGo, "AccountMetaSlice"), Lit(instruction.Accounts.NumAccounts())).Op(","),
 					)
 
@@ -824,7 +825,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 					code.Comment(doc).Line()
 				}
 
-				code.Func().Params(Id("inst").Op("*").Id(insExportedName)).Id(name).
+				code.Func().Params(Id("inst").Op("*").Id(formatInstructionTypeName(insExportedName))).Id(name).
 					Params(
 						ListFunc(func(params *Group) {
 							// Parameters:
@@ -834,7 +835,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 					Params(
 						ListFunc(func(results *Group) {
 							// Results:
-							results.Op("*").Id(insExportedName)
+							results.Op("*").Id(formatInstructionTypeName(insExportedName))
 						}),
 					).
 					BlockFunc(func(body *Group) {
@@ -893,7 +894,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 						}).Line().Line()
 
 					// Method on intruction builder that accepts the accounts group builder, and copies the accounts:
-					code.Line().Line().Func().Params(Id("inst").Op("*").Id(insExportedName)).Id("Set" + ToCamel(parentGroup.Name) + "AccountsFromBuilder").
+					code.Line().Line().Func().Params(Id("inst").Op("*").Id(formatInstructionTypeName(insExportedName))).Id("Set" + ToCamel(parentGroup.Name) + "AccountsFromBuilder").
 						Params(
 							ListFunc(func(st *Group) {
 								// Parameters:
@@ -903,7 +904,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 						Params(
 							ListFunc(func(st *Group) {
 								// Results:
-								st.Op("*").Id(insExportedName)
+								st.Op("*").Id(formatInstructionTypeName(insExportedName))
 							}),
 						).
 						BlockFunc(func(gr *Group) {
@@ -933,7 +934,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 
 					var receiverTypeName string
 					if parentGroupPath == "" {
-						receiverTypeName = insExportedName
+						receiverTypeName = formatInstructionTypeName(insExportedName)
 					} else {
 						receiverTypeName = builderStructName
 					}
@@ -960,7 +961,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 			// Declare `Build` method on instruction:
 			code := Empty()
 
-			code.Line().Line().Func().Params(Id("inst").Id(insExportedName)).Id("Build").
+			code.Line().Line().Func().Params(Id("inst").Id(formatInstructionTypeName(insExportedName))).Id("Build").
 				Params(
 					ListFunc(func(params *Group) {
 						// Parameters:
@@ -1043,7 +1044,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				Line().
 				Comment("Otherwise, it builds and returns the instruction.").
 				Line().
-				Func().Params(Id("inst").Id(insExportedName)).Id("ValidateAndBuild").
+				Func().Params(Id("inst").Id(formatInstructionTypeName(insExportedName))).Id("ValidateAndBuild").
 				Params(
 					ListFunc(func(params *Group) {
 						// Parameters:
@@ -1073,7 +1074,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 			// Declare `Validate` method on instruction:
 			code := Empty()
 
-			code.Line().Line().Func().Params(Id("inst").Op("*").Id(insExportedName)).Id("Validate").
+			code.Line().Line().Func().Params(Id("inst").Op("*").Id(formatInstructionTypeName(insExportedName))).Id("Validate").
 				Params(
 					ListFunc(func(params *Group) {
 						// Parameters:
@@ -1138,7 +1139,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 			// Declare `EncodeToTree(parent treeout.Branches)` method in instruction:
 			code := Empty()
 
-			code.Line().Line().Func().Params(Id("inst").Op("*").Id(insExportedName)).Id("EncodeToTree").
+			code.Line().Line().Func().Params(Id("inst").Op("*").Id(formatInstructionTypeName(insExportedName))).Id("EncodeToTree").
 				Params(
 					ListFunc(func(params *Group) {
 						// Parameters:
@@ -1207,7 +1208,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				genMarshalWithEncoder_struct(
 					&idl,
 					false,
-					insExportedName,
+					formatInstructionTypeName(insExportedName),
 					"",
 					args,
 					true,
@@ -1221,7 +1222,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				genUnmarshalWithDecoder_struct(
 					&idl,
 					false,
-					insExportedName,
+					formatInstructionTypeName(insExportedName),
 					"",
 					args,
 					bin.TypeID{},
@@ -1235,7 +1236,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				paramNames = append(paramNames, arg.Name)
 			}
 			code := Empty()
-			name := "New" + insExportedName + "Instruction"
+			name := "New" + formatInstructionTypeName(insExportedName)
 			code.Commentf("%s declares a new %s instruction with the provided parameters and accounts.", name, insExportedName)
 			code.Line()
 			code.Func().Id(name).
@@ -1284,7 +1285,7 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 				Params(
 					ListFunc(func(results *Group) {
 						// Results:
-						results.Op("*").Id(insExportedName)
+						results.Op("*").Id(formatInstructionTypeName(insExportedName))
 					}),
 				).
 				BlockFunc(func(body *Group) {
@@ -2199,7 +2200,7 @@ func genProgramBoilerplate(idl IDL) (*File, error) {
 											insName := ToCamel(instruction.Name)
 											insExportedName := ToCamel(instruction.Name)
 											variantBlock.Block(
-												List(Lit(insName), Parens(Op("*").Id(insExportedName)).Parens(Nil())).Op(","),
+												List(Lit(insName), Parens(Op("*").Id(formatInstructionTypeName(insExportedName))).Parens(Nil())).Op(","),
 											).Op(",")
 										}
 									}).Op(",").Line()
@@ -2226,7 +2227,7 @@ func genProgramBoilerplate(idl IDL) (*File, error) {
 											insName := sighash.ToSnakeForSighash(instruction.Name)
 											insExportedName := ToCamel(instruction.Name)
 											variantBlock.Block(
-												List(Id("Name").Op(":").Lit(insName), Id("Type").Op(":").Parens(Op("*").Id(insExportedName)).Parens(Nil())).Op(","),
+												List(Id("Name").Op(":").Lit(insName), Id("Type").Op(":").Parens(Op("*").Id(formatInstructionTypeName(insExportedName))).Parens(Nil())).Op(","),
 											).Op(",")
 										}
 									}).Op(",").Line()

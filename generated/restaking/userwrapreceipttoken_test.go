@@ -15,13 +15,13 @@ func TestEncodeDecode_UserWrapReceiptToken(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("UserWrapReceiptToken"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(UserWrapReceiptToken)
+				params := new(UserWrapReceiptTokenInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(UserWrapReceiptToken)
+				got := new(UserWrapReceiptTokenInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

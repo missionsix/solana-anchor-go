@@ -15,13 +15,13 @@ func TestEncodeDecode_AdminInitializeExtraAccountMetaList(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("AdminInitializeExtraAccountMetaList"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(AdminInitializeExtraAccountMetaList)
+				params := new(AdminInitializeExtraAccountMetaListInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(AdminInitializeExtraAccountMetaList)
+				got := new(AdminInitializeExtraAccountMetaListInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

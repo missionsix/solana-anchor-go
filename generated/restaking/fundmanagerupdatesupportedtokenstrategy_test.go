@@ -15,13 +15,13 @@ func TestEncodeDecode_FundManagerUpdateSupportedTokenStrategy(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("FundManagerUpdateSupportedTokenStrategy"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(FundManagerUpdateSupportedTokenStrategy)
+				params := new(FundManagerUpdateSupportedTokenStrategyInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(FundManagerUpdateSupportedTokenStrategy)
+				got := new(FundManagerUpdateSupportedTokenStrategyInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

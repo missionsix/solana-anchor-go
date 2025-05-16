@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerUpdateSolStrategy is the `fund_manager_update_sol_strategy` instruction.
-type FundManagerUpdateSolStrategy struct {
+type FundManagerUpdateSolStrategyInstruction struct {
 	SolDepositable                      *bool
 	SolAccumulatedDepositCapacityAmount *uint64
 	SolAccumulatedDepositAmount         *uint64 `bin:"optional"`
@@ -31,9 +31,9 @@ type FundManagerUpdateSolStrategy struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerUpdateSolStrategyInstructionBuilder creates a new `FundManagerUpdateSolStrategy` instruction builder.
-func NewFundManagerUpdateSolStrategyInstructionBuilder() *FundManagerUpdateSolStrategy {
-	nd := &FundManagerUpdateSolStrategy{
+// NewFundManagerUpdateSolStrategyInstructionBuilder creates a new `FundManagerUpdateSolStrategyInstruction` instruction builder.
+func NewFundManagerUpdateSolStrategyInstructionBuilder() *FundManagerUpdateSolStrategyInstruction {
+	nd := &FundManagerUpdateSolStrategyInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 5),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -41,70 +41,70 @@ func NewFundManagerUpdateSolStrategyInstructionBuilder() *FundManagerUpdateSolSt
 }
 
 // SetSolDepositable sets the "sol_depositable" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolDepositable(sol_depositable bool) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolDepositable(sol_depositable bool) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolDepositable = &sol_depositable
 	return inst
 }
 
 // SetSolAccumulatedDepositCapacityAmount sets the "sol_accumulated_deposit_capacity_amount" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolAccumulatedDepositCapacityAmount(sol_accumulated_deposit_capacity_amount uint64) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolAccumulatedDepositCapacityAmount(sol_accumulated_deposit_capacity_amount uint64) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolAccumulatedDepositCapacityAmount = &sol_accumulated_deposit_capacity_amount
 	return inst
 }
 
 // SetSolAccumulatedDepositAmount sets the "sol_accumulated_deposit_amount" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolAccumulatedDepositAmount(sol_accumulated_deposit_amount uint64) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolAccumulatedDepositAmount(sol_accumulated_deposit_amount uint64) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolAccumulatedDepositAmount = &sol_accumulated_deposit_amount
 	return inst
 }
 
 // SetSolWithdrawable sets the "sol_withdrawable" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolWithdrawable(sol_withdrawable bool) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolWithdrawable(sol_withdrawable bool) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolWithdrawable = &sol_withdrawable
 	return inst
 }
 
 // SetSolWithdrawalNormalReserveRateBps sets the "sol_withdrawal_normal_reserve_rate_bps" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolWithdrawalNormalReserveRateBps(sol_withdrawal_normal_reserve_rate_bps uint16) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolWithdrawalNormalReserveRateBps(sol_withdrawal_normal_reserve_rate_bps uint16) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolWithdrawalNormalReserveRateBps = &sol_withdrawal_normal_reserve_rate_bps
 	return inst
 }
 
 // SetSolWithdrawalNormalReserveMaxAmount sets the "sol_withdrawal_normal_reserve_max_amount" parameter.
-func (inst *FundManagerUpdateSolStrategy) SetSolWithdrawalNormalReserveMaxAmount(sol_withdrawal_normal_reserve_max_amount uint64) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetSolWithdrawalNormalReserveMaxAmount(sol_withdrawal_normal_reserve_max_amount uint64) *FundManagerUpdateSolStrategyInstruction {
 	inst.SolWithdrawalNormalReserveMaxAmount = &sol_withdrawal_normal_reserve_max_amount
 	return inst
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerUpdateSolStrategy) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerUpdateSolStrategy) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateSolStrategyInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateSolStrategy) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateSolStrategy) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateSolStrategyInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *FundManagerUpdateSolStrategy) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerUpdateSolStrategy) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -121,12 +121,12 @@ func (inst *FundManagerUpdateSolStrategy) findFindFundAccountAddress(receiptToke
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateSolStrategy) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateSolStrategy) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateSolStrategyInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -135,12 +135,12 @@ func (inst *FundManagerUpdateSolStrategy) MustFindFundAccountAddressWithBumpSeed
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *FundManagerUpdateSolStrategy) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerUpdateSolStrategy) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateSolStrategyInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -149,17 +149,17 @@ func (inst *FundManagerUpdateSolStrategy) MustFindFundAccountAddress(receiptToke
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *FundManagerUpdateSolStrategy) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateSolStrategyInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerUpdateSolStrategy) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerUpdateSolStrategy) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -174,12 +174,12 @@ func (inst *FundManagerUpdateSolStrategy) findFindEventAuthorityAddress(knownBum
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateSolStrategy) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateSolStrategy) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateSolStrategyInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -188,12 +188,12 @@ func (inst *FundManagerUpdateSolStrategy) MustFindEventAuthorityAddressWithBumpS
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerUpdateSolStrategy) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateSolStrategyInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerUpdateSolStrategy) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateSolStrategyInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -202,22 +202,22 @@ func (inst *FundManagerUpdateSolStrategy) MustFindEventAuthorityAddress() (pda a
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerUpdateSolStrategy) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateSolStrategyInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerUpdateSolStrategy) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+func (inst *FundManagerUpdateSolStrategyInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerUpdateSolStrategy) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateSolStrategyInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
-func (inst FundManagerUpdateSolStrategy) Build() *Instruction {
+func (inst FundManagerUpdateSolStrategyInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerUpdateSolStrategy,
@@ -227,14 +227,14 @@ func (inst FundManagerUpdateSolStrategy) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerUpdateSolStrategy) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerUpdateSolStrategyInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerUpdateSolStrategy) Validate() error {
+func (inst *FundManagerUpdateSolStrategyInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.SolDepositable == nil {
@@ -275,7 +275,7 @@ func (inst *FundManagerUpdateSolStrategy) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerUpdateSolStrategy) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerUpdateSolStrategyInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -305,7 +305,7 @@ func (inst *FundManagerUpdateSolStrategy) EncodeToTree(parent ag_treeout.Branche
 		})
 }
 
-func (obj FundManagerUpdateSolStrategy) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerUpdateSolStrategyInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `SolDepositable` param:
 	err = encoder.Encode(obj.SolDepositable)
 	if err != nil {
@@ -351,7 +351,7 @@ func (obj FundManagerUpdateSolStrategy) MarshalWithEncoder(encoder *ag_binary.En
 	}
 	return nil
 }
-func (obj *FundManagerUpdateSolStrategy) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerUpdateSolStrategyInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `SolDepositable`:
 	err = decoder.Decode(&obj.SolDepositable)
 	if err != nil {
@@ -407,7 +407,7 @@ func NewFundManagerUpdateSolStrategyInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerUpdateSolStrategy {
+	program ag_solanago.PublicKey) *FundManagerUpdateSolStrategyInstruction {
 	return NewFundManagerUpdateSolStrategyInstructionBuilder().
 		SetSolDepositable(sol_depositable).
 		SetSolAccumulatedDepositCapacityAmount(sol_accumulated_deposit_capacity_amount).

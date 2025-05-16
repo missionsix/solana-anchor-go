@@ -11,7 +11,7 @@ import (
 )
 
 // OperatorUpdateRewardPools is the `operator_update_reward_pools` instruction.
-type OperatorUpdateRewardPools struct {
+type OperatorUpdateRewardPoolsInstruction struct {
 
 	// [0] = [WRITE, SIGNER] operator
 	//
@@ -27,9 +27,9 @@ type OperatorUpdateRewardPools struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewOperatorUpdateRewardPoolsInstructionBuilder creates a new `OperatorUpdateRewardPools` instruction builder.
-func NewOperatorUpdateRewardPoolsInstructionBuilder() *OperatorUpdateRewardPools {
-	nd := &OperatorUpdateRewardPools{
+// NewOperatorUpdateRewardPoolsInstructionBuilder creates a new `OperatorUpdateRewardPoolsInstruction` instruction builder.
+func NewOperatorUpdateRewardPoolsInstructionBuilder() *OperatorUpdateRewardPoolsInstruction {
+	nd := &OperatorUpdateRewardPoolsInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 6),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["11111111111111111111111111111111"])
@@ -37,45 +37,45 @@ func NewOperatorUpdateRewardPoolsInstructionBuilder() *OperatorUpdateRewardPools
 }
 
 // SetOperatorAccount sets the "operator" account.
-func (inst *OperatorUpdateRewardPools) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(operator).WRITE().SIGNER()
 	return inst
 }
 
 // GetOperatorAccount gets the "operator" account.
-func (inst *OperatorUpdateRewardPools) GetOperatorAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetOperatorAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *OperatorUpdateRewardPools) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *OperatorUpdateRewardPools) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *OperatorUpdateRewardPools) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *OperatorUpdateRewardPools) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetRewardAccountAccount sets the "reward_account" account.
-func (inst *OperatorUpdateRewardPools) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(rewardAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorUpdateRewardPools) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: reward
 	seeds = append(seeds, []byte{byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -92,12 +92,12 @@ func (inst *OperatorUpdateRewardPools) findFindRewardAccountAddress(receiptToken
 }
 
 // FindRewardAccountAddressWithBumpSeed calculates RewardAccount account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateRewardPools) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateRewardPools) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateRewardPoolsInstruction) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -106,12 +106,12 @@ func (inst *OperatorUpdateRewardPools) MustFindRewardAccountAddressWithBumpSeed(
 }
 
 // FindRewardAccountAddress finds RewardAccount account address with given seeds.
-func (inst *OperatorUpdateRewardPools) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *OperatorUpdateRewardPools) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateRewardPoolsInstruction) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -120,17 +120,17 @@ func (inst *OperatorUpdateRewardPools) MustFindRewardAccountAddress(receiptToken
 }
 
 // GetRewardAccountAccount gets the "reward_account" account.
-func (inst *OperatorUpdateRewardPools) GetRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *OperatorUpdateRewardPools) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *OperatorUpdateRewardPools) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -145,12 +145,12 @@ func (inst *OperatorUpdateRewardPools) findFindEventAuthorityAddress(knownBumpSe
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateRewardPools) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateRewardPools) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateRewardPoolsInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -159,12 +159,12 @@ func (inst *OperatorUpdateRewardPools) MustFindEventAuthorityAddressWithBumpSeed
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *OperatorUpdateRewardPools) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateRewardPoolsInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *OperatorUpdateRewardPools) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateRewardPoolsInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -173,22 +173,22 @@ func (inst *OperatorUpdateRewardPools) MustFindEventAuthorityAddress() (pda ag_s
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *OperatorUpdateRewardPools) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *OperatorUpdateRewardPools) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+func (inst *OperatorUpdateRewardPoolsInstruction) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *OperatorUpdateRewardPools) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateRewardPoolsInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
-func (inst OperatorUpdateRewardPools) Build() *Instruction {
+func (inst OperatorUpdateRewardPoolsInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_OperatorUpdateRewardPools,
@@ -198,14 +198,14 @@ func (inst OperatorUpdateRewardPools) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst OperatorUpdateRewardPools) ValidateAndBuild() (*Instruction, error) {
+func (inst OperatorUpdateRewardPoolsInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *OperatorUpdateRewardPools) Validate() error {
+func (inst *OperatorUpdateRewardPoolsInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -230,7 +230,7 @@ func (inst *OperatorUpdateRewardPools) Validate() error {
 	return nil
 }
 
-func (inst *OperatorUpdateRewardPools) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *OperatorUpdateRewardPoolsInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -254,10 +254,10 @@ func (inst *OperatorUpdateRewardPools) EncodeToTree(parent ag_treeout.Branches) 
 		})
 }
 
-func (obj OperatorUpdateRewardPools) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj OperatorUpdateRewardPoolsInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *OperatorUpdateRewardPools) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *OperatorUpdateRewardPoolsInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -269,7 +269,7 @@ func NewOperatorUpdateRewardPoolsInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	rewardAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *OperatorUpdateRewardPools {
+	program ag_solanago.PublicKey) *OperatorUpdateRewardPoolsInstruction {
 	return NewOperatorUpdateRewardPoolsInstructionBuilder().
 		SetOperatorAccount(operator).
 		SetSystemProgramAccount(systemProgram).

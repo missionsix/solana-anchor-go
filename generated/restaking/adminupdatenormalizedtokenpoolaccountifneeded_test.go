@@ -15,13 +15,13 @@ func TestEncodeDecode_AdminUpdateNormalizedTokenPoolAccountIfNeeded(t *testing.T
 	for i := 0; i < 1; i++ {
 		t.Run("AdminUpdateNormalizedTokenPoolAccountIfNeeded"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(AdminUpdateNormalizedTokenPoolAccountIfNeeded)
+				params := new(AdminUpdateNormalizedTokenPoolAccountIfNeededInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(AdminUpdateNormalizedTokenPoolAccountIfNeeded)
+				got := new(AdminUpdateNormalizedTokenPoolAccountIfNeededInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

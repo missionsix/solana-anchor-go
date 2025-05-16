@@ -15,13 +15,13 @@ func TestEncodeDecode_UserWithdrawSol(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("UserWithdrawSol"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(UserWithdrawSol)
+				params := new(UserWithdrawSolInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(UserWithdrawSol)
+				got := new(UserWithdrawSolInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

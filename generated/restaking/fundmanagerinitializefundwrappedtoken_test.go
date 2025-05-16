@@ -15,13 +15,13 @@ func TestEncodeDecode_FundManagerInitializeFundWrappedToken(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("FundManagerInitializeFundWrappedToken"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(FundManagerInitializeFundWrappedToken)
+				params := new(FundManagerInitializeFundWrappedTokenInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(FundManagerInitializeFundWrappedToken)
+				got := new(FundManagerInitializeFundWrappedTokenInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

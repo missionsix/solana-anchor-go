@@ -18,7 +18,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 			{
 				{
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceSPLStakePoolTuple)
@@ -27,7 +27,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -38,7 +38,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceMarinadeStakePoolTuple)
@@ -47,7 +47,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -58,7 +58,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceJitoRestakingVaultTuple)
@@ -67,7 +67,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -78,7 +78,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceFragmetricNormalizedTokenPoolTuple)
@@ -87,7 +87,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -98,7 +98,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceFragmetricRestakingFundTuple)
@@ -107,7 +107,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -118,7 +118,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceOrcaDEXLiquidityPoolTuple)
@@ -127,7 +127,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -138,7 +138,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						params := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenPricingSourceSanctumSingleValidatorSPLStakePoolTuple)
@@ -147,7 +147,7 @@ func TestEncodeDecode_FundManagerAddNormalizedTokenPoolSupportedToken(t *testing
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddNormalizedTokenPoolSupportedToken)
+						got := new(FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)

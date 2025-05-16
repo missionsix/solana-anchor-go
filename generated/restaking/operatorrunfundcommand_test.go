@@ -15,14 +15,14 @@ func TestEncodeDecode_OperatorRunFundCommand(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("OperatorRunFundCommand"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(OperatorRunFundCommand)
+				params := new(OperatorRunFundCommandInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				params.ForceResetCommand = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(OperatorRunFundCommand)
+				got := new(OperatorRunFundCommandInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

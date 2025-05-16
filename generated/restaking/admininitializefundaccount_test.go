@@ -15,13 +15,13 @@ func TestEncodeDecode_AdminInitializeFundAccount(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("AdminInitializeFundAccount"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(AdminInitializeFundAccount)
+				params := new(AdminInitializeFundAccountInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(AdminInitializeFundAccount)
+				got := new(AdminInitializeFundAccountInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

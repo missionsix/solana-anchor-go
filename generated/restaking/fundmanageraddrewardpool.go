@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerAddRewardPool is the `fund_manager_add_reward_pool` instruction.
-type FundManagerAddRewardPool struct {
+type FundManagerAddRewardPoolInstruction struct {
 	Name                                 *string
 	HolderId                             *uint8 `bin:"optional"`
 	CustomContributionAccrualRateEnabled *bool
@@ -28,9 +28,9 @@ type FundManagerAddRewardPool struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerAddRewardPoolInstructionBuilder creates a new `FundManagerAddRewardPool` instruction builder.
-func NewFundManagerAddRewardPoolInstructionBuilder() *FundManagerAddRewardPool {
-	nd := &FundManagerAddRewardPool{
+// NewFundManagerAddRewardPoolInstructionBuilder creates a new `FundManagerAddRewardPoolInstruction` instruction builder.
+func NewFundManagerAddRewardPoolInstructionBuilder() *FundManagerAddRewardPoolInstruction {
+	nd := &FundManagerAddRewardPoolInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 5),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -38,52 +38,52 @@ func NewFundManagerAddRewardPoolInstructionBuilder() *FundManagerAddRewardPool {
 }
 
 // SetName sets the "name" parameter.
-func (inst *FundManagerAddRewardPool) SetName(name string) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetName(name string) *FundManagerAddRewardPoolInstruction {
 	inst.Name = &name
 	return inst
 }
 
 // SetHolderId sets the "holder_id" parameter.
-func (inst *FundManagerAddRewardPool) SetHolderId(holder_id uint8) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetHolderId(holder_id uint8) *FundManagerAddRewardPoolInstruction {
 	inst.HolderId = &holder_id
 	return inst
 }
 
 // SetCustomContributionAccrualRateEnabled sets the "custom_contribution_accrual_rate_enabled" parameter.
-func (inst *FundManagerAddRewardPool) SetCustomContributionAccrualRateEnabled(custom_contribution_accrual_rate_enabled bool) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetCustomContributionAccrualRateEnabled(custom_contribution_accrual_rate_enabled bool) *FundManagerAddRewardPoolInstruction {
 	inst.CustomContributionAccrualRateEnabled = &custom_contribution_accrual_rate_enabled
 	return inst
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerAddRewardPool) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerAddRewardPool) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddRewardPoolInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerAddRewardPool) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerAddRewardPool) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddRewardPoolInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetRewardAccountAccount sets the "reward_account" account.
-func (inst *FundManagerAddRewardPool) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(rewardAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerAddRewardPool) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: reward
 	seeds = append(seeds, []byte{byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -100,12 +100,12 @@ func (inst *FundManagerAddRewardPool) findFindRewardAccountAddress(receiptTokenM
 }
 
 // FindRewardAccountAddressWithBumpSeed calculates RewardAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerAddRewardPool) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerAddRewardPool) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddRewardPoolInstruction) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -114,12 +114,12 @@ func (inst *FundManagerAddRewardPool) MustFindRewardAccountAddressWithBumpSeed(r
 }
 
 // FindRewardAccountAddress finds RewardAccount account address with given seeds.
-func (inst *FundManagerAddRewardPool) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerAddRewardPool) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddRewardPoolInstruction) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -128,17 +128,17 @@ func (inst *FundManagerAddRewardPool) MustFindRewardAccountAddress(receiptTokenM
 }
 
 // GetRewardAccountAccount gets the "reward_account" account.
-func (inst *FundManagerAddRewardPool) GetRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddRewardPoolInstruction) GetRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerAddRewardPool) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerAddRewardPool) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -153,12 +153,12 @@ func (inst *FundManagerAddRewardPool) findFindEventAuthorityAddress(knownBumpSee
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerAddRewardPool) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerAddRewardPool) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddRewardPoolInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -167,12 +167,12 @@ func (inst *FundManagerAddRewardPool) MustFindEventAuthorityAddressWithBumpSeed(
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerAddRewardPool) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerAddRewardPoolInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerAddRewardPool) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerAddRewardPoolInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -181,22 +181,22 @@ func (inst *FundManagerAddRewardPool) MustFindEventAuthorityAddress() (pda ag_so
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerAddRewardPool) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddRewardPoolInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerAddRewardPool) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerAddRewardPool {
+func (inst *FundManagerAddRewardPoolInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerAddRewardPool) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerAddRewardPoolInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
-func (inst FundManagerAddRewardPool) Build() *Instruction {
+func (inst FundManagerAddRewardPoolInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerAddRewardPool,
@@ -206,14 +206,14 @@ func (inst FundManagerAddRewardPool) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerAddRewardPool) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerAddRewardPoolInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerAddRewardPool) Validate() error {
+func (inst *FundManagerAddRewardPoolInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Name == nil {
@@ -245,7 +245,7 @@ func (inst *FundManagerAddRewardPool) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerAddRewardPool) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerAddRewardPoolInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -272,7 +272,7 @@ func (inst *FundManagerAddRewardPool) EncodeToTree(parent ag_treeout.Branches) {
 		})
 }
 
-func (obj FundManagerAddRewardPool) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerAddRewardPoolInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Name` param:
 	err = encoder.Encode(obj.Name)
 	if err != nil {
@@ -303,7 +303,7 @@ func (obj FundManagerAddRewardPool) MarshalWithEncoder(encoder *ag_binary.Encode
 	}
 	return nil
 }
-func (obj *FundManagerAddRewardPool) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerAddRewardPoolInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Name`:
 	err = decoder.Decode(&obj.Name)
 	if err != nil {
@@ -341,7 +341,7 @@ func NewFundManagerAddRewardPoolInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	rewardAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerAddRewardPool {
+	program ag_solanago.PublicKey) *FundManagerAddRewardPoolInstruction {
 	return NewFundManagerAddRewardPoolInstructionBuilder().
 		SetName(name).
 		SetHolderId(holder_id).
