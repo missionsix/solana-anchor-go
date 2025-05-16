@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go"
 	"io/ioutil"
 	"os"
 	"path"
@@ -15,6 +13,9 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/gagliardetto/solana-go"
 
 	. "github.com/dave/jennifer/jen"
 	"github.com/fragmetric-labs/solana-anchor-go/sighash"
@@ -114,12 +115,6 @@ func main() {
 			//if len(idl.Errors) > 0 {
 			//	Sfln(
 			//		"%s idl.Errors is defined, but generator is not implemented yet.",
-			//		OrangeBG("[?]"),
-			//	)
-			//}
-			//if len(idl.Constants) > 0 {
-			//	Sfln(
-			//		"%s idl.Constants is defined, but generator is not implemented yet.",
 			//		OrangeBG("[?]"),
 			//	)
 			//}
@@ -1370,45 +1365,89 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 	// add constants file
 	{
 		file := NewGoFile(idl.Metadata.Name, false)
-		code := Empty()
-		for _, c := range idl.Constants {
-			code.Line().Var().Id(fmt.Sprintf("CONST_%s", c.Name)).Op("=")
-			typ := c.Type.GetString()
-			if typ == "" {
-				typ = IdlTypeAsString(*c.Type.GetDefinedFieldName())
-			}
-			switch typ {
-			case "string":
-				v, err := strconv.Unquote(c.Value)
-				if err != nil {
-					panic(fmt.Sprintf("failed to parse constant: %s", spew.Sdump(c)))
-				}
-				code.Lit(v)
-			case "u16":
-				v, err := strconv.ParseUint(c.Value, 10, 16)
-				if err != nil {
-					panic(fmt.Sprintf("failed to parse constant: %s", spew.Sdump(c)))
-				}
-				code.Lit(v)
-			case "u64":
-				v, err := strconv.ParseUint(c.Value, 10, 64)
-				if err != nil {
-					panic(fmt.Sprintf("failed to parse constant: %s", spew.Sdump(c)))
-				}
-				code.Lit(v)
-			case "i64":
-				v, err := strconv.ParseInt(c.Value, 10, 64)
-				if err != nil {
-					panic(fmt.Sprintf("failed to parse constant: %s", spew.Sdump(c)))
-				}
-				code.Lit(v)
-			case "pubkey":
-				code.Qual(PkgSolanaGo, "MustPublicKeyFromBase58").Call(Lit(c.Value))
-			default:
-				panic(fmt.Sprintf("unsupportd constant: %s", spew.Sdump(c)))
-			}
 
+		var pubkeyVars []IdlConstant
+		var byteVars []IdlConstant
+
+		code := Empty().Const().Parens(
+			DoGroup(func(cons *Group) {
+				for _, c := range idl.Constants {
+					typ := c.Type.GetString()
+					if typ == "" {
+						typ = IdlTypeAsString(*c.Type.GetDefinedFieldName())
+					}
+					if len(c.Docs) > 0 {
+						for _, doc := range c.Docs {
+							cons.Comment(doc).Line()
+						}
+					}
+
+					var val *Statement
+					switch typ {
+					case "string":
+						v, err := strconv.Unquote(c.Value)
+						if err != nil {
+							panic(fmt.Sprintf("failed to parse constant: %s", spew.Sdump(c)))
+						}
+						val = Lit(v)
+					case "u8", "u16", "u32", "i32", "u64", "i64", "u128", "i128", "usize", "isize":
+						// print literal value from idl
+						val = Op(c.Value)
+					case "pubkey":
+						// create constant string for pubkey
+						val = Lit(c.Value).Commentf("// %s", typ)
+						pubkeyVars = append(pubkeyVars, c)
+					case "bytes":
+						byteVars = append(byteVars, c)
+						continue
+					default:
+						panic(fmt.Sprintf("unsupportd constant: %s", spew.Sdump(c)))
+					}
+					cons.Id(fmt.Sprintf("CONST_%s", c.Name)).Op("=").Add(val).Line()
+				}
+				Line()
+			}),
+		)
+
+		if len(pubkeyVars) > 0 {
+			code.Line().Var().Parens(
+				DoGroup(func(dict *Group) {
+					for _, c := range pubkeyVars {
+						constName := fmt.Sprintf("CONST_%s", c.Name)
+						camelName := ToCamel(ToLower(c.Name))
+						dict.Id(camelName).Op("=").Qual(PkgSolanaGo, "MustPublicKeyFromBase58").Call(Op(constName)).Line()
+					}
+				}))
 		}
+
+		if len(byteVars) > 0 {
+			code.Line()
+			for _, c := range byteVars {
+				camelName := formatByteSliceName(c.Name)
+				var v []string
+				var e int
+				for i := 0; i < len(c.Value); i++ {
+					if c.Value[i] == '[' || c.Value[i] == ']' || c.Value[i] == ' ' || c.Value[i] == ',' {
+						continue
+					}
+					for e = i; e < len(c.Value); e++ {
+						if c.Value[e] == ',' || c.Value[e] == ']' {
+							break
+						}
+					}
+					v = append(v, c.Value[i:e])
+					i = e + 1
+				}
+
+				code.Var().Id(camelName).Op("=").Op("[]byte{").ListFunc(func(g *Group) {
+					for _, b := range v {
+						g.Op(b)
+					}
+				}).Op("}").Line()
+			}
+			code.Line()
+		}
+
 		file.Add(code)
 		files = append(files, &FileWrapper{
 			Name: "constants",

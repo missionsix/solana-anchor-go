@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	. "github.com/dave/jennifer/jen"
 	"github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
@@ -520,6 +521,10 @@ func formatBuilderFuncName(insExportedName string) string {
 
 func formatInstructionTypeName(insExportedName string) string {
 	return insExportedName + "Instruction"
+}
+
+func formatByteSliceName(insExportedName string) string {
+	return ToCamel(ToLower(insExportedName)) + "Bytes"
 }
 
 func genMarshalWithEncoder_enum(

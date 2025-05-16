@@ -26,9 +26,10 @@ type IDL struct {
 
 // TODO: write generator
 type IdlConstant struct {
-	Name  string
-	Type  IdlType
-	Value string
+	Name  string   `json:"name"`
+	Type  IdlType  `json:"type"`
+	Value string   `json:"value"`
+	Docs  []string `json:"docs"` // @custom
 }
 
 type IdlMetadata struct {
