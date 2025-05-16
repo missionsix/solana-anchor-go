@@ -18,7 +18,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 			{
 				{
 					{
-						params := new(FundManagerAddReward)
+						params := new(FundManagerAddRewardInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(RewardTypePointTuple)
@@ -27,7 +27,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddReward)
+						got := new(FundManagerAddRewardInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -38,7 +38,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddReward)
+						params := new(FundManagerAddRewardInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(RewardTypeTokenTuple)
@@ -47,7 +47,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddReward)
+						got := new(FundManagerAddRewardInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)
@@ -58,7 +58,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 						ag_require.Equal(t, params, got)
 					}
 					{
-						params := new(FundManagerAddReward)
+						params := new(FundManagerAddRewardInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(RewardTypeSOLTuple)
@@ -67,7 +67,7 @@ func TestEncodeDecode_FundManagerAddReward(t *testing.T) {
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddReward)
+						got := new(FundManagerAddRewardInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)

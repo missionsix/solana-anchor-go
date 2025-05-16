@@ -15,13 +15,13 @@ func TestEncodeDecode_OperatorUpdateNormalizedTokenPoolPrices(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("OperatorUpdateNormalizedTokenPoolPrices"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(OperatorUpdateNormalizedTokenPoolPrices)
+				params := new(OperatorUpdateNormalizedTokenPoolPricesInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(OperatorUpdateNormalizedTokenPoolPrices)
+				got := new(OperatorUpdateNormalizedTokenPoolPricesInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

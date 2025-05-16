@@ -15,13 +15,13 @@ func TestEncodeDecode_OperatorDonateSolToFund(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("OperatorDonateSolToFund"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(OperatorDonateSolToFund)
+				params := new(OperatorDonateSolToFundInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(OperatorDonateSolToFund)
+				got := new(OperatorDonateSolToFundInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

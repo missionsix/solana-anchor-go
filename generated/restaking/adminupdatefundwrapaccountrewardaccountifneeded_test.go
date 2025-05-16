@@ -15,13 +15,13 @@ func TestEncodeDecode_AdminUpdateFundWrapAccountRewardAccountIfNeeded(t *testing
 	for i := 0; i < 1; i++ {
 		t.Run("AdminUpdateFundWrapAccountRewardAccountIfNeeded"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(AdminUpdateFundWrapAccountRewardAccountIfNeeded)
+				params := new(AdminUpdateFundWrapAccountRewardAccountIfNeededInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(AdminUpdateFundWrapAccountRewardAccountIfNeeded)
+				got := new(AdminUpdateFundWrapAccountRewardAccountIfNeededInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

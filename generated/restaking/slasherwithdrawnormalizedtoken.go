@@ -11,7 +11,7 @@ import (
 )
 
 // SlasherWithdrawNormalizedToken is the `slasher_withdraw_normalized_token` instruction.
-type SlasherWithdrawNormalizedToken struct {
+type SlasherWithdrawNormalizedTokenInstruction struct {
 
 	// [0] = [WRITE, SIGNER] slasher
 	//
@@ -39,9 +39,9 @@ type SlasherWithdrawNormalizedToken struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewSlasherWithdrawNormalizedTokenInstructionBuilder creates a new `SlasherWithdrawNormalizedToken` instruction builder.
-func NewSlasherWithdrawNormalizedTokenInstructionBuilder() *SlasherWithdrawNormalizedToken {
-	nd := &SlasherWithdrawNormalizedToken{
+// NewSlasherWithdrawNormalizedTokenInstructionBuilder creates a new `SlasherWithdrawNormalizedTokenInstruction` instruction builder.
+func NewSlasherWithdrawNormalizedTokenInstructionBuilder() *SlasherWithdrawNormalizedTokenInstruction {
+	nd := &SlasherWithdrawNormalizedTokenInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 12),
 	}
 	nd.AccountMetaSlice[3] = ag_solanago.Meta(Addresses["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"])
@@ -49,34 +49,34 @@ func NewSlasherWithdrawNormalizedTokenInstructionBuilder() *SlasherWithdrawNorma
 }
 
 // SetSlasherAccount sets the "slasher" account.
-func (inst *SlasherWithdrawNormalizedToken) SetSlasherAccount(slasher ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetSlasherAccount(slasher ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(slasher).WRITE().SIGNER()
 	return inst
 }
 
 // GetSlasherAccount gets the "slasher" account.
-func (inst *SlasherWithdrawNormalizedToken) GetSlasherAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetSlasherAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetNormalizedTokenMintAccount sets the "normalized_token_mint" account.
-func (inst *SlasherWithdrawNormalizedToken) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(normalizedTokenMint)
 	return inst
 }
 
 // GetNormalizedTokenMintAccount gets the "normalized_token_mint" account.
-func (inst *SlasherWithdrawNormalizedToken) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetNormalizedTokenPoolAccountAccount sets the "normalized_token_pool_account" account.
-func (inst *SlasherWithdrawNormalizedToken) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(normalizedTokenPoolAccount).WRITE()
 	return inst
 }
 
-func (inst *SlasherWithdrawNormalizedToken) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: nt_pool
 	seeds = append(seeds, []byte{byte(0x6e), byte(0x74), byte(0x5f), byte(0x70), byte(0x6f), byte(0x6f), byte(0x6c)})
@@ -93,12 +93,12 @@ func (inst *SlasherWithdrawNormalizedToken) findFindNormalizedTokenPoolAccountAd
 }
 
 // FindNormalizedTokenPoolAccountAddressWithBumpSeed calculates NormalizedTokenPoolAccount account address with given seeds and a known bump seed.
-func (inst *SlasherWithdrawNormalizedToken) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -107,12 +107,12 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolAccountAd
 }
 
 // FindNormalizedTokenPoolAccountAddress finds NormalizedTokenPoolAccount account address with given seeds.
-func (inst *SlasherWithdrawNormalizedToken) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -121,28 +121,28 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolAccountAd
 }
 
 // GetNormalizedTokenPoolAccountAccount gets the "normalized_token_pool_account" account.
-func (inst *SlasherWithdrawNormalizedToken) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetNormalizedTokenProgramAccount sets the "normalized_token_program" account.
-func (inst *SlasherWithdrawNormalizedToken) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(normalizedTokenProgram)
 	return inst
 }
 
 // GetNormalizedTokenProgramAccount gets the "normalized_token_program" account.
-func (inst *SlasherWithdrawNormalizedToken) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetSlasherNormalizedTokenWithdrawalTicketAccountAccount sets the "slasher_normalized_token_withdrawal_ticket_account" account.
-func (inst *SlasherWithdrawNormalizedToken) SetSlasherNormalizedTokenWithdrawalTicketAccountAccount(slasherNormalizedTokenWithdrawalTicketAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetSlasherNormalizedTokenWithdrawalTicketAccountAccount(slasherNormalizedTokenWithdrawalTicketAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(slasherNormalizedTokenWithdrawalTicketAccount).WRITE()
 	return inst
 }
 
-func (inst *SlasherWithdrawNormalizedToken) findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: nt_withdrawal
 	seeds = append(seeds, []byte{byte(0x6e), byte(0x74), byte(0x5f), byte(0x77), byte(0x69), byte(0x74), byte(0x68), byte(0x64), byte(0x72), byte(0x61), byte(0x77), byte(0x61), byte(0x6c)})
@@ -161,12 +161,12 @@ func (inst *SlasherWithdrawNormalizedToken) findFindSlasherNormalizedTokenWithdr
 }
 
 // FindSlasherNormalizedTokenWithdrawalTicketAccountAddressWithBumpSeed calculates SlasherNormalizedTokenWithdrawalTicketAccount account address with given seeds and a known bump seed.
-func (inst *SlasherWithdrawNormalizedToken) FindSlasherNormalizedTokenWithdrawalTicketAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindSlasherNormalizedTokenWithdrawalTicketAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint, slasher, bumpSeed)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindSlasherNormalizedTokenWithdrawalTicketAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindSlasherNormalizedTokenWithdrawalTicketAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint, slasher, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -175,12 +175,12 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindSlasherNormalizedTokenWithdr
 }
 
 // FindSlasherNormalizedTokenWithdrawalTicketAccountAddress finds SlasherNormalizedTokenWithdrawalTicketAccount account address with given seeds.
-func (inst *SlasherWithdrawNormalizedToken) FindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint, slasher, 0)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint ag_solanago.PublicKey, slasher ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindSlasherNormalizedTokenWithdrawalTicketAccountAddress(normalizedTokenMint, slasher, 0)
 	if err != nil {
 		panic(err)
@@ -189,39 +189,39 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindSlasherNormalizedTokenWithdr
 }
 
 // GetSlasherNormalizedTokenWithdrawalTicketAccountAccount gets the "slasher_normalized_token_withdrawal_ticket_account" account.
-func (inst *SlasherWithdrawNormalizedToken) GetSlasherNormalizedTokenWithdrawalTicketAccountAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetSlasherNormalizedTokenWithdrawalTicketAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetSupportedTokenMintAccount sets the "supported_token_mint" account.
-func (inst *SlasherWithdrawNormalizedToken) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(supportedTokenMint)
 	return inst
 }
 
 // GetSupportedTokenMintAccount gets the "supported_token_mint" account.
-func (inst *SlasherWithdrawNormalizedToken) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetSupportedTokenProgramAccount sets the "supported_token_program" account.
-func (inst *SlasherWithdrawNormalizedToken) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(supportedTokenProgram)
 	return inst
 }
 
 // GetSupportedTokenProgramAccount gets the "supported_token_program" account.
-func (inst *SlasherWithdrawNormalizedToken) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetNormalizedTokenPoolSupportedTokenReserveAccountAccount sets the "normalized_token_pool_supported_token_reserve_account" account.
-func (inst *SlasherWithdrawNormalizedToken) SetNormalizedTokenPoolSupportedTokenReserveAccountAccount(normalizedTokenPoolSupportedTokenReserveAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetNormalizedTokenPoolSupportedTokenReserveAccountAccount(normalizedTokenPoolSupportedTokenReserveAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(normalizedTokenPoolSupportedTokenReserveAccount).WRITE()
 	return inst
 }
 
-func (inst *SlasherWithdrawNormalizedToken) findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: normalizedTokenPoolAccount
 	seeds = append(seeds, normalizedTokenPoolAccount.Bytes())
@@ -242,12 +242,12 @@ func (inst *SlasherWithdrawNormalizedToken) findFindNormalizedTokenPoolSupported
 }
 
 // FindNormalizedTokenPoolSupportedTokenReserveAccountAddressWithBumpSeed calculates NormalizedTokenPoolSupportedTokenReserveAccount account address with given seeds and a known bump seed.
-func (inst *SlasherWithdrawNormalizedToken) FindNormalizedTokenPoolSupportedTokenReserveAccountAddressWithBumpSeed(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindNormalizedTokenPoolSupportedTokenReserveAccountAddressWithBumpSeed(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolSupportedTokenReserveAccountAddressWithBumpSeed(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindNormalizedTokenPoolSupportedTokenReserveAccountAddressWithBumpSeed(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -256,12 +256,12 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolSupported
 }
 
 // FindNormalizedTokenPoolSupportedTokenReserveAccountAddress finds NormalizedTokenPoolSupportedTokenReserveAccount account address with given seeds.
-func (inst *SlasherWithdrawNormalizedToken) FindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount, supportedTokenProgram, supportedTokenMint, 0)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolSupportedTokenReserveAccountAddress(normalizedTokenPoolAccount, supportedTokenProgram, supportedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -270,39 +270,39 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindNormalizedTokenPoolSupported
 }
 
 // GetNormalizedTokenPoolSupportedTokenReserveAccountAccount gets the "normalized_token_pool_supported_token_reserve_account" account.
-func (inst *SlasherWithdrawNormalizedToken) GetNormalizedTokenPoolSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetNormalizedTokenPoolSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetDestinationSupportedTokenAccountAccount sets the "destination_supported_token_account" account.
-func (inst *SlasherWithdrawNormalizedToken) SetDestinationSupportedTokenAccountAccount(destinationSupportedTokenAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetDestinationSupportedTokenAccountAccount(destinationSupportedTokenAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(destinationSupportedTokenAccount).WRITE()
 	return inst
 }
 
 // GetDestinationSupportedTokenAccountAccount gets the "destination_supported_token_account" account.
-func (inst *SlasherWithdrawNormalizedToken) GetDestinationSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetDestinationSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
 // SetDestinationRentLamportsAccountAccount sets the "destination_rent_lamports_account" account.
-func (inst *SlasherWithdrawNormalizedToken) SetDestinationRentLamportsAccountAccount(destinationRentLamportsAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetDestinationRentLamportsAccountAccount(destinationRentLamportsAccount ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[9] = ag_solanago.Meta(destinationRentLamportsAccount).WRITE()
 	return inst
 }
 
 // GetDestinationRentLamportsAccountAccount gets the "destination_rent_lamports_account" account.
-func (inst *SlasherWithdrawNormalizedToken) GetDestinationRentLamportsAccountAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetDestinationRentLamportsAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(9)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *SlasherWithdrawNormalizedToken) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[10] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *SlasherWithdrawNormalizedToken) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -317,12 +317,12 @@ func (inst *SlasherWithdrawNormalizedToken) findFindEventAuthorityAddress(knownB
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *SlasherWithdrawNormalizedToken) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -331,12 +331,12 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindEventAuthorityAddressWithBum
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *SlasherWithdrawNormalizedToken) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *SlasherWithdrawNormalizedToken) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -345,22 +345,22 @@ func (inst *SlasherWithdrawNormalizedToken) MustFindEventAuthorityAddress() (pda
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *SlasherWithdrawNormalizedToken) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(10)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *SlasherWithdrawNormalizedToken) SetProgramAccount(program ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) SetProgramAccount(program ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	inst.AccountMetaSlice[11] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *SlasherWithdrawNormalizedToken) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(11)
 }
 
-func (inst SlasherWithdrawNormalizedToken) Build() *Instruction {
+func (inst SlasherWithdrawNormalizedTokenInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_SlasherWithdrawNormalizedToken,
@@ -370,14 +370,14 @@ func (inst SlasherWithdrawNormalizedToken) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst SlasherWithdrawNormalizedToken) ValidateAndBuild() (*Instruction, error) {
+func (inst SlasherWithdrawNormalizedTokenInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *SlasherWithdrawNormalizedToken) Validate() error {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -420,7 +420,7 @@ func (inst *SlasherWithdrawNormalizedToken) Validate() error {
 	return nil
 }
 
-func (inst *SlasherWithdrawNormalizedToken) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *SlasherWithdrawNormalizedTokenInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -450,10 +450,10 @@ func (inst *SlasherWithdrawNormalizedToken) EncodeToTree(parent ag_treeout.Branc
 		})
 }
 
-func (obj SlasherWithdrawNormalizedToken) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj SlasherWithdrawNormalizedTokenInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *SlasherWithdrawNormalizedToken) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *SlasherWithdrawNormalizedTokenInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -471,7 +471,7 @@ func NewSlasherWithdrawNormalizedTokenInstruction(
 	destinationSupportedTokenAccount ag_solanago.PublicKey,
 	destinationRentLamportsAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *SlasherWithdrawNormalizedToken {
+	program ag_solanago.PublicKey) *SlasherWithdrawNormalizedTokenInstruction {
 	return NewSlasherWithdrawNormalizedTokenInstructionBuilder().
 		SetSlasherAccount(slasher).
 		SetNormalizedTokenMintAccount(normalizedTokenMint).

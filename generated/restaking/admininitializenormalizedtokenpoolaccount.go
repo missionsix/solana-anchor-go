@@ -11,7 +11,7 @@ import (
 )
 
 // AdminInitializeNormalizedTokenPoolAccount is the `admin_initialize_normalized_token_pool_account` instruction.
-type AdminInitializeNormalizedTokenPoolAccount struct {
+type AdminInitializeNormalizedTokenPoolAccountInstruction struct {
 
 	// [0] = [WRITE, SIGNER] payer
 	//
@@ -31,9 +31,9 @@ type AdminInitializeNormalizedTokenPoolAccount struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder creates a new `AdminInitializeNormalizedTokenPoolAccount` instruction builder.
-func NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder() *AdminInitializeNormalizedTokenPoolAccount {
-	nd := &AdminInitializeNormalizedTokenPoolAccount{
+// NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder creates a new `AdminInitializeNormalizedTokenPoolAccountInstruction` instruction builder.
+func NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder() *AdminInitializeNormalizedTokenPoolAccountInstruction {
+	nd := &AdminInitializeNormalizedTokenPoolAccountInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 8),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["fragkamrANLvuZYQPcmPsCATQAabkqNGH6gxqqPG3aP"]).SIGNER()
@@ -43,67 +43,67 @@ func NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder() *AdminInit
 }
 
 // SetPayerAccount sets the "payer" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetPayerAccount(payer ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetPayerAccount(payer ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(payer).WRITE().SIGNER()
 	return inst
 }
 
 // GetPayerAccount gets the "payer" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetPayerAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetPayerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetAdminAccount sets the "admin" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetAdminAccount(admin ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetAdminAccount(admin ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(admin).SIGNER()
 	return inst
 }
 
 // GetAdminAccount gets the "admin" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetAdminAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetAdminAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetNormalizedTokenProgramAccount sets the "normalized_token_program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(normalizedTokenProgram)
 	return inst
 }
 
 // GetNormalizedTokenProgramAccount gets the "normalized_token_program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetNormalizedTokenMintAccount sets the "normalized_token_mint" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(normalizedTokenMint).WRITE()
 	return inst
 }
 
 // GetNormalizedTokenMintAccount gets the "normalized_token_mint" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetNormalizedTokenPoolAccountAccount sets the "normalized_token_pool_account" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(normalizedTokenPoolAccount).WRITE()
 	return inst
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: nt_pool
 	seeds = append(seeds, []byte{byte(0x6e), byte(0x74), byte(0x5f), byte(0x70), byte(0x6f), byte(0x6f), byte(0x6c)})
@@ -120,12 +120,12 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) findFindNormalizedTokenPo
 }
 
 // FindNormalizedTokenPoolAccountAddressWithBumpSeed calculates NormalizedTokenPoolAccount account address with given seeds and a known bump seed.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -134,12 +134,12 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindNormalizedTokenPo
 }
 
 // FindNormalizedTokenPoolAccountAddress finds NormalizedTokenPoolAccount account address with given seeds.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	return
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -148,17 +148,17 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindNormalizedTokenPo
 }
 
 // GetNormalizedTokenPoolAccountAccount gets the "normalized_token_pool_account" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -173,12 +173,12 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) findFindEventAuthorityAdd
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -187,12 +187,12 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindEventAuthorityAdd
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -201,22 +201,22 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) MustFindEventAuthorityAdd
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) SetProgramAccount(program ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) SetProgramAccount(program ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *AdminInitializeNormalizedTokenPoolAccount) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
-func (inst AdminInitializeNormalizedTokenPoolAccount) Build() *Instruction {
+func (inst AdminInitializeNormalizedTokenPoolAccountInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_AdminInitializeNormalizedTokenPoolAccount,
@@ -226,14 +226,14 @@ func (inst AdminInitializeNormalizedTokenPoolAccount) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst AdminInitializeNormalizedTokenPoolAccount) ValidateAndBuild() (*Instruction, error) {
+func (inst AdminInitializeNormalizedTokenPoolAccountInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) Validate() error {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -264,7 +264,7 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) Validate() error {
 	return nil
 }
 
-func (inst *AdminInitializeNormalizedTokenPoolAccount) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *AdminInitializeNormalizedTokenPoolAccountInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -290,10 +290,10 @@ func (inst *AdminInitializeNormalizedTokenPoolAccount) EncodeToTree(parent ag_tr
 		})
 }
 
-func (obj AdminInitializeNormalizedTokenPoolAccount) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj AdminInitializeNormalizedTokenPoolAccountInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *AdminInitializeNormalizedTokenPoolAccount) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *AdminInitializeNormalizedTokenPoolAccountInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -307,7 +307,7 @@ func NewAdminInitializeNormalizedTokenPoolAccountInstruction(
 	normalizedTokenMint ag_solanago.PublicKey,
 	normalizedTokenPoolAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccount {
+	program ag_solanago.PublicKey) *AdminInitializeNormalizedTokenPoolAccountInstruction {
 	return NewAdminInitializeNormalizedTokenPoolAccountInstructionBuilder().
 		SetPayerAccount(payer).
 		SetAdminAccount(admin).

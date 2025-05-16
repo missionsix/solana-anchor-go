@@ -67,6 +67,9 @@ func (obj *FundManagerUpdatedFundEventData) UnmarshalWithDecoder(decoder *ag_bin
 }
 
 func (*FundManagerUpdatedFundEventData) isEventData() {}
+func (obj *FundManagerUpdatedFundEventData) Self() any {
+	return obj
+}
 
 type FundManagerUpdatedRewardPoolEventData struct {
 	ReceiptTokenMint ag_solanago.PublicKey
@@ -122,6 +125,9 @@ func (obj *FundManagerUpdatedRewardPoolEventData) UnmarshalWithDecoder(decoder *
 }
 
 func (*FundManagerUpdatedRewardPoolEventData) isEventData() {}
+func (obj *FundManagerUpdatedRewardPoolEventData) Self() any {
+	return obj
+}
 
 type OperatorDonatedToFundEventData struct {
 	ReceiptTokenMint          ag_solanago.PublicKey
@@ -242,6 +248,9 @@ func (obj *OperatorDonatedToFundEventData) UnmarshalWithDecoder(decoder *ag_bina
 }
 
 func (*OperatorDonatedToFundEventData) isEventData() {}
+func (obj *OperatorDonatedToFundEventData) Self() any {
+	return obj
+}
 
 type OperatorRanFundCommandEventData struct {
 	ReceiptTokenMint ag_solanago.PublicKey
@@ -362,6 +371,9 @@ func (obj *OperatorRanFundCommandEventData) UnmarshalWithDecoder(decoder *ag_bin
 }
 
 func (*OperatorRanFundCommandEventData) isEventData() {}
+func (obj *OperatorRanFundCommandEventData) Self() any {
+	return obj
+}
 
 type OperatorUpdatedFundPricesEventData struct {
 	ReceiptTokenMint ag_solanago.PublicKey
@@ -417,6 +429,9 @@ func (obj *OperatorUpdatedFundPricesEventData) UnmarshalWithDecoder(decoder *ag_
 }
 
 func (*OperatorUpdatedFundPricesEventData) isEventData() {}
+func (obj *OperatorUpdatedFundPricesEventData) Self() any {
+	return obj
+}
 
 type OperatorUpdatedNormalizedTokenPoolPricesEventData struct {
 	NormalizedTokenMint        ag_solanago.PublicKey
@@ -472,6 +487,9 @@ func (obj *OperatorUpdatedNormalizedTokenPoolPricesEventData) UnmarshalWithDecod
 }
 
 func (*OperatorUpdatedNormalizedTokenPoolPricesEventData) isEventData() {}
+func (obj *OperatorUpdatedNormalizedTokenPoolPricesEventData) Self() any {
+	return obj
+}
 
 type OperatorUpdatedRewardPoolsEventData struct {
 	ReceiptTokenMint ag_solanago.PublicKey
@@ -527,6 +545,9 @@ func (obj *OperatorUpdatedRewardPoolsEventData) UnmarshalWithDecoder(decoder *ag
 }
 
 func (*OperatorUpdatedRewardPoolsEventData) isEventData() {}
+func (obj *OperatorUpdatedRewardPoolsEventData) Self() any {
+	return obj
+}
 
 type UserCanceledWithdrawalRequestFromFundEventData struct {
 	ReceiptTokenMint            ag_solanago.PublicKey
@@ -691,6 +712,9 @@ func (obj *UserCanceledWithdrawalRequestFromFundEventData) UnmarshalWithDecoder(
 }
 
 func (*UserCanceledWithdrawalRequestFromFundEventData) isEventData() {}
+func (obj *UserCanceledWithdrawalRequestFromFundEventData) Self() any {
+	return obj
+}
 
 type UserCreatedOrUpdatedFundAccountEventData struct {
 	ReceiptTokenMint   ag_solanago.PublicKey
@@ -768,6 +792,9 @@ func (obj *UserCreatedOrUpdatedFundAccountEventData) UnmarshalWithDecoder(decode
 }
 
 func (*UserCreatedOrUpdatedFundAccountEventData) isEventData() {}
+func (obj *UserCreatedOrUpdatedFundAccountEventData) Self() any {
+	return obj
+}
 
 type UserCreatedOrUpdatedRewardAccountEventData struct {
 	ReceiptTokenMint   ag_solanago.PublicKey
@@ -845,6 +872,9 @@ func (obj *UserCreatedOrUpdatedRewardAccountEventData) UnmarshalWithDecoder(deco
 }
 
 func (*UserCreatedOrUpdatedRewardAccountEventData) isEventData() {}
+func (obj *UserCreatedOrUpdatedRewardAccountEventData) Self() any {
+	return obj
+}
 
 type UserDepositedToFundEventData struct {
 	ReceiptTokenMint          ag_solanago.PublicKey
@@ -1094,6 +1124,9 @@ func (obj *UserDepositedToFundEventData) UnmarshalWithDecoder(decoder *ag_binary
 }
 
 func (*UserDepositedToFundEventData) isEventData() {}
+func (obj *UserDepositedToFundEventData) Self() any {
+	return obj
+}
 
 type UserRequestedWithdrawalFromFundEventData struct {
 	ReceiptTokenMint            ag_solanago.PublicKey
@@ -1258,6 +1291,9 @@ func (obj *UserRequestedWithdrawalFromFundEventData) UnmarshalWithDecoder(decode
 }
 
 func (*UserRequestedWithdrawalFromFundEventData) isEventData() {}
+func (obj *UserRequestedWithdrawalFromFundEventData) Self() any {
+	return obj
+}
 
 type UserTransferredReceiptTokenEventData struct {
 	ReceiptTokenMint               ag_solanago.PublicKey
@@ -1443,6 +1479,9 @@ func (obj *UserTransferredReceiptTokenEventData) UnmarshalWithDecoder(decoder *a
 }
 
 func (*UserTransferredReceiptTokenEventData) isEventData() {}
+func (obj *UserTransferredReceiptTokenEventData) Self() any {
+	return obj
+}
 
 type UserUnwrappedReceiptTokenEventData struct {
 	ReceiptTokenMint                    ag_solanago.PublicKey
@@ -1628,6 +1667,9 @@ func (obj *UserUnwrappedReceiptTokenEventData) UnmarshalWithDecoder(decoder *ag_
 }
 
 func (*UserUnwrappedReceiptTokenEventData) isEventData() {}
+func (obj *UserUnwrappedReceiptTokenEventData) Self() any {
+	return obj
+}
 
 type UserUpdatedRewardPoolEventData struct {
 	ReceiptTokenMint          ag_solanago.PublicKey
@@ -1683,6 +1725,9 @@ func (obj *UserUpdatedRewardPoolEventData) UnmarshalWithDecoder(decoder *ag_bina
 }
 
 func (*UserUpdatedRewardPoolEventData) isEventData() {}
+func (obj *UserUpdatedRewardPoolEventData) Self() any {
+	return obj
+}
 
 type UserWithdrewFromFundEventData struct {
 	ReceiptTokenMint           ag_solanago.PublicKey
@@ -1912,6 +1957,9 @@ func (obj *UserWithdrewFromFundEventData) UnmarshalWithDecoder(decoder *ag_binar
 }
 
 func (*UserWithdrewFromFundEventData) isEventData() {}
+func (obj *UserWithdrewFromFundEventData) Self() any {
+	return obj
+}
 
 type UserWrappedReceiptTokenEventData struct {
 	ReceiptTokenMint                    ag_solanago.PublicKey
@@ -2097,6 +2145,9 @@ func (obj *UserWrappedReceiptTokenEventData) UnmarshalWithDecoder(decoder *ag_bi
 }
 
 func (*UserWrappedReceiptTokenEventData) isEventData() {}
+func (obj *UserWrappedReceiptTokenEventData) Self() any {
+	return obj
+}
 
 var eventTypes = map[[8]byte]reflect.Type{
 	FundManagerUpdatedFundEventDataDiscriminator:                   reflect.TypeOf(FundManagerUpdatedFundEventData{}),
@@ -2137,6 +2188,12 @@ var eventNames = map[[8]byte]string{
 	UserWrappedReceiptTokenEventDataDiscriminator:                  "UserWrappedReceiptToken",
 }
 var (
+	_ fmt.Formatter = nil
+)
+var (
+	_ *ag_solanago.Transaction = nil
+)
+var (
 	_ *strings.Builder = nil
 )
 var (
@@ -2160,6 +2217,7 @@ type Event struct {
 type EventData interface {
 	UnmarshalWithDecoder(decoder *ag_binary.Decoder) error
 	isEventData()
+	Self() any
 }
 
 const eventLogPrefix = "Program data: "

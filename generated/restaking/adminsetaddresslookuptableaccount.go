@@ -11,7 +11,7 @@ import (
 )
 
 // AdminSetAddressLookupTableAccount is the `admin_set_address_lookup_table_account` instruction.
-type AdminSetAddressLookupTableAccount struct {
+type AdminSetAddressLookupTableAccountInstruction struct {
 	AddressLookupTableAccount *ag_solanago.PublicKey `bin:"optional"`
 
 	// [0] = [SIGNER] payer
@@ -28,9 +28,9 @@ type AdminSetAddressLookupTableAccount struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewAdminSetAddressLookupTableAccountInstructionBuilder creates a new `AdminSetAddressLookupTableAccount` instruction builder.
-func NewAdminSetAddressLookupTableAccountInstructionBuilder() *AdminSetAddressLookupTableAccount {
-	nd := &AdminSetAddressLookupTableAccount{
+// NewAdminSetAddressLookupTableAccountInstructionBuilder creates a new `AdminSetAddressLookupTableAccountInstruction` instruction builder.
+func NewAdminSetAddressLookupTableAccountInstructionBuilder() *AdminSetAddressLookupTableAccountInstruction {
+	nd := &AdminSetAddressLookupTableAccountInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 6),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["fragkamrANLvuZYQPcmPsCATQAabkqNGH6gxqqPG3aP"]).SIGNER()
@@ -38,40 +38,40 @@ func NewAdminSetAddressLookupTableAccountInstructionBuilder() *AdminSetAddressLo
 }
 
 // SetAddressLookupTableAccount sets the "address_lookup_table_account" parameter.
-func (inst *AdminSetAddressLookupTableAccount) SetAddressLookupTableAccount(address_lookup_table_account ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetAddressLookupTableAccount(address_lookup_table_account ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AddressLookupTableAccount = &address_lookup_table_account
 	return inst
 }
 
 // SetPayerAccount sets the "payer" account.
-func (inst *AdminSetAddressLookupTableAccount) SetPayerAccount(payer ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetPayerAccount(payer ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(payer).SIGNER()
 	return inst
 }
 
 // GetPayerAccount gets the "payer" account.
-func (inst *AdminSetAddressLookupTableAccount) GetPayerAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetPayerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetAdminAccount sets the "admin" account.
-func (inst *AdminSetAddressLookupTableAccount) SetAdminAccount(admin ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetAdminAccount(admin ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(admin).SIGNER()
 	return inst
 }
 
 // GetAdminAccount gets the "admin" account.
-func (inst *AdminSetAddressLookupTableAccount) GetAdminAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetAdminAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *AdminSetAddressLookupTableAccount) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *AdminSetAddressLookupTableAccount) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -88,12 +88,12 @@ func (inst *AdminSetAddressLookupTableAccount) findFindFundAccountAddress(receip
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *AdminSetAddressLookupTableAccount) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *AdminSetAddressLookupTableAccount) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -102,12 +102,12 @@ func (inst *AdminSetAddressLookupTableAccount) MustFindFundAccountAddressWithBum
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *AdminSetAddressLookupTableAccount) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *AdminSetAddressLookupTableAccount) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -116,28 +116,28 @@ func (inst *AdminSetAddressLookupTableAccount) MustFindFundAccountAddress(receip
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *AdminSetAddressLookupTableAccount) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *AdminSetAddressLookupTableAccount) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *AdminSetAddressLookupTableAccount) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *AdminSetAddressLookupTableAccount) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *AdminSetAddressLookupTableAccount) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -152,12 +152,12 @@ func (inst *AdminSetAddressLookupTableAccount) findFindEventAuthorityAddress(kno
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *AdminSetAddressLookupTableAccount) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *AdminSetAddressLookupTableAccount) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -166,12 +166,12 @@ func (inst *AdminSetAddressLookupTableAccount) MustFindEventAuthorityAddressWith
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *AdminSetAddressLookupTableAccount) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *AdminSetAddressLookupTableAccount) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -180,22 +180,22 @@ func (inst *AdminSetAddressLookupTableAccount) MustFindEventAuthorityAddress() (
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *AdminSetAddressLookupTableAccount) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *AdminSetAddressLookupTableAccount) SetProgramAccount(program ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+func (inst *AdminSetAddressLookupTableAccountInstruction) SetProgramAccount(program ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *AdminSetAddressLookupTableAccount) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminSetAddressLookupTableAccountInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
-func (inst AdminSetAddressLookupTableAccount) Build() *Instruction {
+func (inst AdminSetAddressLookupTableAccountInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_AdminSetAddressLookupTableAccount,
@@ -205,14 +205,14 @@ func (inst AdminSetAddressLookupTableAccount) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst AdminSetAddressLookupTableAccount) ValidateAndBuild() (*Instruction, error) {
+func (inst AdminSetAddressLookupTableAccountInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *AdminSetAddressLookupTableAccount) Validate() error {
+func (inst *AdminSetAddressLookupTableAccountInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 	}
@@ -241,7 +241,7 @@ func (inst *AdminSetAddressLookupTableAccount) Validate() error {
 	return nil
 }
 
-func (inst *AdminSetAddressLookupTableAccount) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *AdminSetAddressLookupTableAccountInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -267,7 +267,7 @@ func (inst *AdminSetAddressLookupTableAccount) EncodeToTree(parent ag_treeout.Br
 		})
 }
 
-func (obj AdminSetAddressLookupTableAccount) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj AdminSetAddressLookupTableAccountInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `AddressLookupTableAccount` param (optional):
 	{
 		if obj.AddressLookupTableAccount == nil {
@@ -288,7 +288,7 @@ func (obj AdminSetAddressLookupTableAccount) MarshalWithEncoder(encoder *ag_bina
 	}
 	return nil
 }
-func (obj *AdminSetAddressLookupTableAccount) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *AdminSetAddressLookupTableAccountInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `AddressLookupTableAccount` (optional):
 	{
 		ok, err := decoder.ReadBool()
@@ -315,7 +315,7 @@ func NewAdminSetAddressLookupTableAccountInstruction(
 	fundAccount ag_solanago.PublicKey,
 	receiptTokenMint ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *AdminSetAddressLookupTableAccount {
+	program ag_solanago.PublicKey) *AdminSetAddressLookupTableAccountInstruction {
 	return NewAdminSetAddressLookupTableAccountInstructionBuilder().
 		SetAddressLookupTableAccount(address_lookup_table_account).
 		SetPayerAccount(payer).

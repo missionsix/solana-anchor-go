@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerInitializeFundJitoRestakingVault is the `fund_manager_initialize_fund_jito_restaking_vault` instruction.
-type FundManagerInitializeFundJitoRestakingVault struct {
+type FundManagerInitializeFundJitoRestakingVaultInstruction struct {
 
 	// [0] = [SIGNER] fund_manager
 	//
@@ -47,9 +47,9 @@ type FundManagerInitializeFundJitoRestakingVault struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder creates a new `FundManagerInitializeFundJitoRestakingVault` instruction builder.
-func NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder() *FundManagerInitializeFundJitoRestakingVault {
-	nd := &FundManagerInitializeFundJitoRestakingVault{
+// NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder creates a new `FundManagerInitializeFundJitoRestakingVaultInstruction` instruction builder.
+func NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder() *FundManagerInitializeFundJitoRestakingVaultInstruction {
+	nd := &FundManagerInitializeFundJitoRestakingVaultInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 16),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -61,34 +61,34 @@ func NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder() *FundMan
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -105,12 +105,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundAccountAddr
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -119,12 +119,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundAccountAddr
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -133,17 +133,17 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundAccountAddr
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetFundReserveAccountAccount sets the "fund_reserve_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(fundReserveAccount)
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund_reserve
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64), byte(0x5f), byte(0x72), byte(0x65), byte(0x73), byte(0x65), byte(0x72), byte(0x76), byte(0x65)})
@@ -160,12 +160,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundReserveAcco
 }
 
 // FindFundReserveAccountAddressWithBumpSeed calculates FundReserveAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -174,12 +174,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundReserveAcco
 }
 
 // FindFundReserveAccountAddress finds FundReserveAccount account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -188,94 +188,94 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundReserveAcco
 }
 
 // GetFundReserveAccountAccount gets the "fund_reserve_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetVaultProgramAccount sets the "vault_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultProgramAccount(vaultProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultProgramAccount(vaultProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(vaultProgram)
 	return inst
 }
 
 // GetVaultProgramAccount gets the "vault_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetVaultAccountAccount sets the "vault_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultAccountAccount(vaultAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultAccountAccount(vaultAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(vaultAccount)
 	return inst
 }
 
 // GetVaultAccountAccount gets the "vault_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetVaultReceiptTokenMintAccount sets the "vault_receipt_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultReceiptTokenMintAccount(vaultReceiptTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultReceiptTokenMintAccount(vaultReceiptTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(vaultReceiptTokenMint)
 	return inst
 }
 
 // GetVaultReceiptTokenMintAccount gets the "vault_receipt_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetVaultReceiptTokenProgramAccount sets the "vault_receipt_token_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultReceiptTokenProgramAccount(vaultReceiptTokenProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultReceiptTokenProgramAccount(vaultReceiptTokenProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(vaultReceiptTokenProgram)
 	return inst
 }
 
 // GetVaultReceiptTokenProgramAccount gets the "vault_receipt_token_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
 // SetVaultSupportedTokenMintAccount sets the "vault_supported_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultSupportedTokenMintAccount(vaultSupportedTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultSupportedTokenMintAccount(vaultSupportedTokenMint ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[9] = ag_solanago.Meta(vaultSupportedTokenMint)
 	return inst
 }
 
 // GetVaultSupportedTokenMintAccount gets the "vault_supported_token_mint" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultSupportedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultSupportedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(9)
 }
 
 // SetVaultSupportedTokenProgramAccount sets the "vault_supported_token_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultSupportedTokenProgramAccount(vaultSupportedTokenProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultSupportedTokenProgramAccount(vaultSupportedTokenProgram ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[10] = ag_solanago.Meta(vaultSupportedTokenProgram)
 	return inst
 }
 
 // GetVaultSupportedTokenProgramAccount gets the "vault_supported_token_program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(10)
 }
 
 // SetFundVaultReceiptTokenAccountAccount sets the "fund_vault_receipt_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetFundVaultReceiptTokenAccountAccount(fundVaultReceiptTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetFundVaultReceiptTokenAccountAccount(fundVaultReceiptTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[11] = ag_solanago.Meta(fundVaultReceiptTokenAccount)
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: fundReserveAccount
 	seeds = append(seeds, fundReserveAccount.Bytes())
@@ -296,12 +296,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundVaultReceip
 }
 
 // FindFundVaultReceiptTokenAccountAddressWithBumpSeed calculates FundVaultReceiptTokenAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundVaultReceiptTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundVaultReceiptTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount, vaultReceiptTokenProgram, vaultReceiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultReceiptTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundVaultReceiptTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount, vaultReceiptTokenProgram, vaultReceiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -310,12 +310,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultReceip
 }
 
 // FindFundVaultReceiptTokenAccountAddress finds FundVaultReceiptTokenAccount account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount, vaultReceiptTokenProgram, vaultReceiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundVaultReceiptTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultReceiptTokenProgram ag_solanago.PublicKey, vaultReceiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundVaultReceiptTokenAccountAddress(fundReserveAccount, vaultReceiptTokenProgram, vaultReceiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -324,17 +324,17 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultReceip
 }
 
 // GetFundVaultReceiptTokenAccountAccount gets the "fund_vault_receipt_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetFundVaultReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetFundVaultReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(11)
 }
 
 // SetFundVaultSupportedTokenAccountAccount sets the "fund_vault_supported_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetFundVaultSupportedTokenAccountAccount(fundVaultSupportedTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetFundVaultSupportedTokenAccountAccount(fundVaultSupportedTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[12] = ag_solanago.Meta(fundVaultSupportedTokenAccount)
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: fundReserveAccount
 	seeds = append(seeds, fundReserveAccount.Bytes())
@@ -355,12 +355,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindFundVaultSuppor
 }
 
 // FindFundVaultSupportedTokenAccountAddressWithBumpSeed calculates FundVaultSupportedTokenAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundVaultSupportedTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundVaultSupportedTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultSupportedTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundVaultSupportedTokenAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -369,12 +369,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultSuppor
 }
 
 // FindFundVaultSupportedTokenAccountAddress finds FundVaultSupportedTokenAccount account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindFundVaultSupportedTokenAccountAddress(fundReserveAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundVaultSupportedTokenAccountAddress(fundReserveAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -383,17 +383,17 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindFundVaultSuppor
 }
 
 // GetFundVaultSupportedTokenAccountAccount gets the "fund_vault_supported_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetFundVaultSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetFundVaultSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(12)
 }
 
 // SetVaultVaultSupportedTokenAccountAccount sets the "vault_vault_supported_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetVaultVaultSupportedTokenAccountAccount(vaultVaultSupportedTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetVaultVaultSupportedTokenAccountAccount(vaultVaultSupportedTokenAccount ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[13] = ag_solanago.Meta(vaultVaultSupportedTokenAccount)
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: vaultAccount
 	seeds = append(seeds, vaultAccount.Bytes())
@@ -414,12 +414,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindVaultVaultSuppo
 }
 
 // FindVaultVaultSupportedTokenAccountAddressWithBumpSeed calculates VaultVaultSupportedTokenAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindVaultVaultSupportedTokenAccountAddressWithBumpSeed(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindVaultVaultSupportedTokenAccountAddressWithBumpSeed(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindVaultVaultSupportedTokenAccountAddress(vaultAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindVaultVaultSupportedTokenAccountAddressWithBumpSeed(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindVaultVaultSupportedTokenAccountAddressWithBumpSeed(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindVaultVaultSupportedTokenAccountAddress(vaultAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -428,12 +428,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindVaultVaultSuppo
 }
 
 // FindVaultVaultSupportedTokenAccountAddress finds VaultVaultSupportedTokenAccount account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindVaultVaultSupportedTokenAccountAddress(vaultAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindVaultVaultSupportedTokenAccountAddress(vaultAccount ag_solanago.PublicKey, vaultSupportedTokenProgram ag_solanago.PublicKey, vaultSupportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindVaultVaultSupportedTokenAccountAddress(vaultAccount, vaultSupportedTokenProgram, vaultSupportedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -442,17 +442,17 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindVaultVaultSuppo
 }
 
 // GetVaultVaultSupportedTokenAccountAccount gets the "vault_vault_supported_token_account" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetVaultVaultSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetVaultVaultSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(13)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[14] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -467,12 +467,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) findFindEventAuthorityA
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -481,12 +481,12 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindEventAuthorityA
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerInitializeFundJitoRestakingVault) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -495,22 +495,22 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) MustFindEventAuthorityA
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(14)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	inst.AccountMetaSlice[15] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerInitializeFundJitoRestakingVault) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(15)
 }
 
-func (inst FundManagerInitializeFundJitoRestakingVault) Build() *Instruction {
+func (inst FundManagerInitializeFundJitoRestakingVaultInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerInitializeFundJitoRestakingVault,
@@ -520,14 +520,14 @@ func (inst FundManagerInitializeFundJitoRestakingVault) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerInitializeFundJitoRestakingVault) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerInitializeFundJitoRestakingVaultInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) Validate() error {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -582,7 +582,7 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerInitializeFundJitoRestakingVault) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerInitializeFundJitoRestakingVaultInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -616,10 +616,10 @@ func (inst *FundManagerInitializeFundJitoRestakingVault) EncodeToTree(parent ag_
 		})
 }
 
-func (obj FundManagerInitializeFundJitoRestakingVault) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerInitializeFundJitoRestakingVaultInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *FundManagerInitializeFundJitoRestakingVault) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerInitializeFundJitoRestakingVaultInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -641,7 +641,7 @@ func NewFundManagerInitializeFundJitoRestakingVaultInstruction(
 	fundVaultSupportedTokenAccount ag_solanago.PublicKey,
 	vaultVaultSupportedTokenAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVault {
+	program ag_solanago.PublicKey) *FundManagerInitializeFundJitoRestakingVaultInstruction {
 	return NewFundManagerInitializeFundJitoRestakingVaultInstructionBuilder().
 		SetFundManagerAccount(fundManager).
 		SetSystemProgramAccount(systemProgram).

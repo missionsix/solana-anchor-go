@@ -11,7 +11,7 @@ import (
 )
 
 // UserDepositSupportedToken is the `user_deposit_supported_token` instruction.
-type UserDepositSupportedToken struct {
+type UserDepositSupportedTokenInstruction struct {
 	Amount   *uint64
 	Metadata *DepositMetadata `bin:"optional"`
 
@@ -49,9 +49,9 @@ type UserDepositSupportedToken struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewUserDepositSupportedTokenInstructionBuilder creates a new `UserDepositSupportedToken` instruction builder.
-func NewUserDepositSupportedTokenInstructionBuilder() *UserDepositSupportedToken {
-	nd := &UserDepositSupportedToken{
+// NewUserDepositSupportedTokenInstructionBuilder creates a new `UserDepositSupportedTokenInstruction` instruction builder.
+func NewUserDepositSupportedTokenInstructionBuilder() *UserDepositSupportedTokenInstruction {
+	nd := &UserDepositSupportedTokenInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 16),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"])
@@ -60,68 +60,68 @@ func NewUserDepositSupportedTokenInstructionBuilder() *UserDepositSupportedToken
 }
 
 // SetAmount sets the "amount" parameter.
-func (inst *UserDepositSupportedToken) SetAmount(amount uint64) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetAmount(amount uint64) *UserDepositSupportedTokenInstruction {
 	inst.Amount = &amount
 	return inst
 }
 
 // SetMetadata sets the "metadata" parameter.
-func (inst *UserDepositSupportedToken) SetMetadata(metadata DepositMetadata) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetMetadata(metadata DepositMetadata) *UserDepositSupportedTokenInstruction {
 	inst.Metadata = &metadata
 	return inst
 }
 
 // SetUserAccount sets the "user" account.
-func (inst *UserDepositSupportedToken) SetUserAccount(user ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetUserAccount(user ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).WRITE().SIGNER()
 	return inst
 }
 
 // GetUserAccount gets the "user" account.
-func (inst *UserDepositSupportedToken) GetUserAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetUserAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenProgramAccount sets the "receipt_token_program" account.
-func (inst *UserDepositSupportedToken) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenProgram)
 	return inst
 }
 
 // GetReceiptTokenProgramAccount gets the "receipt_token_program" account.
-func (inst *UserDepositSupportedToken) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetSupportedTokenProgramAccount sets the "supported_token_program" account.
-func (inst *UserDepositSupportedToken) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(supportedTokenProgram)
 	return inst
 }
 
 // GetSupportedTokenProgramAccount gets the "supported_token_program" account.
-func (inst *UserDepositSupportedToken) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *UserDepositSupportedToken) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenMint).WRITE()
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *UserDepositSupportedToken) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetUserReceiptTokenAccountAccount sets the "user_receipt_token_account" account.
-func (inst *UserDepositSupportedToken) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(userReceiptTokenAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: user
 	seeds = append(seeds, user.Bytes())
@@ -142,12 +142,12 @@ func (inst *UserDepositSupportedToken) findFindUserReceiptTokenAccountAddress(us
 }
 
 // FindUserReceiptTokenAccountAddressWithBumpSeed calculates UserReceiptTokenAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -156,12 +156,12 @@ func (inst *UserDepositSupportedToken) MustFindUserReceiptTokenAccountAddressWit
 }
 
 // FindUserReceiptTokenAccountAddress finds UserReceiptTokenAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -170,28 +170,28 @@ func (inst *UserDepositSupportedToken) MustFindUserReceiptTokenAccountAddress(us
 }
 
 // GetUserReceiptTokenAccountAccount gets the "user_receipt_token_account" account.
-func (inst *UserDepositSupportedToken) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetSupportedTokenMintAccount sets the "supported_token_mint" account.
-func (inst *UserDepositSupportedToken) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(supportedTokenMint)
 	return inst
 }
 
 // GetSupportedTokenMintAccount gets the "supported_token_mint" account.
-func (inst *UserDepositSupportedToken) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetFundReserveAccountAccount sets the "fund_reserve_account" account.
-func (inst *UserDepositSupportedToken) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(fundReserveAccount)
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund_reserve
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64), byte(0x5f), byte(0x72), byte(0x65), byte(0x73), byte(0x65), byte(0x72), byte(0x76), byte(0x65)})
@@ -208,12 +208,12 @@ func (inst *UserDepositSupportedToken) findFindFundReserveAccountAddress(receipt
 }
 
 // FindFundReserveAccountAddressWithBumpSeed calculates FundReserveAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -222,12 +222,12 @@ func (inst *UserDepositSupportedToken) MustFindFundReserveAccountAddressWithBump
 }
 
 // FindFundReserveAccountAddress finds FundReserveAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -236,17 +236,17 @@ func (inst *UserDepositSupportedToken) MustFindFundReserveAccountAddress(receipt
 }
 
 // GetFundReserveAccountAccount gets the "fund_reserve_account" account.
-func (inst *UserDepositSupportedToken) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetFundSupportedTokenReserveAccountAccount sets the "fund_supported_token_reserve_account" account.
-func (inst *UserDepositSupportedToken) SetFundSupportedTokenReserveAccountAccount(fundSupportedTokenReserveAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetFundSupportedTokenReserveAccountAccount(fundSupportedTokenReserveAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(fundSupportedTokenReserveAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: fundReserveAccount
 	seeds = append(seeds, fundReserveAccount.Bytes())
@@ -267,12 +267,12 @@ func (inst *UserDepositSupportedToken) findFindFundSupportedTokenReserveAccountA
 }
 
 // FindFundSupportedTokenReserveAccountAddressWithBumpSeed calculates FundSupportedTokenReserveAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -281,12 +281,12 @@ func (inst *UserDepositSupportedToken) MustFindFundSupportedTokenReserveAccountA
 }
 
 // FindFundSupportedTokenReserveAccountAddress finds FundSupportedTokenReserveAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -295,28 +295,28 @@ func (inst *UserDepositSupportedToken) MustFindFundSupportedTokenReserveAccountA
 }
 
 // GetFundSupportedTokenReserveAccountAccount gets the "fund_supported_token_reserve_account" account.
-func (inst *UserDepositSupportedToken) GetFundSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetFundSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetUserSupportedTokenAccountAccount sets the "user_supported_token_account" account.
-func (inst *UserDepositSupportedToken) SetUserSupportedTokenAccountAccount(userSupportedTokenAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetUserSupportedTokenAccountAccount(userSupportedTokenAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(userSupportedTokenAccount).WRITE()
 	return inst
 }
 
 // GetUserSupportedTokenAccountAccount gets the "user_supported_token_account" account.
-func (inst *UserDepositSupportedToken) GetUserSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetUserSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *UserDepositSupportedToken) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[9] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -333,12 +333,12 @@ func (inst *UserDepositSupportedToken) findFindFundAccountAddress(receiptTokenMi
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -347,12 +347,12 @@ func (inst *UserDepositSupportedToken) MustFindFundAccountAddressWithBumpSeed(re
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -361,17 +361,17 @@ func (inst *UserDepositSupportedToken) MustFindFundAccountAddress(receiptTokenMi
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *UserDepositSupportedToken) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(9)
 }
 
 // SetUserFundAccountAccount sets the "user_fund_account" account.
-func (inst *UserDepositSupportedToken) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[10] = ag_solanago.Meta(userFundAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_fund
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -390,12 +390,12 @@ func (inst *UserDepositSupportedToken) findFindUserFundAccountAddress(receiptTok
 }
 
 // FindUserFundAccountAddressWithBumpSeed calculates UserFundAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -404,12 +404,12 @@ func (inst *UserDepositSupportedToken) MustFindUserFundAccountAddressWithBumpSee
 }
 
 // FindUserFundAccountAddress finds UserFundAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -418,17 +418,17 @@ func (inst *UserDepositSupportedToken) MustFindUserFundAccountAddress(receiptTok
 }
 
 // GetUserFundAccountAccount gets the "user_fund_account" account.
-func (inst *UserDepositSupportedToken) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(10)
 }
 
 // SetRewardAccountAccount sets the "reward_account" account.
-func (inst *UserDepositSupportedToken) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[11] = ag_solanago.Meta(rewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: reward
 	seeds = append(seeds, []byte{byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -445,12 +445,12 @@ func (inst *UserDepositSupportedToken) findFindRewardAccountAddress(receiptToken
 }
 
 // FindRewardAccountAddressWithBumpSeed calculates RewardAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -459,12 +459,12 @@ func (inst *UserDepositSupportedToken) MustFindRewardAccountAddressWithBumpSeed(
 }
 
 // FindRewardAccountAddress finds RewardAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -473,17 +473,17 @@ func (inst *UserDepositSupportedToken) MustFindRewardAccountAddress(receiptToken
 }
 
 // GetRewardAccountAccount gets the "reward_account" account.
-func (inst *UserDepositSupportedToken) GetRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(11)
 }
 
 // SetUserRewardAccountAccount sets the "user_reward_account" account.
-func (inst *UserDepositSupportedToken) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[12] = ag_solanago.Meta(userRewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_reward
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -502,12 +502,12 @@ func (inst *UserDepositSupportedToken) findFindUserRewardAccountAddress(receiptT
 }
 
 // FindUserRewardAccountAddressWithBumpSeed calculates UserRewardAccount account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -516,12 +516,12 @@ func (inst *UserDepositSupportedToken) MustFindUserRewardAccountAddressWithBumpS
 }
 
 // FindUserRewardAccountAddress finds UserRewardAccount account address with given seeds.
-func (inst *UserDepositSupportedToken) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -530,28 +530,28 @@ func (inst *UserDepositSupportedToken) MustFindUserRewardAccountAddress(receiptT
 }
 
 // GetUserRewardAccountAccount gets the "user_reward_account" account.
-func (inst *UserDepositSupportedToken) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(12)
 }
 
 // SetInstructionsSysvarAccount sets the "instructions_sysvar" account.
-func (inst *UserDepositSupportedToken) SetInstructionsSysvarAccount(instructionsSysvar ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetInstructionsSysvarAccount(instructionsSysvar ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[13] = ag_solanago.Meta(instructionsSysvar)
 	return inst
 }
 
 // GetInstructionsSysvarAccount gets the "instructions_sysvar" account.
-func (inst *UserDepositSupportedToken) GetInstructionsSysvarAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetInstructionsSysvarAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(13)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *UserDepositSupportedToken) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[14] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *UserDepositSupportedToken) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -566,12 +566,12 @@ func (inst *UserDepositSupportedToken) findFindEventAuthorityAddress(knownBumpSe
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *UserDepositSupportedToken) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -580,12 +580,12 @@ func (inst *UserDepositSupportedToken) MustFindEventAuthorityAddressWithBumpSeed
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *UserDepositSupportedToken) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserDepositSupportedTokenInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *UserDepositSupportedToken) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *UserDepositSupportedTokenInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -594,22 +594,22 @@ func (inst *UserDepositSupportedToken) MustFindEventAuthorityAddress() (pda ag_s
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *UserDepositSupportedToken) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(14)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *UserDepositSupportedToken) SetProgramAccount(program ag_solanago.PublicKey) *UserDepositSupportedToken {
+func (inst *UserDepositSupportedTokenInstruction) SetProgramAccount(program ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	inst.AccountMetaSlice[15] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *UserDepositSupportedToken) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserDepositSupportedTokenInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(15)
 }
 
-func (inst UserDepositSupportedToken) Build() *Instruction {
+func (inst UserDepositSupportedTokenInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_UserDepositSupportedToken,
@@ -619,14 +619,14 @@ func (inst UserDepositSupportedToken) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst UserDepositSupportedToken) ValidateAndBuild() (*Instruction, error) {
+func (inst UserDepositSupportedTokenInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *UserDepositSupportedToken) Validate() error {
+func (inst *UserDepositSupportedTokenInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Amount == nil {
@@ -688,7 +688,7 @@ func (inst *UserDepositSupportedToken) Validate() error {
 	return nil
 }
 
-func (inst *UserDepositSupportedToken) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *UserDepositSupportedTokenInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -725,7 +725,7 @@ func (inst *UserDepositSupportedToken) EncodeToTree(parent ag_treeout.Branches) 
 		})
 }
 
-func (obj UserDepositSupportedToken) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj UserDepositSupportedTokenInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Amount` param:
 	err = encoder.Encode(obj.Amount)
 	if err != nil {
@@ -751,7 +751,7 @@ func (obj UserDepositSupportedToken) MarshalWithEncoder(encoder *ag_binary.Encod
 	}
 	return nil
 }
-func (obj *UserDepositSupportedToken) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *UserDepositSupportedTokenInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Amount`:
 	err = decoder.Decode(&obj.Amount)
 	if err != nil {
@@ -794,7 +794,7 @@ func NewUserDepositSupportedTokenInstruction(
 	userRewardAccount ag_solanago.PublicKey,
 	instructionsSysvar ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *UserDepositSupportedToken {
+	program ag_solanago.PublicKey) *UserDepositSupportedTokenInstruction {
 	return NewUserDepositSupportedTokenInstructionBuilder().
 		SetAmount(amount).
 		SetMetadata(metadata).

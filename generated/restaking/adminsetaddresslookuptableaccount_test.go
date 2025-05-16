@@ -15,13 +15,13 @@ func TestEncodeDecode_AdminSetAddressLookupTableAccount(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("AdminSetAddressLookupTableAccount"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(AdminSetAddressLookupTableAccount)
+				params := new(AdminSetAddressLookupTableAccountInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(AdminSetAddressLookupTableAccount)
+				got := new(AdminSetAddressLookupTableAccountInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

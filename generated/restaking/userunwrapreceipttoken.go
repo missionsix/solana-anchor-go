@@ -11,7 +11,7 @@ import (
 )
 
 // UserUnwrapReceiptToken is the `user_unwrap_receipt_token` instruction.
-type UserUnwrapReceiptToken struct {
+type UserUnwrapReceiptTokenInstruction struct {
 	Amount *uint64
 
 	// [0] = [SIGNER] user
@@ -48,9 +48,9 @@ type UserUnwrapReceiptToken struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewUserUnwrapReceiptTokenInstructionBuilder creates a new `UserUnwrapReceiptToken` instruction builder.
-func NewUserUnwrapReceiptTokenInstructionBuilder() *UserUnwrapReceiptToken {
-	nd := &UserUnwrapReceiptToken{
+// NewUserUnwrapReceiptTokenInstructionBuilder creates a new `UserUnwrapReceiptTokenInstruction` instruction builder.
+func NewUserUnwrapReceiptTokenInstructionBuilder() *UserUnwrapReceiptTokenInstruction {
+	nd := &UserUnwrapReceiptTokenInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 16),
 	}
 	nd.AccountMetaSlice[2] = ag_solanago.Meta(Addresses["TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"])
@@ -59,29 +59,29 @@ func NewUserUnwrapReceiptTokenInstructionBuilder() *UserUnwrapReceiptToken {
 }
 
 // SetAmount sets the "amount" parameter.
-func (inst *UserUnwrapReceiptToken) SetAmount(amount uint64) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetAmount(amount uint64) *UserUnwrapReceiptTokenInstruction {
 	inst.Amount = &amount
 	return inst
 }
 
 // SetUserAccount sets the "user" account.
-func (inst *UserUnwrapReceiptToken) SetUserAccount(user ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetUserAccount(user ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).SIGNER()
 	return inst
 }
 
 // GetUserAccount gets the "user" account.
-func (inst *UserUnwrapReceiptToken) GetUserAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetUserAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetFundWrapAccountAccount sets the "fund_wrap_account" account.
-func (inst *UserUnwrapReceiptToken) SetFundWrapAccountAccount(fundWrapAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetFundWrapAccountAccount(fundWrapAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(fundWrapAccount)
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund_wrap
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64), byte(0x5f), byte(0x77), byte(0x72), byte(0x61), byte(0x70)})
@@ -98,12 +98,12 @@ func (inst *UserUnwrapReceiptToken) findFindFundWrapAccountAddress(receiptTokenM
 }
 
 // FindFundWrapAccountAddressWithBumpSeed calculates FundWrapAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindFundWrapAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundWrapAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundWrapAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundWrapAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundWrapAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -112,12 +112,12 @@ func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountAddressWithBumpSeed(r
 }
 
 // FindFundWrapAccountAddress finds FundWrapAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundWrapAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundWrapAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundWrapAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -126,61 +126,61 @@ func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountAddress(receiptTokenM
 }
 
 // GetFundWrapAccountAccount gets the "fund_wrap_account" account.
-func (inst *UserUnwrapReceiptToken) GetFundWrapAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetFundWrapAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenProgramAccount sets the "receipt_token_program" account.
-func (inst *UserUnwrapReceiptToken) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenProgram)
 	return inst
 }
 
 // GetReceiptTokenProgramAccount gets the "receipt_token_program" account.
-func (inst *UserUnwrapReceiptToken) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetWrappedTokenProgramAccount sets the "wrapped_token_program" account.
-func (inst *UserUnwrapReceiptToken) SetWrappedTokenProgramAccount(wrappedTokenProgram ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetWrappedTokenProgramAccount(wrappedTokenProgram ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(wrappedTokenProgram)
 	return inst
 }
 
 // GetWrappedTokenProgramAccount gets the "wrapped_token_program" account.
-func (inst *UserUnwrapReceiptToken) GetWrappedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetWrappedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *UserUnwrapReceiptToken) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(receiptTokenMint).WRITE()
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *UserUnwrapReceiptToken) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetWrappedTokenMintAccount sets the "wrapped_token_mint" account.
-func (inst *UserUnwrapReceiptToken) SetWrappedTokenMintAccount(wrappedTokenMint ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetWrappedTokenMintAccount(wrappedTokenMint ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(wrappedTokenMint).WRITE()
 	return inst
 }
 
 // GetWrappedTokenMintAccount gets the "wrapped_token_mint" account.
-func (inst *UserUnwrapReceiptToken) GetWrappedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetWrappedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetUserReceiptTokenAccountAccount sets the "user_receipt_token_account" account.
-func (inst *UserUnwrapReceiptToken) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetUserReceiptTokenAccountAccount(userReceiptTokenAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(userReceiptTokenAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: user
 	seeds = append(seeds, user.Bytes())
@@ -201,12 +201,12 @@ func (inst *UserUnwrapReceiptToken) findFindUserReceiptTokenAccountAddress(user 
 }
 
 // FindUserReceiptTokenAccountAddressWithBumpSeed calculates UserReceiptTokenAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserReceiptTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -215,12 +215,12 @@ func (inst *UserUnwrapReceiptToken) MustFindUserReceiptTokenAccountAddressWithBu
 }
 
 // FindUserReceiptTokenAccountAddress finds UserReceiptTokenAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserReceiptTokenAccountAddress(user ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserReceiptTokenAccountAddress(user, receiptTokenProgram, receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -229,17 +229,17 @@ func (inst *UserUnwrapReceiptToken) MustFindUserReceiptTokenAccountAddress(user 
 }
 
 // GetUserReceiptTokenAccountAccount gets the "user_receipt_token_account" account.
-func (inst *UserUnwrapReceiptToken) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetUserReceiptTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetReceiptTokenWrapAccountAccount sets the "receipt_token_wrap_account" account.
-func (inst *UserUnwrapReceiptToken) SetReceiptTokenWrapAccountAccount(receiptTokenWrapAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetReceiptTokenWrapAccountAccount(receiptTokenWrapAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(receiptTokenWrapAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: fundWrapAccount
 	seeds = append(seeds, fundWrapAccount.Bytes())
@@ -260,12 +260,12 @@ func (inst *UserUnwrapReceiptToken) findFindReceiptTokenWrapAccountAddress(fundW
 }
 
 // FindReceiptTokenWrapAccountAddressWithBumpSeed calculates ReceiptTokenWrapAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindReceiptTokenWrapAccountAddressWithBumpSeed(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindReceiptTokenWrapAccountAddressWithBumpSeed(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindReceiptTokenWrapAccountAddress(fundWrapAccount, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindReceiptTokenWrapAccountAddressWithBumpSeed(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindReceiptTokenWrapAccountAddressWithBumpSeed(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindReceiptTokenWrapAccountAddress(fundWrapAccount, receiptTokenProgram, receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -274,12 +274,12 @@ func (inst *UserUnwrapReceiptToken) MustFindReceiptTokenWrapAccountAddressWithBu
 }
 
 // FindReceiptTokenWrapAccountAddress finds ReceiptTokenWrapAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindReceiptTokenWrapAccountAddress(fundWrapAccount, receiptTokenProgram, receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindReceiptTokenWrapAccountAddress(fundWrapAccount ag_solanago.PublicKey, receiptTokenProgram ag_solanago.PublicKey, receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindReceiptTokenWrapAccountAddress(fundWrapAccount, receiptTokenProgram, receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -288,17 +288,17 @@ func (inst *UserUnwrapReceiptToken) MustFindReceiptTokenWrapAccountAddress(fundW
 }
 
 // GetReceiptTokenWrapAccountAccount gets the "receipt_token_wrap_account" account.
-func (inst *UserUnwrapReceiptToken) GetReceiptTokenWrapAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetReceiptTokenWrapAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetUserWrappedTokenAccountAccount sets the "user_wrapped_token_account" account.
-func (inst *UserUnwrapReceiptToken) SetUserWrappedTokenAccountAccount(userWrappedTokenAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetUserWrappedTokenAccountAccount(userWrappedTokenAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(userWrappedTokenAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: user
 	seeds = append(seeds, user.Bytes())
@@ -319,12 +319,12 @@ func (inst *UserUnwrapReceiptToken) findFindUserWrappedTokenAccountAddress(user 
 }
 
 // FindUserWrappedTokenAccountAddressWithBumpSeed calculates UserWrappedTokenAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindUserWrappedTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserWrappedTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserWrappedTokenAccountAddress(user, wrappedTokenProgram, wrappedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserWrappedTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserWrappedTokenAccountAddressWithBumpSeed(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserWrappedTokenAccountAddress(user, wrappedTokenProgram, wrappedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -333,12 +333,12 @@ func (inst *UserUnwrapReceiptToken) MustFindUserWrappedTokenAccountAddressWithBu
 }
 
 // FindUserWrappedTokenAccountAddress finds UserWrappedTokenAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserWrappedTokenAccountAddress(user, wrappedTokenProgram, wrappedTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserWrappedTokenAccountAddress(user ag_solanago.PublicKey, wrappedTokenProgram ag_solanago.PublicKey, wrappedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserWrappedTokenAccountAddress(user, wrappedTokenProgram, wrappedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -347,17 +347,17 @@ func (inst *UserUnwrapReceiptToken) MustFindUserWrappedTokenAccountAddress(user 
 }
 
 // GetUserWrappedTokenAccountAccount gets the "user_wrapped_token_account" account.
-func (inst *UserUnwrapReceiptToken) GetUserWrappedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetUserWrappedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *UserUnwrapReceiptToken) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[9] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -374,12 +374,12 @@ func (inst *UserUnwrapReceiptToken) findFindFundAccountAddress(receiptTokenMint 
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -388,12 +388,12 @@ func (inst *UserUnwrapReceiptToken) MustFindFundAccountAddressWithBumpSeed(recei
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -402,17 +402,17 @@ func (inst *UserUnwrapReceiptToken) MustFindFundAccountAddress(receiptTokenMint 
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *UserUnwrapReceiptToken) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(9)
 }
 
 // SetUserFundAccountAccount sets the "user_fund_account" account.
-func (inst *UserUnwrapReceiptToken) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetUserFundAccountAccount(userFundAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[10] = ag_solanago.Meta(userFundAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_fund
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -431,12 +431,12 @@ func (inst *UserUnwrapReceiptToken) findFindUserFundAccountAddress(receiptTokenM
 }
 
 // FindUserFundAccountAddressWithBumpSeed calculates UserFundAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -445,12 +445,12 @@ func (inst *UserUnwrapReceiptToken) MustFindUserFundAccountAddressWithBumpSeed(r
 }
 
 // FindUserFundAccountAddress finds UserFundAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserFundAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -459,17 +459,17 @@ func (inst *UserUnwrapReceiptToken) MustFindUserFundAccountAddress(receiptTokenM
 }
 
 // GetUserFundAccountAccount gets the "user_fund_account" account.
-func (inst *UserUnwrapReceiptToken) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetUserFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(10)
 }
 
 // SetRewardAccountAccount sets the "reward_account" account.
-func (inst *UserUnwrapReceiptToken) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetRewardAccountAccount(rewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[11] = ag_solanago.Meta(rewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: reward
 	seeds = append(seeds, []byte{byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -486,12 +486,12 @@ func (inst *UserUnwrapReceiptToken) findFindRewardAccountAddress(receiptTokenMin
 }
 
 // FindRewardAccountAddressWithBumpSeed calculates RewardAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -500,12 +500,12 @@ func (inst *UserUnwrapReceiptToken) MustFindRewardAccountAddressWithBumpSeed(rec
 }
 
 // FindRewardAccountAddress finds RewardAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindRewardAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -514,17 +514,17 @@ func (inst *UserUnwrapReceiptToken) MustFindRewardAccountAddress(receiptTokenMin
 }
 
 // GetRewardAccountAccount gets the "reward_account" account.
-func (inst *UserUnwrapReceiptToken) GetRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(11)
 }
 
 // SetUserRewardAccountAccount sets the "user_reward_account" account.
-func (inst *UserUnwrapReceiptToken) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetUserRewardAccountAccount(userRewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[12] = ag_solanago.Meta(userRewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_reward
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -543,12 +543,12 @@ func (inst *UserUnwrapReceiptToken) findFindUserRewardAccountAddress(receiptToke
 }
 
 // FindUserRewardAccountAddressWithBumpSeed calculates UserRewardAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -557,12 +557,12 @@ func (inst *UserUnwrapReceiptToken) MustFindUserRewardAccountAddressWithBumpSeed
 }
 
 // FindUserRewardAccountAddress finds UserRewardAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindUserRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, user ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindUserRewardAccountAddress(receiptTokenMint, user, 0)
 	if err != nil {
 		panic(err)
@@ -571,17 +571,17 @@ func (inst *UserUnwrapReceiptToken) MustFindUserRewardAccountAddress(receiptToke
 }
 
 // GetUserRewardAccountAccount gets the "user_reward_account" account.
-func (inst *UserUnwrapReceiptToken) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetUserRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(12)
 }
 
 // SetFundWrapAccountRewardAccountAccount sets the "fund_wrap_account_reward_account" account.
-func (inst *UserUnwrapReceiptToken) SetFundWrapAccountRewardAccountAccount(fundWrapAccountRewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetFundWrapAccountRewardAccountAccount(fundWrapAccountRewardAccount ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[13] = ag_solanago.Meta(fundWrapAccountRewardAccount).WRITE()
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: user_reward
 	seeds = append(seeds, []byte{byte(0x75), byte(0x73), byte(0x65), byte(0x72), byte(0x5f), byte(0x72), byte(0x65), byte(0x77), byte(0x61), byte(0x72), byte(0x64)})
@@ -600,12 +600,12 @@ func (inst *UserUnwrapReceiptToken) findFindFundWrapAccountRewardAccountAddress(
 }
 
 // FindFundWrapAccountRewardAccountAddressWithBumpSeed calculates FundWrapAccountRewardAccount account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindFundWrapAccountRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundWrapAccountRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundWrapAccountRewardAccountAddress(receiptTokenMint, fundWrapAccount, bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundWrapAccountRewardAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundWrapAccountRewardAccountAddress(receiptTokenMint, fundWrapAccount, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -614,12 +614,12 @@ func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountRewardAccountAddressW
 }
 
 // FindFundWrapAccountRewardAccountAddress finds FundWrapAccountRewardAccount account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundWrapAccountRewardAccountAddress(receiptTokenMint, fundWrapAccount, 0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindFundWrapAccountRewardAccountAddress(receiptTokenMint ag_solanago.PublicKey, fundWrapAccount ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundWrapAccountRewardAccountAddress(receiptTokenMint, fundWrapAccount, 0)
 	if err != nil {
 		panic(err)
@@ -628,17 +628,17 @@ func (inst *UserUnwrapReceiptToken) MustFindFundWrapAccountRewardAccountAddress(
 }
 
 // GetFundWrapAccountRewardAccountAccount gets the "fund_wrap_account_reward_account" account.
-func (inst *UserUnwrapReceiptToken) GetFundWrapAccountRewardAccountAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetFundWrapAccountRewardAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(13)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *UserUnwrapReceiptToken) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[14] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *UserUnwrapReceiptToken) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -653,12 +653,12 @@ func (inst *UserUnwrapReceiptToken) findFindEventAuthorityAddress(knownBumpSeed 
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *UserUnwrapReceiptToken) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -667,12 +667,12 @@ func (inst *UserUnwrapReceiptToken) MustFindEventAuthorityAddressWithBumpSeed(bu
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *UserUnwrapReceiptToken) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *UserUnwrapReceiptTokenInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *UserUnwrapReceiptToken) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *UserUnwrapReceiptTokenInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -681,22 +681,22 @@ func (inst *UserUnwrapReceiptToken) MustFindEventAuthorityAddress() (pda ag_sola
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *UserUnwrapReceiptToken) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(14)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *UserUnwrapReceiptToken) SetProgramAccount(program ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+func (inst *UserUnwrapReceiptTokenInstruction) SetProgramAccount(program ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	inst.AccountMetaSlice[15] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *UserUnwrapReceiptToken) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *UserUnwrapReceiptTokenInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(15)
 }
 
-func (inst UserUnwrapReceiptToken) Build() *Instruction {
+func (inst UserUnwrapReceiptTokenInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_UserUnwrapReceiptToken,
@@ -706,14 +706,14 @@ func (inst UserUnwrapReceiptToken) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst UserUnwrapReceiptToken) ValidateAndBuild() (*Instruction, error) {
+func (inst UserUnwrapReceiptTokenInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *UserUnwrapReceiptToken) Validate() error {
+func (inst *UserUnwrapReceiptTokenInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Amount == nil {
@@ -775,7 +775,7 @@ func (inst *UserUnwrapReceiptToken) Validate() error {
 	return nil
 }
 
-func (inst *UserUnwrapReceiptToken) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *UserUnwrapReceiptTokenInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -811,7 +811,7 @@ func (inst *UserUnwrapReceiptToken) EncodeToTree(parent ag_treeout.Branches) {
 		})
 }
 
-func (obj UserUnwrapReceiptToken) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj UserUnwrapReceiptTokenInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Amount` param:
 	err = encoder.Encode(obj.Amount)
 	if err != nil {
@@ -819,7 +819,7 @@ func (obj UserUnwrapReceiptToken) MarshalWithEncoder(encoder *ag_binary.Encoder)
 	}
 	return nil
 }
-func (obj *UserUnwrapReceiptToken) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *UserUnwrapReceiptTokenInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Amount`:
 	err = decoder.Decode(&obj.Amount)
 	if err != nil {
@@ -848,7 +848,7 @@ func NewUserUnwrapReceiptTokenInstruction(
 	userRewardAccount ag_solanago.PublicKey,
 	fundWrapAccountRewardAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *UserUnwrapReceiptToken {
+	program ag_solanago.PublicKey) *UserUnwrapReceiptTokenInstruction {
 	return NewUserUnwrapReceiptTokenInstructionBuilder().
 		SetAmount(amount).
 		SetUserAccount(user).

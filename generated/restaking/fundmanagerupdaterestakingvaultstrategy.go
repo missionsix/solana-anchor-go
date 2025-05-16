@@ -11,7 +11,7 @@ import (
 )
 
 // FundManagerUpdateRestakingVaultStrategy is the `fund_manager_update_restaking_vault_strategy` instruction.
-type FundManagerUpdateRestakingVaultStrategy struct {
+type FundManagerUpdateRestakingVaultStrategyInstruction struct {
 	Vault                       *ag_solanago.PublicKey
 	SolAllocationWeight         *uint64
 	SolAllocationCapacityAmount *uint64
@@ -28,9 +28,9 @@ type FundManagerUpdateRestakingVaultStrategy struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder creates a new `FundManagerUpdateRestakingVaultStrategy` instruction builder.
-func NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder() *FundManagerUpdateRestakingVaultStrategy {
-	nd := &FundManagerUpdateRestakingVaultStrategy{
+// NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder creates a new `FundManagerUpdateRestakingVaultStrategyInstruction` instruction builder.
+func NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder() *FundManagerUpdateRestakingVaultStrategyInstruction {
+	nd := &FundManagerUpdateRestakingVaultStrategyInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 5),
 	}
 	nd.AccountMetaSlice[0] = ag_solanago.Meta(Addresses["5UpLTLA7Wjqp7qdfjuTtPcUw3aVtbqFA5Mgm34mxPNg2"]).SIGNER()
@@ -38,52 +38,52 @@ func NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder() *FundManager
 }
 
 // SetVault sets the "vault" parameter.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetVault(vault ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetVault(vault ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.Vault = &vault
 	return inst
 }
 
 // SetSolAllocationWeight sets the "sol_allocation_weight" parameter.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetSolAllocationWeight(sol_allocation_weight uint64) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetSolAllocationWeight(sol_allocation_weight uint64) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.SolAllocationWeight = &sol_allocation_weight
 	return inst
 }
 
 // SetSolAllocationCapacityAmount sets the "sol_allocation_capacity_amount" parameter.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetSolAllocationCapacityAmount(sol_allocation_capacity_amount uint64) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetSolAllocationCapacityAmount(sol_allocation_capacity_amount uint64) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.SolAllocationCapacityAmount = &sol_allocation_capacity_amount
 	return inst
 }
 
 // SetFundManagerAccount sets the "fund_manager" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetFundManagerAccount(fundManager ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(fundManager).SIGNER()
 	return inst
 }
 
 // GetFundManagerAccount gets the "fund_manager" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) GetFundManagerAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) GetFundManagerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -100,12 +100,12 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) findFindFundAccountAddress(
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateRestakingVaultStrategy) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -114,12 +114,12 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindFundAccountAddressW
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *FundManagerUpdateRestakingVaultStrategy) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -128,17 +128,17 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindFundAccountAddress(
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -153,12 +153,12 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) findFindEventAuthorityAddre
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *FundManagerUpdateRestakingVaultStrategy) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -167,12 +167,12 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindEventAuthorityAddre
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *FundManagerUpdateRestakingVaultStrategy) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -181,22 +181,22 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) MustFindEventAuthorityAddre
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) SetProgramAccount(program ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *FundManagerUpdateRestakingVaultStrategy) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
-func (inst FundManagerUpdateRestakingVaultStrategy) Build() *Instruction {
+func (inst FundManagerUpdateRestakingVaultStrategyInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_FundManagerUpdateRestakingVaultStrategy,
@@ -206,14 +206,14 @@ func (inst FundManagerUpdateRestakingVaultStrategy) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst FundManagerUpdateRestakingVaultStrategy) ValidateAndBuild() (*Instruction, error) {
+func (inst FundManagerUpdateRestakingVaultStrategyInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) Validate() error {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Vault == nil {
@@ -248,7 +248,7 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) Validate() error {
 	return nil
 }
 
-func (inst *FundManagerUpdateRestakingVaultStrategy) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *FundManagerUpdateRestakingVaultStrategyInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -275,7 +275,7 @@ func (inst *FundManagerUpdateRestakingVaultStrategy) EncodeToTree(parent ag_tree
 		})
 }
 
-func (obj FundManagerUpdateRestakingVaultStrategy) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj FundManagerUpdateRestakingVaultStrategyInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Vault` param:
 	err = encoder.Encode(obj.Vault)
 	if err != nil {
@@ -293,7 +293,7 @@ func (obj FundManagerUpdateRestakingVaultStrategy) MarshalWithEncoder(encoder *a
 	}
 	return nil
 }
-func (obj *FundManagerUpdateRestakingVaultStrategy) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *FundManagerUpdateRestakingVaultStrategyInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Vault`:
 	err = decoder.Decode(&obj.Vault)
 	if err != nil {
@@ -323,7 +323,7 @@ func NewFundManagerUpdateRestakingVaultStrategyInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategy {
+	program ag_solanago.PublicKey) *FundManagerUpdateRestakingVaultStrategyInstruction {
 	return NewFundManagerUpdateRestakingVaultStrategyInstructionBuilder().
 		SetVault(vault).
 		SetSolAllocationWeight(sol_allocation_weight).

@@ -11,7 +11,7 @@ import (
 )
 
 // AdminUpdateFundAccountIfNeeded is the `admin_update_fund_account_if_needed` instruction.
-type AdminUpdateFundAccountIfNeeded struct {
+type AdminUpdateFundAccountIfNeededInstruction struct {
 	DesiredAccountSize *uint32 `bin:"optional"`
 
 	// [0] = [WRITE, SIGNER] payer
@@ -32,9 +32,9 @@ type AdminUpdateFundAccountIfNeeded struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewAdminUpdateFundAccountIfNeededInstructionBuilder creates a new `AdminUpdateFundAccountIfNeeded` instruction builder.
-func NewAdminUpdateFundAccountIfNeededInstructionBuilder() *AdminUpdateFundAccountIfNeeded {
-	nd := &AdminUpdateFundAccountIfNeeded{
+// NewAdminUpdateFundAccountIfNeededInstructionBuilder creates a new `AdminUpdateFundAccountIfNeededInstruction` instruction builder.
+func NewAdminUpdateFundAccountIfNeededInstructionBuilder() *AdminUpdateFundAccountIfNeededInstruction {
+	nd := &AdminUpdateFundAccountIfNeededInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 8),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["fragkamrANLvuZYQPcmPsCATQAabkqNGH6gxqqPG3aP"]).SIGNER()
@@ -43,62 +43,62 @@ func NewAdminUpdateFundAccountIfNeededInstructionBuilder() *AdminUpdateFundAccou
 }
 
 // SetDesiredAccountSize sets the "desired_account_size" parameter.
-func (inst *AdminUpdateFundAccountIfNeeded) SetDesiredAccountSize(desired_account_size uint32) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetDesiredAccountSize(desired_account_size uint32) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.DesiredAccountSize = &desired_account_size
 	return inst
 }
 
 // SetPayerAccount sets the "payer" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetPayerAccount(payer ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetPayerAccount(payer ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(payer).WRITE().SIGNER()
 	return inst
 }
 
 // GetPayerAccount gets the "payer" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetPayerAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetPayerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetAdminAccount sets the "admin" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetAdminAccount(admin ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetAdminAccount(admin ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(admin).SIGNER()
 	return inst
 }
 
 // GetAdminAccount gets the "admin" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetAdminAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetAdminAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -115,12 +115,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) findFindFundAccountAddress(receiptTo
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *AdminUpdateFundAccountIfNeeded) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -129,12 +129,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundAccountAddressWithBumpSe
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *AdminUpdateFundAccountIfNeeded) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -143,17 +143,17 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundAccountAddress(receiptTo
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetFundReserveAccountAccount sets the "fund_reserve_account" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(fundReserveAccount)
 	return inst
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund_reserve
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64), byte(0x5f), byte(0x72), byte(0x65), byte(0x73), byte(0x65), byte(0x72), byte(0x76), byte(0x65)})
@@ -170,12 +170,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) findFindFundReserveAccountAddress(re
 }
 
 // FindFundReserveAccountAddressWithBumpSeed calculates FundReserveAccount account address with given seeds and a known bump seed.
-func (inst *AdminUpdateFundAccountIfNeeded) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -184,12 +184,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundReserveAccountAddressWit
 }
 
 // FindFundReserveAccountAddress finds FundReserveAccount account address with given seeds.
-func (inst *AdminUpdateFundAccountIfNeeded) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -198,17 +198,17 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindFundReserveAccountAddress(re
 }
 
 // GetFundReserveAccountAccount gets the "fund_reserve_account" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -223,12 +223,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) findFindEventAuthorityAddress(knownB
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *AdminUpdateFundAccountIfNeeded) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -237,12 +237,12 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindEventAuthorityAddressWithBum
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *AdminUpdateFundAccountIfNeeded) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -251,22 +251,22 @@ func (inst *AdminUpdateFundAccountIfNeeded) MustFindEventAuthorityAddress() (pda
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *AdminUpdateFundAccountIfNeeded) SetProgramAccount(program ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) SetProgramAccount(program ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *AdminUpdateFundAccountIfNeeded) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
-func (inst AdminUpdateFundAccountIfNeeded) Build() *Instruction {
+func (inst AdminUpdateFundAccountIfNeededInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_AdminUpdateFundAccountIfNeeded,
@@ -276,14 +276,14 @@ func (inst AdminUpdateFundAccountIfNeeded) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst AdminUpdateFundAccountIfNeeded) ValidateAndBuild() (*Instruction, error) {
+func (inst AdminUpdateFundAccountIfNeededInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) Validate() error {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 	}
@@ -318,7 +318,7 @@ func (inst *AdminUpdateFundAccountIfNeeded) Validate() error {
 	return nil
 }
 
-func (inst *AdminUpdateFundAccountIfNeeded) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *AdminUpdateFundAccountIfNeededInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -346,7 +346,7 @@ func (inst *AdminUpdateFundAccountIfNeeded) EncodeToTree(parent ag_treeout.Branc
 		})
 }
 
-func (obj AdminUpdateFundAccountIfNeeded) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj AdminUpdateFundAccountIfNeededInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `DesiredAccountSize` param (optional):
 	{
 		if obj.DesiredAccountSize == nil {
@@ -367,7 +367,7 @@ func (obj AdminUpdateFundAccountIfNeeded) MarshalWithEncoder(encoder *ag_binary.
 	}
 	return nil
 }
-func (obj *AdminUpdateFundAccountIfNeeded) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *AdminUpdateFundAccountIfNeededInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `DesiredAccountSize` (optional):
 	{
 		ok, err := decoder.ReadBool()
@@ -396,7 +396,7 @@ func NewAdminUpdateFundAccountIfNeededInstruction(
 	fundAccount ag_solanago.PublicKey,
 	fundReserveAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeeded {
+	program ag_solanago.PublicKey) *AdminUpdateFundAccountIfNeededInstruction {
 	return NewAdminUpdateFundAccountIfNeededInstructionBuilder().
 		SetDesiredAccountSize(desired_account_size).
 		SetPayerAccount(payer).

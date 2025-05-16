@@ -15,13 +15,13 @@ func TestEncodeDecode_UserCancelWithdrawalRequest(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("UserCancelWithdrawalRequest"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(UserCancelWithdrawalRequest)
+				params := new(UserCancelWithdrawalRequestInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(UserCancelWithdrawalRequest)
+				got := new(UserCancelWithdrawalRequestInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

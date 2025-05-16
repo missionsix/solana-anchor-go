@@ -518,6 +518,10 @@ func formatBuilderFuncName(insExportedName string) string {
 	return "New" + insExportedName + "InstructionBuilder"
 }
 
+func formatInstructionTypeName(insExportedName string) string {
+	return insExportedName + "Instruction"
+}
+
 func genMarshalWithEncoder_enum(
 	receiverTypeName string,
 	variants *IdlEnumVariantSlice,

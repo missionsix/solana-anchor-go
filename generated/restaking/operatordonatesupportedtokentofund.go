@@ -11,7 +11,7 @@ import (
 )
 
 // OperatorDonateSupportedTokenToFund is the `operator_donate_supported_token_to_fund` instruction.
-type OperatorDonateSupportedTokenToFund struct {
+type OperatorDonateSupportedTokenToFundInstruction struct {
 	Amount           *uint64
 	OffsetReceivable *bool
 
@@ -39,9 +39,9 @@ type OperatorDonateSupportedTokenToFund struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewOperatorDonateSupportedTokenToFundInstructionBuilder creates a new `OperatorDonateSupportedTokenToFund` instruction builder.
-func NewOperatorDonateSupportedTokenToFundInstructionBuilder() *OperatorDonateSupportedTokenToFund {
-	nd := &OperatorDonateSupportedTokenToFund{
+// NewOperatorDonateSupportedTokenToFundInstructionBuilder creates a new `OperatorDonateSupportedTokenToFundInstruction` instruction builder.
+func NewOperatorDonateSupportedTokenToFundInstructionBuilder() *OperatorDonateSupportedTokenToFundInstruction {
+	nd := &OperatorDonateSupportedTokenToFundInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 11),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"])
@@ -49,79 +49,79 @@ func NewOperatorDonateSupportedTokenToFundInstructionBuilder() *OperatorDonateSu
 }
 
 // SetAmount sets the "amount" parameter.
-func (inst *OperatorDonateSupportedTokenToFund) SetAmount(amount uint64) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetAmount(amount uint64) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.Amount = &amount
 	return inst
 }
 
 // SetOffsetReceivable sets the "offset_receivable" parameter.
-func (inst *OperatorDonateSupportedTokenToFund) SetOffsetReceivable(offset_receivable bool) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetOffsetReceivable(offset_receivable bool) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.OffsetReceivable = &offset_receivable
 	return inst
 }
 
 // SetOperatorAccount sets the "operator" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(operator).WRITE().SIGNER()
 	return inst
 }
 
 // GetOperatorAccount gets the "operator" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetOperatorAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetOperatorAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetReceiptTokenProgramAccount sets the "receipt_token_program" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetReceiptTokenProgramAccount(receiptTokenProgram ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(receiptTokenProgram)
 	return inst
 }
 
 // GetReceiptTokenProgramAccount gets the "receipt_token_program" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetReceiptTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetSupportedTokenProgramAccount sets the "supported_token_program" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetSupportedTokenProgramAccount(supportedTokenProgram ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(supportedTokenProgram)
 	return inst
 }
 
 // GetSupportedTokenProgramAccount gets the "supported_token_program" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetSupportedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(receiptTokenMint)
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetSupportedTokenMintAccount sets the "supported_token_mint" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetSupportedTokenMintAccount(supportedTokenMint ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(supportedTokenMint)
 	return inst
 }
 
 // GetSupportedTokenMintAccount gets the "supported_token_mint" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetSupportedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetFundSupportedTokenReserveAccountAccount sets the "fund_supported_token_reserve_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetFundSupportedTokenReserveAccountAccount(fundSupportedTokenReserveAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetFundSupportedTokenReserveAccountAccount(fundSupportedTokenReserveAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(fundSupportedTokenReserveAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// path: fundReserveAccount
 	seeds = append(seeds, fundReserveAccount.Bytes())
@@ -142,12 +142,12 @@ func (inst *OperatorDonateSupportedTokenToFund) findFindFundSupportedTokenReserv
 }
 
 // FindFundSupportedTokenReserveAccountAddressWithBumpSeed calculates FundSupportedTokenReserveAccount account address with given seeds and a known bump seed.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundSupportedTokenReserveAccountAddressWithBumpSeed(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -156,12 +156,12 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundSupportedTokenReserv
 }
 
 // FindFundSupportedTokenReserveAccountAddress finds FundSupportedTokenReserveAccount account address with given seeds.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, 0)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundSupportedTokenReserveAccountAddress(fundReserveAccount ag_solanago.PublicKey, supportedTokenProgram ag_solanago.PublicKey, supportedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundSupportedTokenReserveAccountAddress(fundReserveAccount, supportedTokenProgram, supportedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -170,28 +170,28 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundSupportedTokenReserv
 }
 
 // GetFundSupportedTokenReserveAccountAccount gets the "fund_supported_token_reserve_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetFundSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetFundSupportedTokenReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetOperatorSupportedTokenAccountAccount sets the "operator_supported_token_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetOperatorSupportedTokenAccountAccount(operatorSupportedTokenAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetOperatorSupportedTokenAccountAccount(operatorSupportedTokenAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(operatorSupportedTokenAccount).WRITE()
 	return inst
 }
 
 // GetOperatorSupportedTokenAccountAccount gets the "operator_supported_token_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetOperatorSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetOperatorSupportedTokenAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[7] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -208,12 +208,12 @@ func (inst *OperatorDonateSupportedTokenToFund) findFindFundAccountAddress(recei
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -222,12 +222,12 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundAccountAddressWithBu
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -236,17 +236,17 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundAccountAddress(recei
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(7)
 }
 
 // SetFundReserveAccountAccount sets the "fund_reserve_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetFundReserveAccountAccount(fundReserveAccount ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[8] = ag_solanago.Meta(fundReserveAccount)
 	return inst
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) findFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund_reserve
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64), byte(0x5f), byte(0x72), byte(0x65), byte(0x73), byte(0x65), byte(0x72), byte(0x76), byte(0x65)})
@@ -263,12 +263,12 @@ func (inst *OperatorDonateSupportedTokenToFund) findFindFundReserveAccountAddres
 }
 
 // FindFundReserveAccountAddressWithBumpSeed calculates FundReserveAccount account address with given seeds and a known bump seed.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundReserveAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -277,12 +277,12 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundReserveAccountAddres
 }
 
 // FindFundReserveAccountAddress finds FundReserveAccount account address with given seeds.
-func (inst *OperatorDonateSupportedTokenToFund) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindFundReserveAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundReserveAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -291,17 +291,17 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindFundReserveAccountAddres
 }
 
 // GetFundReserveAccountAccount gets the "fund_reserve_account" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetFundReserveAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(8)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[9] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -316,12 +316,12 @@ func (inst *OperatorDonateSupportedTokenToFund) findFindEventAuthorityAddress(kn
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *OperatorDonateSupportedTokenToFund) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -330,12 +330,12 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindEventAuthorityAddressWit
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *OperatorDonateSupportedTokenToFund) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -344,22 +344,22 @@ func (inst *OperatorDonateSupportedTokenToFund) MustFindEventAuthorityAddress() 
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(9)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *OperatorDonateSupportedTokenToFund) SetProgramAccount(program ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) SetProgramAccount(program ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	inst.AccountMetaSlice[10] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *OperatorDonateSupportedTokenToFund) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(10)
 }
 
-func (inst OperatorDonateSupportedTokenToFund) Build() *Instruction {
+func (inst OperatorDonateSupportedTokenToFundInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_OperatorDonateSupportedTokenToFund,
@@ -369,14 +369,14 @@ func (inst OperatorDonateSupportedTokenToFund) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst OperatorDonateSupportedTokenToFund) ValidateAndBuild() (*Instruction, error) {
+func (inst OperatorDonateSupportedTokenToFundInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) Validate() error {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Amount == nil {
@@ -426,7 +426,7 @@ func (inst *OperatorDonateSupportedTokenToFund) Validate() error {
 	return nil
 }
 
-func (inst *OperatorDonateSupportedTokenToFund) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *OperatorDonateSupportedTokenToFundInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -458,7 +458,7 @@ func (inst *OperatorDonateSupportedTokenToFund) EncodeToTree(parent ag_treeout.B
 		})
 }
 
-func (obj OperatorDonateSupportedTokenToFund) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj OperatorDonateSupportedTokenToFundInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Amount` param:
 	err = encoder.Encode(obj.Amount)
 	if err != nil {
@@ -471,7 +471,7 @@ func (obj OperatorDonateSupportedTokenToFund) MarshalWithEncoder(encoder *ag_bin
 	}
 	return nil
 }
-func (obj *OperatorDonateSupportedTokenToFund) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *OperatorDonateSupportedTokenToFundInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Amount`:
 	err = decoder.Decode(&obj.Amount)
 	if err != nil {
@@ -501,7 +501,7 @@ func NewOperatorDonateSupportedTokenToFundInstruction(
 	fundAccount ag_solanago.PublicKey,
 	fundReserveAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFund {
+	program ag_solanago.PublicKey) *OperatorDonateSupportedTokenToFundInstruction {
 	return NewOperatorDonateSupportedTokenToFundInstructionBuilder().
 		SetAmount(amount).
 		SetOffsetReceivable(offset_receivable).

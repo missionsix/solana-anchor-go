@@ -11,7 +11,7 @@ import (
 )
 
 // OperatorUpdateFundPrices is the `operator_update_fund_prices` instruction.
-type OperatorUpdateFundPrices struct {
+type OperatorUpdateFundPricesInstruction struct {
 
 	// [0] = [WRITE, SIGNER] operator
 	//
@@ -27,9 +27,9 @@ type OperatorUpdateFundPrices struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewOperatorUpdateFundPricesInstructionBuilder creates a new `OperatorUpdateFundPrices` instruction builder.
-func NewOperatorUpdateFundPricesInstructionBuilder() *OperatorUpdateFundPrices {
-	nd := &OperatorUpdateFundPrices{
+// NewOperatorUpdateFundPricesInstructionBuilder creates a new `OperatorUpdateFundPricesInstruction` instruction builder.
+func NewOperatorUpdateFundPricesInstructionBuilder() *OperatorUpdateFundPricesInstruction {
+	nd := &OperatorUpdateFundPricesInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 6),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["11111111111111111111111111111111"])
@@ -37,45 +37,45 @@ func NewOperatorUpdateFundPricesInstructionBuilder() *OperatorUpdateFundPrices {
 }
 
 // SetOperatorAccount sets the "operator" account.
-func (inst *OperatorUpdateFundPrices) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(operator).WRITE().SIGNER()
 	return inst
 }
 
 // GetOperatorAccount gets the "operator" account.
-func (inst *OperatorUpdateFundPrices) GetOperatorAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetOperatorAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *OperatorUpdateFundPrices) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *OperatorUpdateFundPrices) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *OperatorUpdateFundPrices) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenMint).WRITE()
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *OperatorUpdateFundPrices) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *OperatorUpdateFundPrices) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorUpdateFundPrices) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -92,12 +92,12 @@ func (inst *OperatorUpdateFundPrices) findFindFundAccountAddress(receiptTokenMin
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateFundPrices) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateFundPrices) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateFundPricesInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -106,12 +106,12 @@ func (inst *OperatorUpdateFundPrices) MustFindFundAccountAddressWithBumpSeed(rec
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *OperatorUpdateFundPrices) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *OperatorUpdateFundPrices) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateFundPricesInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -120,17 +120,17 @@ func (inst *OperatorUpdateFundPrices) MustFindFundAccountAddress(receiptTokenMin
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *OperatorUpdateFundPrices) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *OperatorUpdateFundPrices) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *OperatorUpdateFundPrices) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -145,12 +145,12 @@ func (inst *OperatorUpdateFundPrices) findFindEventAuthorityAddress(knownBumpSee
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateFundPrices) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateFundPrices) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateFundPricesInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -159,12 +159,12 @@ func (inst *OperatorUpdateFundPrices) MustFindEventAuthorityAddressWithBumpSeed(
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *OperatorUpdateFundPrices) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateFundPricesInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *OperatorUpdateFundPrices) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateFundPricesInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -173,22 +173,22 @@ func (inst *OperatorUpdateFundPrices) MustFindEventAuthorityAddress() (pda ag_so
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *OperatorUpdateFundPrices) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *OperatorUpdateFundPrices) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+func (inst *OperatorUpdateFundPricesInstruction) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *OperatorUpdateFundPrices) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateFundPricesInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
-func (inst OperatorUpdateFundPrices) Build() *Instruction {
+func (inst OperatorUpdateFundPricesInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_OperatorUpdateFundPrices,
@@ -198,14 +198,14 @@ func (inst OperatorUpdateFundPrices) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst OperatorUpdateFundPrices) ValidateAndBuild() (*Instruction, error) {
+func (inst OperatorUpdateFundPricesInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *OperatorUpdateFundPrices) Validate() error {
+func (inst *OperatorUpdateFundPricesInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -230,7 +230,7 @@ func (inst *OperatorUpdateFundPrices) Validate() error {
 	return nil
 }
 
-func (inst *OperatorUpdateFundPrices) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *OperatorUpdateFundPricesInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -254,10 +254,10 @@ func (inst *OperatorUpdateFundPrices) EncodeToTree(parent ag_treeout.Branches) {
 		})
 }
 
-func (obj OperatorUpdateFundPrices) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj OperatorUpdateFundPricesInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *OperatorUpdateFundPrices) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *OperatorUpdateFundPricesInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -269,7 +269,7 @@ func NewOperatorUpdateFundPricesInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *OperatorUpdateFundPrices {
+	program ag_solanago.PublicKey) *OperatorUpdateFundPricesInstruction {
 	return NewOperatorUpdateFundPricesInstructionBuilder().
 		SetOperatorAccount(operator).
 		SetSystemProgramAccount(systemProgram).

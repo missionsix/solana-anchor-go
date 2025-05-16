@@ -15,13 +15,13 @@ func TestEncodeDecode_FundManagerAddRewardPool(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("FundManagerAddRewardPool"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(FundManagerAddRewardPool)
+				params := new(FundManagerAddRewardPoolInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(FundManagerAddRewardPool)
+				got := new(FundManagerAddRewardPoolInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

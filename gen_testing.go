@@ -138,11 +138,11 @@ func genTestingFuncs(idl IDL) ([]*FileWrapper, error) {
 									BlockFunc(func(tFunGroup *Group) {
 
 										if isInsFieldComplexEnum(instruction.Args...) {
-											genTestWithComplexEnum(tFunGroup, insExportedName, instruction, idl)
+											genTestWithComplexEnum(tFunGroup, formatInstructionTypeName(insExportedName), instruction, idl)
 										} else if isInsDeepFieldComplexEnum(idl, instruction.Args...) {
-											genTestWithDeepComplexEnum(tFunGroup, insExportedName, instruction, idl)
+											genTestWithDeepComplexEnum(tFunGroup, formatInstructionTypeName(insExportedName), instruction, idl)
 										} else {
-											genTestNOComplexEnum(tFunGroup, insExportedName, instruction)
+											genTestNOComplexEnum(tFunGroup, formatInstructionTypeName(insExportedName), instruction)
 										}
 									}),
 								)

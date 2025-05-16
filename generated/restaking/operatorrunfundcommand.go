@@ -11,7 +11,7 @@ import (
 )
 
 // OperatorRunFundCommand is the `operator_run_fund_command` instruction.
-type OperatorRunFundCommand struct {
+type OperatorRunFundCommandInstruction struct {
 	ForceResetCommand *OperationCommandEntry `bin:"optional"`
 
 	// [0] = [WRITE, SIGNER] operator
@@ -28,9 +28,9 @@ type OperatorRunFundCommand struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewOperatorRunFundCommandInstructionBuilder creates a new `OperatorRunFundCommand` instruction builder.
-func NewOperatorRunFundCommandInstructionBuilder() *OperatorRunFundCommand {
-	nd := &OperatorRunFundCommand{
+// NewOperatorRunFundCommandInstructionBuilder creates a new `OperatorRunFundCommandInstruction` instruction builder.
+func NewOperatorRunFundCommandInstructionBuilder() *OperatorRunFundCommandInstruction {
+	nd := &OperatorRunFundCommandInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 6),
 	}
 	nd.AccountMetaSlice[1] = ag_solanago.Meta(Addresses["11111111111111111111111111111111"])
@@ -38,51 +38,51 @@ func NewOperatorRunFundCommandInstructionBuilder() *OperatorRunFundCommand {
 }
 
 // SetForceResetCommand sets the "force_reset_command" parameter.
-func (inst *OperatorRunFundCommand) SetForceResetCommand(force_reset_command OperationCommandEntry) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetForceResetCommand(force_reset_command OperationCommandEntry) *OperatorRunFundCommandInstruction {
 	inst.ForceResetCommand = &force_reset_command
 	return inst
 }
 
 // SetOperatorAccount sets the "operator" account.
-func (inst *OperatorRunFundCommand) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(operator).WRITE().SIGNER()
 	return inst
 }
 
 // GetOperatorAccount gets the "operator" account.
-func (inst *OperatorRunFundCommand) GetOperatorAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetOperatorAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetSystemProgramAccount sets the "system_program" account.
-func (inst *OperatorRunFundCommand) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetSystemProgramAccount(systemProgram ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(systemProgram)
 	return inst
 }
 
 // GetSystemProgramAccount gets the "system_program" account.
-func (inst *OperatorRunFundCommand) GetSystemProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetSystemProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetReceiptTokenMintAccount sets the "receipt_token_mint" account.
-func (inst *OperatorRunFundCommand) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetReceiptTokenMintAccount(receiptTokenMint ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(receiptTokenMint).WRITE()
 	return inst
 }
 
 // GetReceiptTokenMintAccount gets the "receipt_token_mint" account.
-func (inst *OperatorRunFundCommand) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetReceiptTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetFundAccountAccount sets the "fund_account" account.
-func (inst *OperatorRunFundCommand) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetFundAccountAccount(fundAccount ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(fundAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorRunFundCommand) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorRunFundCommandInstruction) findFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: fund
 	seeds = append(seeds, []byte{byte(0x66), byte(0x75), byte(0x6e), byte(0x64)})
@@ -99,12 +99,12 @@ func (inst *OperatorRunFundCommand) findFindFundAccountAddress(receiptTokenMint 
 }
 
 // FindFundAccountAddressWithBumpSeed calculates FundAccount account address with given seeds and a known bump seed.
-func (inst *OperatorRunFundCommand) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorRunFundCommandInstruction) FindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorRunFundCommand) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorRunFundCommandInstruction) MustFindFundAccountAddressWithBumpSeed(receiptTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -113,12 +113,12 @@ func (inst *OperatorRunFundCommand) MustFindFundAccountAddressWithBumpSeed(recei
 }
 
 // FindFundAccountAddress finds FundAccount account address with given seeds.
-func (inst *OperatorRunFundCommand) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorRunFundCommandInstruction) FindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	return
 }
 
-func (inst *OperatorRunFundCommand) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorRunFundCommandInstruction) MustFindFundAccountAddress(receiptTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindFundAccountAddress(receiptTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -127,17 +127,17 @@ func (inst *OperatorRunFundCommand) MustFindFundAccountAddress(receiptTokenMint 
 }
 
 // GetFundAccountAccount gets the "fund_account" account.
-func (inst *OperatorRunFundCommand) GetFundAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetFundAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *OperatorRunFundCommand) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *OperatorRunFundCommand) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorRunFundCommandInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -152,12 +152,12 @@ func (inst *OperatorRunFundCommand) findFindEventAuthorityAddress(knownBumpSeed 
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *OperatorRunFundCommand) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorRunFundCommandInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *OperatorRunFundCommand) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorRunFundCommandInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -166,12 +166,12 @@ func (inst *OperatorRunFundCommand) MustFindEventAuthorityAddressWithBumpSeed(bu
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *OperatorRunFundCommand) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorRunFundCommandInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *OperatorRunFundCommand) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *OperatorRunFundCommandInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -180,22 +180,22 @@ func (inst *OperatorRunFundCommand) MustFindEventAuthorityAddress() (pda ag_sola
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *OperatorRunFundCommand) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *OperatorRunFundCommand) SetProgramAccount(program ag_solanago.PublicKey) *OperatorRunFundCommand {
+func (inst *OperatorRunFundCommandInstruction) SetProgramAccount(program ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *OperatorRunFundCommand) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorRunFundCommandInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
-func (inst OperatorRunFundCommand) Build() *Instruction {
+func (inst OperatorRunFundCommandInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_OperatorRunFundCommand,
@@ -205,14 +205,14 @@ func (inst OperatorRunFundCommand) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst OperatorRunFundCommand) ValidateAndBuild() (*Instruction, error) {
+func (inst OperatorRunFundCommandInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *OperatorRunFundCommand) Validate() error {
+func (inst *OperatorRunFundCommandInstruction) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 	}
@@ -241,7 +241,7 @@ func (inst *OperatorRunFundCommand) Validate() error {
 	return nil
 }
 
-func (inst *OperatorRunFundCommand) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *OperatorRunFundCommandInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -267,7 +267,7 @@ func (inst *OperatorRunFundCommand) EncodeToTree(parent ag_treeout.Branches) {
 		})
 }
 
-func (obj OperatorRunFundCommand) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj OperatorRunFundCommandInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `ForceResetCommand` param (optional):
 	{
 		if obj.ForceResetCommand == nil {
@@ -288,7 +288,7 @@ func (obj OperatorRunFundCommand) MarshalWithEncoder(encoder *ag_binary.Encoder)
 	}
 	return nil
 }
-func (obj *OperatorRunFundCommand) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *OperatorRunFundCommandInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `ForceResetCommand` (optional):
 	{
 		ok, err := decoder.ReadBool()
@@ -315,7 +315,7 @@ func NewOperatorRunFundCommandInstruction(
 	receiptTokenMint ag_solanago.PublicKey,
 	fundAccount ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *OperatorRunFundCommand {
+	program ag_solanago.PublicKey) *OperatorRunFundCommandInstruction {
 	return NewOperatorRunFundCommandInstructionBuilder().
 		SetForceResetCommand(force_reset_command).
 		SetOperatorAccount(operator).

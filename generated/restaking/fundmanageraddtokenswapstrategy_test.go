@@ -18,7 +18,7 @@ func TestEncodeDecode_FundManagerAddTokenSwapStrategy(t *testing.T) {
 			{
 				{
 					{
-						params := new(FundManagerAddTokenSwapStrategy)
+						params := new(FundManagerAddTokenSwapStrategyInstruction)
 						fu.Fuzz(params)
 						params.AccountMetaSlice = nil
 						tmp := new(TokenSwapSourceOrcaDEXLiquidityPoolTuple)
@@ -27,7 +27,7 @@ func TestEncodeDecode_FundManagerAddTokenSwapStrategy(t *testing.T) {
 						buf := new(bytes.Buffer)
 						err := encodeT(*params, buf)
 						ag_require.NoError(t, err)
-						got := new(FundManagerAddTokenSwapStrategy)
+						got := new(FundManagerAddTokenSwapStrategyInstruction)
 						err = decodeT(got, buf.Bytes())
 						got.AccountMetaSlice = nil
 						ag_require.NoError(t, err)

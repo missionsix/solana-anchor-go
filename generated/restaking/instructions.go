@@ -273,169 +273,169 @@ var InstructionImplDef = ag_binary.NewVariantDefinition(
 	ag_binary.AnchorTypeIDEncoding,
 	[]ag_binary.VariantType{
 		{
-			Name: "admin_initialize_extra_account_meta_list", Type: (*AdminInitializeExtraAccountMetaList)(nil),
+			Name: "admin_initialize_extra_account_meta_list", Type: (*AdminInitializeExtraAccountMetaListInstruction)(nil),
 		},
 		{
-			Name: "admin_initialize_fund_account", Type: (*AdminInitializeFundAccount)(nil),
+			Name: "admin_initialize_fund_account", Type: (*AdminInitializeFundAccountInstruction)(nil),
 		},
 		{
-			Name: "admin_initialize_fund_wrap_account_reward_account", Type: (*AdminInitializeFundWrapAccountRewardAccount)(nil),
+			Name: "admin_initialize_fund_wrap_account_reward_account", Type: (*AdminInitializeFundWrapAccountRewardAccountInstruction)(nil),
 		},
 		{
-			Name: "admin_initialize_normalized_token_pool_account", Type: (*AdminInitializeNormalizedTokenPoolAccount)(nil),
+			Name: "admin_initialize_normalized_token_pool_account", Type: (*AdminInitializeNormalizedTokenPoolAccountInstruction)(nil),
 		},
 		{
-			Name: "admin_initialize_reward_account", Type: (*AdminInitializeRewardAccount)(nil),
+			Name: "admin_initialize_reward_account", Type: (*AdminInitializeRewardAccountInstruction)(nil),
 		},
 		{
-			Name: "admin_set_address_lookup_table_account", Type: (*AdminSetAddressLookupTableAccount)(nil),
+			Name: "admin_set_address_lookup_table_account", Type: (*AdminSetAddressLookupTableAccountInstruction)(nil),
 		},
 		{
-			Name: "admin_update_extra_account_meta_list_if_needed", Type: (*AdminUpdateExtraAccountMetaListIfNeeded)(nil),
+			Name: "admin_update_extra_account_meta_list_if_needed", Type: (*AdminUpdateExtraAccountMetaListIfNeededInstruction)(nil),
 		},
 		{
-			Name: "admin_update_fund_account_if_needed", Type: (*AdminUpdateFundAccountIfNeeded)(nil),
+			Name: "admin_update_fund_account_if_needed", Type: (*AdminUpdateFundAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "admin_update_fund_wrap_account_reward_account_if_needed", Type: (*AdminUpdateFundWrapAccountRewardAccountIfNeeded)(nil),
+			Name: "admin_update_fund_wrap_account_reward_account_if_needed", Type: (*AdminUpdateFundWrapAccountRewardAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "admin_update_normalized_token_pool_account_if_needed", Type: (*AdminUpdateNormalizedTokenPoolAccountIfNeeded)(nil),
+			Name: "admin_update_normalized_token_pool_account_if_needed", Type: (*AdminUpdateNormalizedTokenPoolAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "admin_update_reward_account_if_needed", Type: (*AdminUpdateRewardAccountIfNeeded)(nil),
+			Name: "admin_update_reward_account_if_needed", Type: (*AdminUpdateRewardAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_normalized_token_pool_supported_token", Type: (*FundManagerAddNormalizedTokenPoolSupportedToken)(nil),
+			Name: "fund_manager_add_normalized_token_pool_supported_token", Type: (*FundManagerAddNormalizedTokenPoolSupportedTokenInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_restaking_vault_compounding_reward_token", Type: (*FundManagerAddRestakingVaultCompoundingRewardToken)(nil),
+			Name: "fund_manager_add_restaking_vault_compounding_reward_token", Type: (*FundManagerAddRestakingVaultCompoundingRewardTokenInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_reward", Type: (*FundManagerAddReward)(nil),
+			Name: "fund_manager_add_reward", Type: (*FundManagerAddRewardInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_reward_pool", Type: (*FundManagerAddRewardPool)(nil),
+			Name: "fund_manager_add_reward_pool", Type: (*FundManagerAddRewardPoolInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_reward_pool_holder", Type: (*FundManagerAddRewardPoolHolder)(nil),
+			Name: "fund_manager_add_reward_pool_holder", Type: (*FundManagerAddRewardPoolHolderInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_supported_token", Type: (*FundManagerAddSupportedToken)(nil),
+			Name: "fund_manager_add_supported_token", Type: (*FundManagerAddSupportedTokenInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_add_token_swap_strategy", Type: (*FundManagerAddTokenSwapStrategy)(nil),
+			Name: "fund_manager_add_token_swap_strategy", Type: (*FundManagerAddTokenSwapStrategyInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_close_reward_pool", Type: (*FundManagerCloseRewardPool)(nil),
+			Name: "fund_manager_close_reward_pool", Type: (*FundManagerCloseRewardPoolInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_initialize_fund_jito_restaking_vault", Type: (*FundManagerInitializeFundJitoRestakingVault)(nil),
+			Name: "fund_manager_initialize_fund_jito_restaking_vault", Type: (*FundManagerInitializeFundJitoRestakingVaultInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_initialize_fund_jito_restaking_vault_delegation", Type: (*FundManagerInitializeFundJitoRestakingVaultDelegation)(nil),
+			Name: "fund_manager_initialize_fund_jito_restaking_vault_delegation", Type: (*FundManagerInitializeFundJitoRestakingVaultDelegationInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_initialize_fund_normalized_token", Type: (*FundManagerInitializeFundNormalizedToken)(nil),
+			Name: "fund_manager_initialize_fund_normalized_token", Type: (*FundManagerInitializeFundNormalizedTokenInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_initialize_fund_wrapped_token", Type: (*FundManagerInitializeFundWrappedToken)(nil),
+			Name: "fund_manager_initialize_fund_wrapped_token", Type: (*FundManagerInitializeFundWrappedTokenInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_settle_reward", Type: (*FundManagerSettleReward)(nil),
+			Name: "fund_manager_settle_reward", Type: (*FundManagerSettleRewardInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_update_fund_strategy", Type: (*FundManagerUpdateFundStrategy)(nil),
+			Name: "fund_manager_update_fund_strategy", Type: (*FundManagerUpdateFundStrategyInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_update_restaking_vault_delegation_strategy", Type: (*FundManagerUpdateRestakingVaultDelegationStrategy)(nil),
+			Name: "fund_manager_update_restaking_vault_delegation_strategy", Type: (*FundManagerUpdateRestakingVaultDelegationStrategyInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_update_restaking_vault_strategy", Type: (*FundManagerUpdateRestakingVaultStrategy)(nil),
+			Name: "fund_manager_update_restaking_vault_strategy", Type: (*FundManagerUpdateRestakingVaultStrategyInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_update_sol_strategy", Type: (*FundManagerUpdateSolStrategy)(nil),
+			Name: "fund_manager_update_sol_strategy", Type: (*FundManagerUpdateSolStrategyInstruction)(nil),
 		},
 		{
-			Name: "fund_manager_update_supported_token_strategy", Type: (*FundManagerUpdateSupportedTokenStrategy)(nil),
+			Name: "fund_manager_update_supported_token_strategy", Type: (*FundManagerUpdateSupportedTokenStrategyInstruction)(nil),
 		},
 		{
-			Name: "operator_donate_sol_to_fund", Type: (*OperatorDonateSolToFund)(nil),
+			Name: "operator_donate_sol_to_fund", Type: (*OperatorDonateSolToFundInstruction)(nil),
 		},
 		{
-			Name: "operator_donate_supported_token_to_fund", Type: (*OperatorDonateSupportedTokenToFund)(nil),
+			Name: "operator_donate_supported_token_to_fund", Type: (*OperatorDonateSupportedTokenToFundInstruction)(nil),
 		},
 		{
-			Name: "operator_log_message", Type: (*OperatorLogMessage)(nil),
+			Name: "operator_log_message", Type: (*OperatorLogMessageInstruction)(nil),
 		},
 		{
-			Name: "operator_run_fund_command", Type: (*OperatorRunFundCommand)(nil),
+			Name: "operator_run_fund_command", Type: (*OperatorRunFundCommandInstruction)(nil),
 		},
 		{
-			Name: "operator_update_fund_prices", Type: (*OperatorUpdateFundPrices)(nil),
+			Name: "operator_update_fund_prices", Type: (*OperatorUpdateFundPricesInstruction)(nil),
 		},
 		{
-			Name: "operator_update_normalized_token_pool_prices", Type: (*OperatorUpdateNormalizedTokenPoolPrices)(nil),
+			Name: "operator_update_normalized_token_pool_prices", Type: (*OperatorUpdateNormalizedTokenPoolPricesInstruction)(nil),
 		},
 		{
-			Name: "operator_update_reward_pools", Type: (*OperatorUpdateRewardPools)(nil),
+			Name: "operator_update_reward_pools", Type: (*OperatorUpdateRewardPoolsInstruction)(nil),
 		},
 		{
-			Name: "slasher_initialize_normalized_token_withdrawal_account", Type: (*SlasherInitializeNormalizedTokenWithdrawalAccount)(nil),
+			Name: "slasher_initialize_normalized_token_withdrawal_account", Type: (*SlasherInitializeNormalizedTokenWithdrawalAccountInstruction)(nil),
 		},
 		{
-			Name: "slasher_withdraw_normalized_token", Type: (*SlasherWithdrawNormalizedToken)(nil),
+			Name: "slasher_withdraw_normalized_token", Type: (*SlasherWithdrawNormalizedTokenInstruction)(nil),
 		},
 		{
-			Name: "user_cancel_withdrawal_request", Type: (*UserCancelWithdrawalRequest)(nil),
+			Name: "user_cancel_withdrawal_request", Type: (*UserCancelWithdrawalRequestInstruction)(nil),
 		},
 		{
-			Name: "user_claim_rewards", Type: (*UserClaimRewards)(nil),
+			Name: "user_claim_rewards", Type: (*UserClaimRewardsInstruction)(nil),
 		},
 		{
-			Name: "user_create_fund_account_idempotent", Type: (*UserCreateFundAccountIdempotent)(nil),
+			Name: "user_create_fund_account_idempotent", Type: (*UserCreateFundAccountIdempotentInstruction)(nil),
 		},
 		{
-			Name: "user_create_reward_account_idempotent", Type: (*UserCreateRewardAccountIdempotent)(nil),
+			Name: "user_create_reward_account_idempotent", Type: (*UserCreateRewardAccountIdempotentInstruction)(nil),
 		},
 		{
-			Name: "user_deposit_sol", Type: (*UserDepositSol)(nil),
+			Name: "user_deposit_sol", Type: (*UserDepositSolInstruction)(nil),
 		},
 		{
-			Name: "user_deposit_supported_token", Type: (*UserDepositSupportedToken)(nil),
+			Name: "user_deposit_supported_token", Type: (*UserDepositSupportedTokenInstruction)(nil),
 		},
 		{
-			Name: "user_initialize_fund_account", Type: (*UserInitializeFundAccount)(nil),
+			Name: "user_initialize_fund_account", Type: (*UserInitializeFundAccountInstruction)(nil),
 		},
 		{
-			Name: "user_initialize_reward_account", Type: (*UserInitializeRewardAccount)(nil),
+			Name: "user_initialize_reward_account", Type: (*UserInitializeRewardAccountInstruction)(nil),
 		},
 		{
-			Name: "user_request_withdrawal", Type: (*UserRequestWithdrawal)(nil),
+			Name: "user_request_withdrawal", Type: (*UserRequestWithdrawalInstruction)(nil),
 		},
 		{
-			Name: "user_unwrap_receipt_token", Type: (*UserUnwrapReceiptToken)(nil),
+			Name: "user_unwrap_receipt_token", Type: (*UserUnwrapReceiptTokenInstruction)(nil),
 		},
 		{
-			Name: "user_update_fund_account_if_needed", Type: (*UserUpdateFundAccountIfNeeded)(nil),
+			Name: "user_update_fund_account_if_needed", Type: (*UserUpdateFundAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "user_update_reward_account_if_needed", Type: (*UserUpdateRewardAccountIfNeeded)(nil),
+			Name: "user_update_reward_account_if_needed", Type: (*UserUpdateRewardAccountIfNeededInstruction)(nil),
 		},
 		{
-			Name: "user_update_reward_pools", Type: (*UserUpdateRewardPools)(nil),
+			Name: "user_update_reward_pools", Type: (*UserUpdateRewardPoolsInstruction)(nil),
 		},
 		{
-			Name: "user_withdraw_sol", Type: (*UserWithdrawSol)(nil),
+			Name: "user_withdraw_sol", Type: (*UserWithdrawSolInstruction)(nil),
 		},
 		{
-			Name: "user_withdraw_supported_token", Type: (*UserWithdrawSupportedToken)(nil),
+			Name: "user_withdraw_supported_token", Type: (*UserWithdrawSupportedTokenInstruction)(nil),
 		},
 		{
-			Name: "user_wrap_receipt_token", Type: (*UserWrapReceiptToken)(nil),
+			Name: "user_wrap_receipt_token", Type: (*UserWrapReceiptTokenInstruction)(nil),
 		},
 		{
-			Name: "user_wrap_receipt_token_if_needed", Type: (*UserWrapReceiptTokenIfNeeded)(nil),
+			Name: "user_wrap_receipt_token_if_needed", Type: (*UserWrapReceiptTokenIfNeededInstruction)(nil),
 		},
 	},
 )

@@ -15,13 +15,13 @@ func TestEncodeDecode_FundManagerUpdateSolStrategy(t *testing.T) {
 	for i := 0; i < 1; i++ {
 		t.Run("FundManagerUpdateSolStrategy"+strconv.Itoa(i), func(t *testing.T) {
 			{
-				params := new(FundManagerUpdateSolStrategy)
+				params := new(FundManagerUpdateSolStrategyInstruction)
 				fu.Fuzz(params)
 				params.AccountMetaSlice = nil
 				buf := new(bytes.Buffer)
 				err := encodeT(*params, buf)
 				ag_require.NoError(t, err)
-				got := new(FundManagerUpdateSolStrategy)
+				got := new(FundManagerUpdateSolStrategyInstruction)
 				err = decodeT(got, buf.Bytes())
 				got.AccountMetaSlice = nil
 				ag_require.NoError(t, err)

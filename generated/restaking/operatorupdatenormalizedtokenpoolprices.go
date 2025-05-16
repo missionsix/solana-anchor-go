@@ -11,7 +11,7 @@ import (
 )
 
 // OperatorUpdateNormalizedTokenPoolPrices is the `operator_update_normalized_token_pool_prices` instruction.
-type OperatorUpdateNormalizedTokenPoolPrices struct {
+type OperatorUpdateNormalizedTokenPoolPricesInstruction struct {
 
 	// [0] = [SIGNER] operator
 	//
@@ -27,9 +27,9 @@ type OperatorUpdateNormalizedTokenPoolPrices struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder creates a new `OperatorUpdateNormalizedTokenPoolPrices` instruction builder.
-func NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder() *OperatorUpdateNormalizedTokenPoolPrices {
-	nd := &OperatorUpdateNormalizedTokenPoolPrices{
+// NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder creates a new `OperatorUpdateNormalizedTokenPoolPricesInstruction` instruction builder.
+func NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder() *OperatorUpdateNormalizedTokenPoolPricesInstruction {
+	nd := &OperatorUpdateNormalizedTokenPoolPricesInstruction{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 6),
 	}
 	nd.AccountMetaSlice[3] = ag_solanago.Meta(Addresses["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"])
@@ -37,34 +37,34 @@ func NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder() *OperatorUpd
 }
 
 // SetOperatorAccount sets the "operator" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetOperatorAccount(operator ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(operator).SIGNER()
 	return inst
 }
 
 // GetOperatorAccount gets the "operator" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetOperatorAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetOperatorAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetNormalizedTokenMintAccount sets the "normalized_token_mint" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetNormalizedTokenMintAccount(normalizedTokenMint ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(normalizedTokenMint)
 	return inst
 }
 
 // GetNormalizedTokenMintAccount gets the "normalized_token_mint" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetNormalizedTokenMintAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetNormalizedTokenPoolAccountAccount sets the "normalized_token_pool_account" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetNormalizedTokenPoolAccountAccount(normalizedTokenPoolAccount ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(normalizedTokenPoolAccount).WRITE()
 	return inst
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey, knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: nt_pool
 	seeds = append(seeds, []byte{byte(0x6e), byte(0x74), byte(0x5f), byte(0x70), byte(0x6f), byte(0x6f), byte(0x6c)})
@@ -81,12 +81,12 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) findFindNormalizedTokenPool
 }
 
 // FindNormalizedTokenPoolAccountAddressWithBumpSeed calculates NormalizedTokenPoolAccount account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) FindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) MustFindNormalizedTokenPoolAccountAddressWithBumpSeed(normalizedTokenMint ag_solanago.PublicKey, bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, bumpSeed)
 	if err != nil {
 		panic(err)
@@ -95,12 +95,12 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindNormalizedTokenPool
 }
 
 // FindNormalizedTokenPoolAccountAddress finds NormalizedTokenPoolAccount account address with given seeds.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) FindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	return
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) MustFindNormalizedTokenPoolAccountAddress(normalizedTokenMint ag_solanago.PublicKey) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindNormalizedTokenPoolAccountAddress(normalizedTokenMint, 0)
 	if err != nil {
 		panic(err)
@@ -109,28 +109,28 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindNormalizedTokenPool
 }
 
 // GetNormalizedTokenPoolAccountAccount gets the "normalized_token_pool_account" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetNormalizedTokenPoolAccountAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetNormalizedTokenProgramAccount sets the "normalized_token_program" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetNormalizedTokenProgramAccount(normalizedTokenProgram ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(normalizedTokenProgram)
 	return inst
 }
 
 // GetNormalizedTokenProgramAccount gets the "normalized_token_program" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetNormalizedTokenProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetEventAuthorityAccount sets the "event_authority" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetEventAuthorityAccount(eventAuthority ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[4] = ag_solanago.Meta(eventAuthority)
 	return inst
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) findFindEventAuthorityAddress(knownBumpSeed uint8) (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	var seeds [][]byte
 	// const: __event_authority
 	seeds = append(seeds, []byte{byte(0x5f), byte(0x5f), byte(0x65), byte(0x76), byte(0x65), byte(0x6e), byte(0x74), byte(0x5f), byte(0x61), byte(0x75), byte(0x74), byte(0x68), byte(0x6f), byte(0x72), byte(0x69), byte(0x74), byte(0x79)})
@@ -145,12 +145,12 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) findFindEventAuthorityAddre
 }
 
 // FindEventAuthorityAddressWithBumpSeed calculates EventAuthority account address with given seeds and a known bump seed.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) FindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey, err error) {
 	pda, _, err = inst.findFindEventAuthorityAddress(bumpSeed)
 	return
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) MustFindEventAuthorityAddressWithBumpSeed(bumpSeed uint8) (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(bumpSeed)
 	if err != nil {
 		panic(err)
@@ -159,12 +159,12 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindEventAuthorityAddre
 }
 
 // FindEventAuthorityAddress finds EventAuthority account address with given seeds.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) FindEventAuthorityAddress() (pda ag_solanago.PublicKey, bumpSeed uint8, err error) {
 	pda, bumpSeed, err = inst.findFindEventAuthorityAddress(0)
 	return
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) MustFindEventAuthorityAddress() (pda ag_solanago.PublicKey) {
 	pda, _, err := inst.findFindEventAuthorityAddress(0)
 	if err != nil {
 		panic(err)
@@ -173,22 +173,22 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) MustFindEventAuthorityAddre
 }
 
 // GetEventAuthorityAccount gets the "event_authority" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetEventAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetProgramAccount sets the "program" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) SetProgramAccount(program ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(program)
 	return inst
 }
 
 // GetProgramAccount gets the "program" account.
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) GetProgramAccount() *ag_solanago.AccountMeta {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) GetProgramAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
-func (inst OperatorUpdateNormalizedTokenPoolPrices) Build() *Instruction {
+func (inst OperatorUpdateNormalizedTokenPoolPricesInstruction) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
 		Impl:   inst,
 		TypeID: Instruction_OperatorUpdateNormalizedTokenPoolPrices,
@@ -198,14 +198,14 @@ func (inst OperatorUpdateNormalizedTokenPoolPrices) Build() *Instruction {
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst OperatorUpdateNormalizedTokenPoolPrices) ValidateAndBuild() (*Instruction, error) {
+func (inst OperatorUpdateNormalizedTokenPoolPricesInstruction) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) Validate() error {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) Validate() error {
 	// Check whether all (required) accounts are set:
 	{
 		if inst.AccountMetaSlice[0] == nil {
@@ -230,7 +230,7 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) Validate() error {
 	return nil
 }
 
-func (inst *OperatorUpdateNormalizedTokenPoolPrices) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *OperatorUpdateNormalizedTokenPoolPricesInstruction) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
@@ -254,10 +254,10 @@ func (inst *OperatorUpdateNormalizedTokenPoolPrices) EncodeToTree(parent ag_tree
 		})
 }
 
-func (obj OperatorUpdateNormalizedTokenPoolPrices) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj OperatorUpdateNormalizedTokenPoolPricesInstruction) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	return nil
 }
-func (obj *OperatorUpdateNormalizedTokenPoolPrices) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *OperatorUpdateNormalizedTokenPoolPricesInstruction) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	return nil
 }
 
@@ -269,7 +269,7 @@ func NewOperatorUpdateNormalizedTokenPoolPricesInstruction(
 	normalizedTokenPoolAccount ag_solanago.PublicKey,
 	normalizedTokenProgram ag_solanago.PublicKey,
 	eventAuthority ag_solanago.PublicKey,
-	program ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPrices {
+	program ag_solanago.PublicKey) *OperatorUpdateNormalizedTokenPoolPricesInstruction {
 	return NewOperatorUpdateNormalizedTokenPoolPricesInstructionBuilder().
 		SetOperatorAccount(operator).
 		SetNormalizedTokenMintAccount(normalizedTokenMint).
