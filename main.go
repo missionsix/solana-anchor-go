@@ -1390,6 +1390,9 @@ func decodeErrorCode(rpcErr error) (errorCode int, ok bool) {
 		for _, c := range idl.Constants {
 			code.Line().Var().Id(fmt.Sprintf("CONST_%s", c.Name)).Op("=")
 			typ := c.Type.GetString()
+			if typ == "" {
+				typ = IdlTypeAsString(*c.Type.GetDefinedFieldName())
+			}
 			switch typ {
 			case "string":
 				v, err := strconv.Unquote(c.Value)
