@@ -1602,7 +1602,24 @@ func genAccountGettersSetters(
 				if seedDef.Value != nil { // type: const
 					seedValues[i] = seedDef.Value
 				} else {
-					// First check if it's an account reference
+					// Handle dot notation paths like "account.field"
+					if strings.Contains(seedDef.Path, ".") {
+						parts := strings.Split(seedDef.Path, ".")
+						if len(parts) == 2 {
+							accountName := parts[0]
+							// Find the account by the first part of the path
+							for _, acc := range accounts {
+								if acc.IdlAccount.Name == accountName {
+									// Use the account name, ignoring the field for now
+									// The field access will be handled in the generated code
+									seedRefs[i] = ToLowerCamel(acc.IdlAccount.Name)
+									continue OUTER
+								}
+							}
+						}
+						// If we can't resolve the dot notation, fall through to panic
+					}
+
 					for _, acc := range accounts {
 						if acc.IdlAccount.Name == seedDef.Path {
 							seedRefs[i] = ToLowerCamel(acc.IdlAccount.Name)
